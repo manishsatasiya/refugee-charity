@@ -15,7 +15,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/refugee'; //'http://www.elsdportal.net';
+$config['base_url']	= 'http://localhost/refugee-charity';
 
 /*
 |--------------------------------------------------------------------------

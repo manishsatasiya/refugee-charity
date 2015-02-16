@@ -1,15 +1,15 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class donations_model extends CI_Model {
+class refugee_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
     }
 
-    public function get_donations($limit = 0, $offset = 0, $order_by = "date_of_donation", $sort_order = "asc", $search_data,$count = false) {
+    public function get_refugee($limit = 0, $offset = 0, $order_by = "date_of_data_entry", $sort_order = "asc", $search_data,$count = false) {
 		if (!empty($search_data)) {
-            !empty($search_data['date_of_donation']) ? $data['date_of_donation'] = $search_data['date_of_donation'] : "";
+            !empty($search_data['date_of_data_entry']) ? $data['date_of_data_entry'] = $search_data['date_of_data_entry'] : "";
             !empty($search_data['name_of_association']) ? $data['name_of_association'] = str_replace(" ","",trim($search_data['name_of_association'])) : "";
             !empty($search_data['name_of_donator']) ? $data['name_of_donator'] = $search_data['name_of_donator'] : "";
             !empty($search_data['what_was_donated_please_specify']) ? $data['what_was_donated_please_specify'] = $search_data['what_was_donated_please_specify'] : "";
@@ -21,9 +21,9 @@ class donations_model extends CI_Model {
       
         $this->session->set_userdata('export_var', $search_data);
 
-    	$this->db->select('donations.*
+    	$this->db->select('refugee.*
 						 ',FALSE);
-    	$this->db->from('donations');
+    	$this->db->from('refugee');
 		
     	//!empty($data) ? $this->db->or_like($data) : "";
     	if(!empty($data))
@@ -62,9 +62,9 @@ class donations_model extends CI_Model {
     	}
     }
 	
-    public function get_donation_data($id) {
+    public function get_refugee_data($id) {
         $this->db->select('*');
-        $this->db->from('donations');
+        $this->db->from('refugee');
        
         $this->db->where('id', $id);
         $query = $this->db->get();

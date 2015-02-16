@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
-<script type="text/javascript" src="<?php print base_url(); ?>js/grid/donations.js"></script>
+<script type="text/javascript" src="<?php print base_url(); ?>js/grid/refugee.js"></script>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -26,25 +26,25 @@
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-th-list font-green-sharp"></i>
-					<span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('donations'); ?></span>
+					<span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('register'); ?></span>
 				</div>
 				<div class="actions">
-					<a href="donations/add" class="btn green"><?php echo $this->lang->line('add_new'); ?> <i class="fa fa-plus"></i></a>
+					<a href="add" class="btn green"><?php echo $this->lang->line('add_new'); ?> <i class="fa fa-plus"></i></a>
 				</div>
 			</div>
 			<div class="portlet-body ">
 				<div class="table-container">
-					<table class="table table-striped table-bordered table-hover" id="grid_donations">
+					<table class="table table-striped table-bordered table-hover" id="grid_refugee">
 						<thead>
 							<tr>
-                <th><?php echo $this->lang->line('db_id'); ?></th>
-                <th><?php echo $this->lang->line('date_of_donation'); ?></th>
-                <th><?php echo $this->lang->line('name_of_association'); ?></th>
-                <th><?php echo $this->lang->line('name_of_donator'); ?></th>
-                <th><?php echo $this->lang->line('what_was_donated_please_specify'); ?></th>
-                <th><?php echo $this->lang->line('name_aid_of_receiver_from'); ?></th>
-                <th><?php echo $this->lang->line('month'); ?></th>
-                <th><?php echo $this->lang->line('year'); ?></th>
+				                <th><?php echo $this->lang->line('db_id'); ?></th>
+				                <th><?php echo $this->lang->line('association_name'); ?></th>
+				                <th><?php echo $this->lang->line('full_name'); ?></th>
+				                <th><?php echo $this->lang->line('age'); ?></th>
+				                <th><?php echo $this->lang->line('gender'); ?></th>
+				                <th><?php echo $this->lang->line('nationality'); ?></th>
+				                <th><?php echo $this->lang->line('month'); ?></th>
+				                <th><?php echo $this->lang->line('year'); ?></th>
 								<th><?php echo $this->lang->line('created_date'); ?></th>
 								<th><?php echo $this->lang->line('action'); ?></th>
 							</tr>

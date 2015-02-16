@@ -233,7 +233,10 @@ $lang['user_p_edit_user'] = 'Edit User';
 
 
 $lang['submit'] = 'Submit';
-
+$lang['add_new'] = 'Add new';
+$lang['action'] = 'Action';
+$lang['db_id'] = 'DB #';
+$lang['created_date'] = 'Created date';
 /*
  * Register
  */
@@ -295,3 +298,7 @@ $lang['name_of_donator'] = 'Name of donator';
 $lang['what_was_donated_please_specify'] = 'What was donated please specify';
 $lang['name_aid_of_receiver_from'] = 'Name aid of receiver from';
 $lang['any_other_info'] = 'Any other info';
+
+$lang['donations'] = 'Donations';
+$lang['add_donations'] = 'Add Donations';
+$lang['donations_add_success'] = 'Data added sucessfully.';

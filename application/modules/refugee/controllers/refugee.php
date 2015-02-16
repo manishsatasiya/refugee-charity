@@ -1,6 +1,6 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class donations extends Private_Controller {
+class refugee extends Private_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -8,7 +8,7 @@ class donations extends Private_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 		$this->load->helper('general_function');
-		$this->load->model('donations_model');
+		$this->load->model('refugee_model');
     }
     
 	public function index() {
@@ -92,17 +92,44 @@ class donations extends Private_Controller {
 		$errors = "";
 		if($this->input->post()){
 
-			$date_of_donation = $this->input->post('date_of_donation');
-			$name_of_association = $this->input->post('name_of_association');
-			$name_of_donator = $this->input->post('name_of_donator');
-			$what_was_donated_please_specify = $this->input->post('what_was_donated_please_specify');
-			$name_aid_of_receiver_from = $this->input->post('name_aid_of_receiver_from');
-			$any_other_info = $this->input->post('any_other_info');
+			$date_of_donation = $this->input->post('date_of_data_entry');
+			$association_name = $this->input->post('association_name');
+			$location_of_association = $this->input->post('location_of_association');
+			$full_name = $this->input->post('full_name');
+			$age = $this->input->post('age');
+			$gender = $this->input->post('gender');
+			$nationality = $this->input->post('nationality');
+			$nationality_id_no = $this->input->post('nationality_id_no');
+			$un_id = $this->input->post('un_id');
+			$marital_status = $this->input->post('marital_status');
+			$previous_occupation = $this->input->post('previous_occupation');
+			$are_you_able_to_work = $this->input->post('are_you_able_to_work');
+			$what_skills_do_you_have_for_working = $this->input->post('what_skills_do_you_have_for_working');
+			$what_qualifications_do_you_have = $this->input->post('what_qualifications_do_you_have');
+			$are_you_sick = $this->input->post('are_you_sick');
+			$need_of_medicationequipment = $this->input->post('need_of_medicationequipment');
+			$if_yes_please_specify = $this->input->post('if_yes_please_specify');
+			$where_do_you_live_location = $this->input->post('where_do_you_live_location');
+			$do_you_live_in_tent_house = $this->input->post('do_you_live_in_tent_house');
+			$what_is_it_that_you_need_most = $this->input->post('what_is_it_that_you_need_most');
+			$how_many_children_do_you_have = $this->input->post('how_many_children_do_you_have');
+			$childrens_names_ages_genders = $this->input->post('childrens_names_ages_genders');
+			$other_family_members_names_ages_genders = $this->input->post('other_family_members_names_ages_genders');
+			$contact_details_email_skype_whatsapp = $this->input->post('contact_details_email_skype_whatsapp');
+			$name_administrator = $this->input->post('name_administrator');
+			$any_other_information = $this->input->post('any_other_information');
+			$special_case = $this->input->post('special_case');
+			$special_case_more_info = $this->input->post('special_case_more_info');
+			$total_number_of_people_in_house = $this->input->post('total_number_of_people_in_house');
+			$telephone_no = $this->input->post('telephone_no');
 			$month = $this->input->post('month');
 			$year = $this->input->post('year');
+			$created_by = $this->input->post('created_by');
+			$created_date = $this->input->post('created_date');
+
 			
 			
-			$data_document['date_of_donation'] = make_db_date($date_of_donation);
+			$data_document['date_of_donation'] = $date_of_donation;
 			$data_document['name_of_association'] = $name_of_association;
 			$data_document['name_of_donator'] = $name_of_donator;
 			$data_document['what_was_donated_please_specify'] = $what_was_donated_please_specify;
@@ -145,7 +172,7 @@ class donations extends Private_Controller {
         $this->template->build('add', $content_data);
     }
 	
-   public function delete($id = null){
+	public function delete($id = null){
     	if($id){
 			$table = 'documents';
 			$wher_column_name = 'document_id';
