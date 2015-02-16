@@ -1,19 +1,19 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class donations_model extends CI_Model {
+class refugee_model extends CI_Model {
 
     public function __construct() {
         parent::__construct();
     }
 
-    public function get_donations($limit = 0, $offset = 0, $order_by = "date_of_donation", $sort_order = "asc", $search_data,$count = false) {
+    public function get_refugee($limit = 0, $offset = 0, $order_by = "association_name", $sort_order = "asc", $search_data,$count = false) {
 		if (!empty($search_data)) {
-            !empty($search_data['date_of_donation']) ? $data['date_of_donation'] = $search_data['date_of_donation'] : "";
-            !empty($search_data['name_of_association']) ? $data['name_of_association'] = str_replace(" ","",trim($search_data['name_of_association'])) : "";
-            !empty($search_data['name_of_donator']) ? $data['name_of_donator'] = $search_data['name_of_donator'] : "";
-            !empty($search_data['what_was_donated_please_specify']) ? $data['what_was_donated_please_specify'] = $search_data['what_was_donated_please_specify'] : "";
-            !empty($search_data['name_aid_of_receiver_from']) ? $data['name_aid_of_receiver_from'] = $search_data['name_aid_of_receiver_from'] : "";
+            !empty($search_data['association_name']) ? $data['association_name'] = $search_data['association_name'] : "";
+            !empty($search_data['full_name']) ? $data['full_name'] = str_replace(" ","",trim($search_data['full_name'])) : "";
+            !empty($search_data['age']) ? $data['age'] = $search_data['age'] : "";
+            !empty($search_data['gender']) ? $data['gender'] = $search_data['gender'] : "";
+            !empty($search_data['nationality']) ? $data['nationality'] = $search_data['nationality'] : "";
             !empty($search_data['month']) ? $data['month'] = $search_data['month'] : "";
             !empty($search_data['year']) ? $data['year'] = $search_data['year'] : "";
             
@@ -21,9 +21,9 @@ class donations_model extends CI_Model {
       
         $this->session->set_userdata('export_var', $search_data);
 
-    	$this->db->select('donations.*
+    	$this->db->select('refugee.*
 						 ',FALSE);
-    	$this->db->from('donations');
+    	$this->db->from('refugee');
 		
     	//!empty($data) ? $this->db->or_like($data) : "";
     	if(!empty($data))
@@ -62,9 +62,9 @@ class donations_model extends CI_Model {
     	}
     }
 	
-    public function get_donation_data($id) {
+    public function get_refugee_data($id) {
         $this->db->select('*');
-        $this->db->from('donations');
+        $this->db->from('refugee');
        
         $this->db->where('id', $id);
         $query = $this->db->get();

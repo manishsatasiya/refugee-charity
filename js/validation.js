@@ -1578,6 +1578,120 @@ $(document).ready(function() {
 			details: "Please enter message"
 		}
 	});
+
+	$("#add_donations").validate({
+		rules: {
+			date_of_donation:{
+				required:true
+			},
+			name_of_association:{
+				required:true
+			},
+			name_of_donator:{
+				required:true
+			},
+			what_was_donated_please_specify:{
+				required:true
+			},
+			name_aid_of_receiver_from:{
+				required:true
+			},
+			month:{
+				comboboxNotNone: true
+			},
+			year: {
+				comboboxNotNone: true
+			}
+		},
+		errorElement: 'span', //default input error message container
+	    errorClass: 'help-block help-block-error', // default input error message class
+	    focusInvalid: false, // do not focus the last invalid input
+	    highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+	});
+
+	$("#add_home_visit").validate({
+		rules: {
+			date_of_visit:{
+				required:true
+			},
+			association_name:{
+				required:true
+			},
+			location_of_visit:{
+				required:true
+			},
+			id_no:{
+				required:true
+			},
+			full_name_of_family_visited:{
+				required:true
+			},
+			month:{
+				comboboxNotNone: true
+			},
+			year: {
+				comboboxNotNone: true
+			}
+		},
+		errorElement: 'span', //default input error message container
+	    errorClass: 'help-block help-block-error', // default input error message class
+	    focusInvalid: false, // do not focus the last invalid input
+	    highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+	});
+
+	$("#add_refugee").validate({
+			rules: {
+				association_name:{
+					required:true
+				},
+				location_of_association:{
+					required:true
+				},
+				full_name:{
+					required:true
+				},
+				age:{
+					required:true
+				},
+				gender:{
+					required:true
+				},
+				month:{
+					comboboxNotNone: true
+				},
+				year: {
+					comboboxNotNone: true
+				}
+			},
+			errorElement: 'span', //default input error message container
+		    errorClass: 'help-block help-block-error', // default input error message class
+		    focusInvalid: false, // do not focus the last invalid input
+		    highlight: function (element) { // hightlight error inputs
+	            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+	        },
+	        unhighlight: function (element) { // revert the change done by hightlight
+	            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+	        },
+	        success: function (label) {
+	            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+	        }
+		});
 	
 	$("#add_document").validate({
 		ignore: '',

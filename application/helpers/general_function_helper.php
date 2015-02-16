@@ -2,6 +2,108 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if (!function_exists('get_other_user_list')) {
+	function work_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Yes','2'=>'No');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
+	function sick_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Yes','2'=>'No');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
+	function medicationequipment_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Yes','2'=>'No');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}  
+	
+	function live_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Tent','2'=>'House');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}  
+	
+	function specia_case_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'No','2'=>'Orphans','3'=>'Widow','4'=>'Disabled','5'=>'Other (please specify)');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	} 
+
+	function month_dropdown($id = null)
+	{
+		$_arr = array('0'=>'Choose',
+					  'January'=>'January',
+					  'February'=>'February',
+					  'March'=>'March',
+					  'April'=>'April',
+					  'May'=>'May',
+					  'June'=>'June',
+					  'July'=>'July',
+					  'August'=>'August',
+					  'September'=>'September',
+					  'October'=>'October',
+					  'November'=>'November',
+					  'December'=>'December'
+					 );
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+
+	function year_dropdown($id = null)
+	{
+		$_arr = array('0'=>'Choose',
+					  '2012'=>'2012',
+					  '2013'=>'2013',
+					  '2014'=>'2014',
+					  '2015'=>'2015',
+					  '2016'=>'2016',
+					  '2017'=>'2017',
+					  '2018'=>'2018'
+					 );
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	} 	
+		
+	function pictures_video_taken_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Yes','2'=>'No');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	} 
+	
+	function level_of_need_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose','1'=> 'Emergency','2'=>'Very needy','3'=>'Needy');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	} 
+	 	
 	/**
 	 *
 	 * get_teacher_list: it's used to get list of teacher

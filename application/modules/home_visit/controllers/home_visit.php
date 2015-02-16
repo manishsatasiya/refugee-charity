@@ -12,255 +12,158 @@ class home_visit extends Private_Controller {
     }
     
 	public function index() {
-    	$content_data = array();
-
     	
-    	$user_department_id = getTableField('user_profile', 'department_id', 'user_id',$this->session->userdata('user_id'));
-    	$arrCampusPrivilages = get_user_campus_privilages();
+        $content_data = array();
 
-    	$this->session->set_userdata("globalsearchkwd",$this->input->post('globalsearchkwd'));
-    	$globalsearchkwd = $this->input->post('globalsearchkwd');
-		
-		$human_resources = $this->documents_model->get_documents('2',$globalsearchkwd);
-		$assessment = $this->documents_model->get_documents('4',$globalsearchkwd);
-		$professional_development = $this->documents_model->get_documents('8',$globalsearchkwd);
-		$curriculum = $this->documents_model->get_documents('5',$globalsearchkwd);
-		//$curriculum_quarter_2 = $this->documents_model->get_documents('13',$globalsearchkwd);
-		//$curriculum_quarter_4 = $this->documents_model->get_documents('14',$globalsearchkwd);
-
-		$all_documents = array(
-							'human_resources'=>$human_resources,
-							'assessment'=>$assessment,
-							'professional_development'=>$professional_development,
-							'curriculum'=>$curriculum,
-							//'curriculum_quarter_2'=>$curriculum_quarter_2,
-							//'curriculum_quarter_4'=>$curriculum_quarter_4,
-						 );
-		$content_data['campus_list'] = get_campus_list(0,1);
-		$content_data['all_documents'] = $all_documents;
-		$content_data['user_department_id'] = $user_department_id;
-		$content_data['arrCampusPrivilages'] = $arrCampusPrivilages;
-		
         // set layout data
         $this->template->set_theme(Settings_model::$db_config['default_theme']);
         $this->template->set_layout('school');
         
-        $this->template->title('All Staff Documents');
+        $this->template->title($this->lang->line('home_visit'));
         $this->template->set_partial('header', 'header');
-		$this->template->set_partial('sidebar', 'sidebar');
+        $this->template->set_partial('sidebar', 'sidebar');
         $this->template->set_partial('footer', 'footer');
-        $this->template->build('documents', $content_data);
+        $this->template->build('home_visit', $content_data);
+    }
+    
+    public function index_json($order_by = "username", $sort_order = "asc", $search = "all", $offset = 0) {
+    	/* Array of database columns which should be read and sent back to DataTables. Use a space where
+    	 * you want to insert a non-database field (for example a counter or static image)
+    	*/
+    	$aColumns = array('id',
+						'date_of_visit',
+						'location_of_visit',
+						'id_no',
+						'full_name_of_family_visited',
+						'name_of_visitor_from_association',
+						'month',
+						'year',
+						'created_date');
+
+    	$grid_data = get_search_data($aColumns);
+    	$sort_order = $grid_data['sort_order'];
+		$order_by = $grid_data['order_by'];
+    	/*
+    	 * Paging
+    	*/
+    	$per_page =  $grid_data['per_page'];
+    	$offset =  $grid_data['offset'];
+    
+    	$data = $this->home_visit_model->get_home_visit($per_page, $offset, $order_by, $sort_order, $grid_data['search_data']);
+    	$count = $this->home_visit_model->get_home_visit($per_page, $offset, $order_by, $sort_order, $grid_data['search_data'],true);
+		/*
+    	 * Output
+    	*/
+    	$output = array(
+    			"sEcho" => intval($_POST['draw']),
+    			"recordsTotal" => $count,
+    			"recordsFiltered" => $count,
+    			"data" => array()
+    	);
+    
+    	if($data){
+    		foreach($data->result_array() AS $result_row){
+    			$row = array();
+
+				$row[] = $result_row['id'];
+				$row[] = $result_row['date_of_visit'];
+				$row[] = $result_row['location_of_visit'];
+				$row[] = $result_row['id_no'];
+				$row[] = $result_row['full_name_of_family_visited'];
+				$row[] = $result_row['name_of_visitor_from_association'];
+				$row[] = $result_row['month'];
+				$row[] = $result_row['year'];
+				$row[] = $result_row['created_date'];
+                $row[] = '<a href="'.base_url('home_visit/add/'.$result_row["id"]).'" class="btn default btn-xs purple"><i class="fa fa-edit"></i> </a>';
+
+    			$output['data'][] = $row;
+    		}
+    	}
+    
+    	echo json_encode( $output );
     }
 	
 	public function add($id = null) {
-		$user_department_id = 0;
     	$content_data = array();
-		
-		//$document_types = array('human_resources'=>'Human Resources','assessment'=>'Assessment','professional_development'=>'Professional Development','curriculum'=>'Curriculum','curriculum_quarter_2'=>'Curriculum Quarter 2','curriculum_quarter_4'=>'Curriculum Quarter 4');
-		$document_types = array(2,4,8,5);
-		$campus_list = array(0,1);
+
+		$pictures_video_taken_list = pictures_video_taken_dropdown();
+		$specia_case_list = specia_case_dropdown();
+		$level_of_need_list = level_of_need_dropdown();
+		$month_list = month_dropdown();
+		$year_list = year_dropdown();
 
 		$errors = "";
-		$curr_dir = str_replace("\\","/",getcwd()).'/';
 		if($this->input->post()){
 
-			$campus_id = $this->input->post('campus_id');
-			if(!empty($campus_id)){
-				$campus_id = implode(',',$campus_id);
-			}
-			$document_type = $this->input->post('document_type');
-			$name = $this->input->post('name');
+			$date_of_visit = $this->input->post('date_of_visit');
+			$association_name = $this->input->post('association_name');
+			$location_of_visit = $this->input->post('location_of_visit');
+			$id_no = $this->input->post('id_no');
+			$full_name_of_family_visited = $this->input->post('full_name_of_family_visited');
+			$name_of_visitor_from_association = $this->input->post('name_of_visitor_from_association');
+			$was_help_given = $this->input->post('was_help_given');
+			$another_visit_short_reason = $this->input->post('another_visit_short_reason');
+			$pictures_video_taken = $this->input->post('pictures_video_taken');
+			$special_case = $this->input->post('special_case');
+			$special_case_more_info = $this->input->post('special_case_more_info');
+			$level_of_need = $this->input->post('level_of_need');
+			$any_other_information = $this->input->post('any_other_information');
+			$month = $this->input->post('month');
+			$year = $this->input->post('year');
 			
-			$table = 'documents';		
-			$wher_column_name = 'document_id';
 			
-			$data_document['campus_id'] = $campus_id;
-			$data_document['document_type'] = $document_type;
-			$data_document['name'] = $name;
-			
+			$data_document['date_of_visit'] = make_db_date($date_of_visit);
+			$data_document['association_name'] = $association_name;
+			$data_document['location_of_visit'] = $location_of_visit;
+			$data_document['id_no'] = $id_no;
+			$data_document['full_name_of_family_visited'] = $full_name_of_family_visited;
+			$data_document['name_of_visitor_from_association'] = $name_of_visitor_from_association;
+			$data_document['was_help_given'] = $was_help_given;
+			$data_document['another_visit_short_reason'] = $another_visit_short_reason;
+			$data_document['pictures_video_taken'] = $pictures_video_taken;
+			$data_document['special_case'] = $special_case;
+			$data_document['special_case_more_info'] = $special_case_more_info;
+			$data_document['level_of_need'] = $level_of_need;
+			$data_document['any_other_information'] = $any_other_information;
+			$data_document['month'] = $month;
+			$data_document['year'] = $year;
+
+			$table = 'home_visit';		
+			$wher_column_name = 'id';
 			if($id){
 				grid_data_updates($data_document,$table,$wher_column_name,$id);    
 			}else{
+				$data_document['created_date'] = date("Y-m-d H:i:s");
 				$id = grid_add_data($data_document,$table);
 			}
-			
-			//upload and update the file
-			$config['upload_path'] = $curr_dir.'downloads/docs/';
-			$config['allowed_types'] = 'jpg|jpeg|pdf|png|xlsx|xls|doc|zip|rar|docx|csv';
-			$config['overwrite'] = true;
-			$config['remove_spaces'] = true;
-			$config['max_size']	= '250999';// in KB
-			
-			//load upload library
-			$this->load->library('upload', $config);
-			
-			// flag for checking the directory exist or not
-			if(!is_dir($curr_dir.'downloads/docs/'))
-			{
-				mkdir($curr_dir.'downloads/docs/', 0777, true);
-			}
-			$data = array();		
-			
-			foreach($_FILES as $field => $file)
-			{
-				// No problems with the file
-				if($file['error'] == 0)
-				{
-					$config['file_name'] = $id.'_'.$file["name"];
-					$this->upload->initialize($config);
-					// So lets upload
-					if($this->upload->do_upload($field))
-					{
-						$data[$field] = $this->upload->data();
-					}
-					else
-					{
-						$errors .= ''.$this->upload->display_errors()."<br>";
-					}
-				}
-			}
-		
-			if(isset($data) && is_array($data) && count($data) > 0)
-			{
-				$data_document = array();
-				$doc_file = 'downloads/docs/'.$data['file']["file_name"];
-				$data_document['file'] = $doc_file;
-				
-				if($id){
-					$old_file = getTableField($table, 'file', $wher_column_name,$id);
-					if(!empty($old_file) && file_exists($old_file)){
-						@unlink($old_file);
-					}
-					grid_data_updates($data_document,$table,$wher_column_name,$id);    
-				}
-			}
-			
-			$this->session->set_flashdata('message', 'Document added sucessfully.');
-			redirect('documents');
+						
+			$this->session->set_flashdata('message', $this->lang->line('home_visit_add_success'));
+			redirect('home_visit');
 		}
 		
 		$rowdata= array();
 		if($id){
-			$rowdata = $this->documents_model->get_document_by_id($id);
-			$rowdata->campus_id = (!empty($rowdata->campus_id))?explode(',',$rowdata->campus_id):array();
+			$rowdata = $this->home_visit_model->get_donation_data($id);
 		}
-		$content_data['other_user_roll'] = array(2,4,8,5);
-		$content_data['document_types'] = $document_types;
-		$content_data['campus_list'] = $campus_list;
-		$content_data['user_department_id'] = $user_department_id;
+
+		$content_data['pictures_video_taken_list'] = $pictures_video_taken_list;
+		$content_data['specia_case_list'] = $specia_case_list;
+		$content_data['level_of_need_list'] = $level_of_need_list;
+		$content_data['month_list'] = $month_list;
+		$content_data['year_list'] = $year_list;
+
+
 		$content_data['rowdata'] = $rowdata;
 		$content_data['id'] = $id;
         // set layout data
         $this->template->set_theme(Settings_model::$db_config['default_theme']);
         $this->template->set_layout('school');
         
-        $this->template->title('Add Documents');
+        $this->template->title($this->lang->line('add_home_visit'));
         $this->template->set_partial('header', 'header');
 		$this->template->set_partial('sidebar', 'sidebar');
         $this->template->set_partial('footer', 'footer');
         $this->template->build('add', $content_data);
-    }
-	
-	public function add_document_model($id = null) {
-    	$content_data = array();
-		
-		//$document_types = array('human_resources'=>'Human Resources','assessment'=>'Assessment','professional_development'=>'Professional Development','curriculum'=>'Curriculum','curriculum_quarter_2'=>'Curriculum Quarter 2','curriculum_quarter_4'=>'Curriculum Quarter 4');
-		$document_types = get_department_list(array(2,4,8,5));
-		
-		$campus_list = get_campus_list(0,1);
-
-		$errors = "";
-		$curr_dir = str_replace("\\","/",getcwd()).'/';
-		if($this->input->post()){
-
-			$campus_id = $this->input->post('campus_id');
-			if(!empty($campus_id)){
-				$campus_id = implode(',',$campus_id);
-			}
-			$document_type = $this->input->post('document_type');
-			$name = $this->input->post('name');
-			
-			$table = 'documents';		
-			$wher_column_name = 'document_id';
-			
-			$data_document['campus_id'] = $campus_id;
-			$data_document['document_type'] = $document_type;
-			$data_document['name'] = $name;
-			
-			if($id){
-				grid_data_updates($data_document,$table,$wher_column_name,$id);    
-			}else{
-				$id = grid_add_data($data_document,$table);
-			}
-			
-			//upload and update the file
-			$config['upload_path'] = $curr_dir.'downloads/docs/';
-			$config['allowed_types'] = 'jpg|jpeg|pdf|png|xlsx|xls|doc|zip|rar|docx|csv';
-			$config['overwrite'] = true;
-			$config['remove_spaces'] = true;
-			$config['max_size']	= '50999';// in KB
-			
-			//load upload library
-			$this->load->library('upload', $config);
-			
-			// flag for checking the directory exist or not
-			if(!is_dir($curr_dir.'downloads/docs/'))
-			{
-				mkdir($curr_dir.'downloads/docs/', 0777, true);
-			}
-			$data = array();		
-			
-			foreach($_FILES as $field => $file)
-			{
-				// No problems with the file
-				if($file['error'] == 0)
-				{
-					$config['file_name'] = $id.'_'.$file["name"];
-					$this->upload->initialize($config);
-					// So lets upload
-					if($this->upload->do_upload($field))
-					{
-						$data[$field] = $this->upload->data();
-					}
-					else
-					{
-						$errors .= ''.$this->upload->display_errors()."<br>";
-					}
-				}
-			}
-		
-			if(isset($data) && is_array($data) && count($data) > 0)
-			{
-				$data_document = array();
-				$doc_file = 'downloads/docs/'.$data['file']["file_name"];
-				$data_document['file'] = $doc_file;
-				
-				if($id){
-					$old_file = getTableField($table, 'file', $wher_column_name,$id);
-					if(!empty($old_file) && file_exists($old_file)){
-						@unlink($old_file);
-					}
-					grid_data_updates($data_document,$table,$wher_column_name,$id);    
-				}
-			}
-			
-			//$this->session->set_flashdata('message', 'Document added sucessfully.');
-			//redirect('documents');
-			exit;			
-		}
-		
-		$rowdata= array();
-		if($id){
-			$rowdata = $this->documents_model->get_document_by_id($id);
-			$rowdata->campus_id = (!empty($rowdata->campus_id))?explode(',',$rowdata->campus_id):array();
-		}
-		$content_data['other_user_roll'] = get_other_user_roll();
-		$content_data['document_types'] = $document_types;
-		$content_data['campus_list'] = $campus_list;
-		$content_data['rowdata'] = $rowdata;
-		$content_data['id'] = $id;
-        
-        $this->template->build('add_document_model', $content_data);
     }
 	
    public function delete($id = null){

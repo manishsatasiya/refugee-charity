@@ -121,6 +121,7 @@ $(document).ready(function() {
 	<script src="<?php print base_url(); ?>assets/scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/scripts/demo.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/global/scripts/datatable.js"></script>
+	<script src="<?php print base_url(); ?>assets/global/scripts/components-pickers.js"></script>
 	<!--<script src="<?php print base_url(); ?>assets/pages/scripts/table-ajax.js"></script>-->
 	<!-- END PAGE LEVEL SCRIPTS -->
 
@@ -135,6 +136,7 @@ $(document).ready(function() {
 	   Metronic.init(); // init metronic core componets
 	   Layout.init(); // init layout
 	   Demo.init(); // init demo(theme settings page)
+	   ComponentsPickers.init();
 	   //Index.init(); // init index page
 	   //Tasks.initDashboardWidget(); // init tash dashboard widget
 	   //TableAjax.init();

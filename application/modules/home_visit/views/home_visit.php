@@ -1,116 +1,58 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');  ?>
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
+<script type="text/javascript" src="<?php print base_url(); ?>js/grid/home_visit.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+        	<div class="modal-header">
+              <h2>Loading....</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><br />
+            </div>
+            <div class="modal-body"><div style="text-align:center;"><i class="fa fa-spinner fa fa-6x fa-spin" id="animate-icon"></i></div></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+		 </div>	
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->		
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="grid simple">
-      <div class="grid-title">
-        <h4>Documents</h4>
-      </div>
-      <div class="grid-body generaltab">
-        <form name="formmain"></form>
-        <p>Click / Right click on the link to save the document you wish to download.</p>
-        <div class="m-b-15">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="sub-title">Human Resources</div>
-              <ul>
-                <?php 
-				if(count($all_documents['human_resources']) > 0 ) {
-					foreach($all_documents['human_resources'] as $document) {             
-				?>
-                 <li> <a href="<?php echo base_url().$document['file']; ?>" target="_blank"><?php echo $document['name']; ?></a>
-                <?php if( ($this->session->userdata('role_id') == '1') || (($document['document_type'] == $user_department_id) && (in_array("add_document",$this->arrAction)))): ?>
-                  <div class="pull-right"><a href="<?php echo base_url().'documents/add_document/'.$document['document_id']; ?>" class="btn btn-small btn-success ">Edit</a> <a href="#" onclick="javascript:deleterecord('documents',<?php echo $document['document_id']; ?>);" class="btn btn-small btn-danger ">Delete</a></div>
-                <?php endif; ?>
-                </li>
-                <?php
-					}
-				}else {
-				?>
-                <li> No document found. </li>
-                <?php
-				} ?>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="m-b-15">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="sub-title">Assessment</div>
-              <ul>
-                <?php 
-				if(count($all_documents['assessment']) > 0 ) {
-					foreach($all_documents['assessment'] as $document) {
-				?>
-                 <li> <a href="<?php echo base_url().$document['file']; ?>" target="_blank"><?php echo $document['name']; ?></a>
-                <?php if( ($this->session->userdata('role_id') == '1') || (($document['document_type'] == $user_department_id) && (in_array("add_document",$this->arrAction)))): ?>
-                  <div class="pull-right"><a href="<?php echo base_url().'documents/add_document/'.$document['document_id']; ?>" class="btn btn-small btn-success ">Edit</a> <a href="#" onclick="javascript:deleterecord('documents',<?php echo $document['document_id']; ?>);" class="btn btn-small btn-danger ">Delete</a></div>
-                <?php endif; ?>
-                </li>
-                <?php
-					}
-				}else {
-				?>
-                <li> No document found. </li>
-                <?php
-				} ?>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="m-b-15">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="sub-title">Professional Development</div>
-              <ul>
-                <?php 
-				if(count($all_documents['professional_development']) > 0 ) {
-					foreach($all_documents['professional_development'] as $document) {
-				?>
-                <li> <a href="<?php echo base_url().$document['file']; ?>" target="_blank"><?php echo $document['name']; ?></a>
-                <?php if( ($this->session->userdata('role_id') == '1') || (($document['document_type'] == $user_department_id) && (in_array("add_document",$this->arrAction)))): ?>
-                  <div class="pull-right"><a href="<?php echo base_url().'documents/add_document/'.$document['document_id']; ?>" class="btn btn-small btn-success ">Edit</a> <a href="#" onclick="javascript:deleterecord('documents',<?php echo $document['document_id']; ?>);" class="btn btn-small btn-danger ">Delete</a></div>
-                <?php endif; ?>
-                </li>
-                <?php
-					}
-				}else {
-				?>
-                <li> No document found. </li>
-                <?php
-				} ?>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="m-b-15">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="sub-title">Curriculum</div>
-              <ul>
-                <?php 
-				if(count($all_documents['curriculum']) > 0 ) {
-					foreach($all_documents['curriculum'] as $document) {
-				?>
-                <li> <a href="<?php echo base_url().$document['file']; ?>" target="_blank"><?php echo $document['name']; ?></a>
-                <?php if( ($this->session->userdata('role_id') == '1') || (($document['document_type'] == $user_department_id) && (in_array("add_document",$this->arrAction)))): ?>
-                  <div class="pull-right"><a href="<?php echo base_url().'documents/add_document/'.$document['document_id']; ?>" class="btn btn-small btn-success ">Edit</a> <a href="#" onclick="javascript:deleterecord('documents',<?php echo $document['document_id']; ?>);" class="btn btn-small btn-danger ">Delete</a></div>
-                <?php endif; ?>
-                </li>
-                <?php
-					}
-				}else {
-				?>
-                <li>No document found.</li>
-                <?php
-				} ?>
-              </ul>
-            </div>
-          </div>
-        </div>
-   
-      </div>
-    </div>
-  </div>
+	<div class="col-md-12">
+		<div class="portlet light">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-th-list font-green-sharp"></i>
+					<span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('home_visit'); ?></span>
+				</div>
+				<div class="actions">
+					<a href="home_visit/add" class="btn green"><?php echo $this->lang->line('add_new'); ?> <i class="fa fa-plus"></i></a>
+				</div>
+			</div>
+			<div class="portlet-body ">
+				<div class="table-container">
+					<table class="table table-striped table-bordered table-hover" id="grid_home_visit">
+						<thead>
+							<tr>
+				                <th><?php echo $this->lang->line('db_id'); ?></th>
+				                <th><?php echo $this->lang->line('date_of_visit'); ?></th>
+				                <th><?php echo $this->lang->line('location_of_visit'); ?></th>
+				                <th><?php echo $this->lang->line('id_no'); ?></th>
+				                <th><?php echo $this->lang->line('full_name_of_family_visited'); ?></th>
+				                <th><?php echo $this->lang->line('name_of_visitor_from_association'); ?></th>
+				                <th><?php echo $this->lang->line('month'); ?></th>
+				                <th><?php echo $this->lang->line('year'); ?></th>
+								<th><?php echo $this->lang->line('created_date'); ?></th>
+								<th><?php echo $this->lang->line('action'); ?></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
