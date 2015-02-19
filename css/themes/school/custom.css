@@ -83,8 +83,9 @@ div.DTTT {
 div.DTTT .btn:first-child {
     margin-left:5px;
 }
-.form-control[readonly] {
-	cursor:default !important;}
+/*.form-control[readonly] {
+	cursor:default !important;
+}*/
 /*.left {
 	float:left;
 }

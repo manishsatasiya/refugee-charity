@@ -80,7 +80,13 @@ class List_user extends Private_Controller {
     	if($data){
     		foreach($data->result_array() AS $result_row){
     			$row = array();
-
+                $action_btn = '';
+                if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
+                    $action_btn .= '<a href="'.base_url('list_user/add/'.$result_row["user_id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
+                }
+                $action_btn .= '<a href="javascript:;" onclick=dt_delete("users","user_id",'.$result_row["user_id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+                $active = ($result_row['active'] == 1)? $this->lang->line('active') : $this->lang->line('inactive');
+                
 				$row[] = $result_row['user_id'];
 				$row[] = $result_row['user_roll_name'];
 				$row[] = $result_row['name'];
@@ -88,11 +94,10 @@ class List_user extends Private_Controller {
 				$row[] = $result_row['birth_date'];
 				$row[] = $result_row['gender'];
 				$row[] = $result_row['cell_phone'];
-				$row[] = $result_row['active'];
+				$row[] = $active;
 				$row[] = $result_row['created_date'];
 				$row[] = $result_row['updated_date'];
-                $row[] = '<a href="'.base_url('list_user/add/'.$result_row["user_id"]).'" data-target="#myModal" data-toggle="modal" class="btn default btn-xs purple"><i class="fa fa-edit"></i> </a>';
-
+                $row[] = $action_btn;
     			$output['data'][] = $row;
     		}
     	}
@@ -131,7 +136,7 @@ class List_user extends Private_Controller {
             $data['updated_date'] = date('Y-m-d H:i:s');
 
     		$error = "";
-    		$error_seperator = "<br>";
+    		$error_seperator = "\n";
     		if($id){
     			 
     			$this->form_validation->set_rules('first_name', 'first name', 'trim|required|max_length[40]|min_length[2]');

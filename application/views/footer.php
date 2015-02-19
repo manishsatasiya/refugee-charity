@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <!-- BEGIN PRE-FOOTER -->
 <div class="page-prefooter">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-3 col-sm-6 col-xs-12 footer-block">
 				<h2>About</h2>
@@ -61,7 +61,7 @@
 <!-- END PRE-FOOTER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
-	<div class="container">
+	<div class="container-fluid">
 		 2014 &copy; Metronic. All Rights Reserved.
 	</div>
 </div>

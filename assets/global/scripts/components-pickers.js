@@ -5,7 +5,7 @@ var ComponentsPickers = function () {
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
                 rtl: Metronic.isRTL(),
-                orientation: "left",
+                //orientation: "left",
                 autoclose: true
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal

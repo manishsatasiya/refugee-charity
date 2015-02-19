@@ -16,7 +16,6 @@ class Documents_model extends CI_Model {
     }
 
 	public function get_documents($document_type,$globalsearchkwd = '') {
-		 $arrCampusPrivilages = get_user_campus_privilages();
 		//$campus_id = 0;
 		$_like = array();
 		if($globalsearchkwd <> ''){
@@ -27,12 +26,7 @@ class Documents_model extends CI_Model {
         $this->db->from('documents');
 		$this->db->where('document_type', $document_type);
 		!empty($_like) ? $this->db->like($_like) : "";
-		if(count($arrCampusPrivilages) > 0)
-		{	
-			foreach($arrCampusPrivilages as $cmp_id){
-				$query_where .= ' campus_id LIKE "%'.$cmp_id.'j%" OR ';
-			}
-		}
+		
 		$query_where = trim(trim($query_where),'OR');
 		if($query_where <> '') {
 			$this->db->where($query_where);
@@ -43,16 +37,11 @@ class Documents_model extends CI_Model {
 		if($query->num_rows() > 0) {
             if($query){
 				foreach($query->result_array() AS $result_row){
-					$campus_id = $result_row['campus_id'];
-					$campus_arr = (!empty($campus_id))?explode(',',str_replace('j','',$campus_id)):array();
-
 					$row = array();
 					$row['document_id'] = $result_row['document_id'];
-					$row['campus_id'] = $campus_id;
 					$row['document_type'] = $result_row['document_type'];
 					$row['name'] = $result_row['name'];
 					$row['file'] = $result_row['file'];
-					$row['campus_arr'] = $campus_arr;
 					$data[] = $row;
 				}
 			}

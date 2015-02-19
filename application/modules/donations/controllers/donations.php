@@ -64,7 +64,11 @@ class donations extends Private_Controller {
     	if($data){
     		foreach($data->result_array() AS $result_row){
     			$row = array();
-
+    			$action_btn = '';
+    			if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
+    				$action_btn = '<a href="'.base_url('donations/add/'.$result_row["id"]).'" class="btn default btn-xs blue"><i class="fa fa-edit"></i> </a>';
+    			}
+    			$action_btn .= '<a href="javascript:;" onclick=dt_delete("donations","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
 				$row[] = $result_row['id'];
 				$row[] = $result_row['date_of_donation'];
 				$row[] = $result_row['name_of_association'];
@@ -74,7 +78,7 @@ class donations extends Private_Controller {
 				$row[] = $result_row['month'];
 				$row[] = $result_row['year'];
 				$row[] = $result_row['created_date'];
-                $row[] = '<a href="'.base_url('donations/add/'.$result_row["id"]).'" class="btn default btn-xs purple"><i class="fa fa-edit"></i> </a>';
+                $row[] = $action_btn;
 
     			$output['data'][] = $row;
     		}
@@ -120,7 +124,7 @@ class donations extends Private_Controller {
 				$id = grid_add_data($data_document,$table);
 			}
 						
-			$this->session->set_flashdata('message', $this->lang->line('donations_add_success'));
+			$this->session->set_flashdata('message', $this->lang->line('save_success'));
 			redirect('donations');
 		}
 		

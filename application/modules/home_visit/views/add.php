@@ -2,20 +2,14 @@
 
 <div class="row">
 	<div class="col-md-12">
-    <div class="portlet box blue">
+    <div class="portlet light">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i><?php echo $this->lang->line('home_visit');?>
+                <i class="fa fa-th-list font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('home_visit'); ?></span>
             </div>
             <div class="tools">
-                <a href="javascript:;" class="collapse">
-                </a>
-                <a href="#portlet-config" data-toggle="modal" class="config">
-                </a>
-                <a href="javascript:;" class="reload">
-                </a>
-                <a href="javascript:;" class="remove">
-                </a>
+                <a href="javascript:;" class="collapse"></a>
             </div>
         </div>
         <div class="portlet-body form">
@@ -38,12 +32,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('date_of_visit'), 'date_of_visit',array('class'=>'control-label')); ?>
-                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="dd-mm-yyyy" data-date-viewmode="">
-                        <?php print form_input(array('name' => 'date_of_visit', 'id' => 'date_of_visit', 'value' => ($rowdata)?$rowdata->date_of_visit:$this->session->flashdata('date_of_visit'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
+                    <div class="input-group date date-picker" data-date="<?php echo ($rowdata)?date("d-m-Y",strtotime($rowdata->date_of_visit)):''?>" data-date-format="D, dd M yyyy" data-date-viewmode="">
+                        <?php print form_input(array('name' => 'date_of_visit', 'id' => 'date_of_visit', 'value' => ($rowdata)?make_dp_date($rowdata->date_of_visit):$this->session->flashdata('date_of_visit'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
                         <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                         </span>
+                    </div>                    
                     </div>
-                     </div>
                 </div>
             </div>
             <div class="row ">
@@ -98,7 +92,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('pictures_video_taken'), 'pictures_video_taken',array('class'=>'control-label')); ?>
-                    <?php print form_dropdown('name',$pictures_video_taken_list,($rowdata)?$rowdata->pictures_video_taken:$this->session->flashdata('pictures_video_taken'),'id="pictures_video_taken" class="select2 form-control"'); ?>
+                    <?php print form_dropdown('pictures_video_taken',$pictures_video_taken_list,($rowdata)?$rowdata->pictures_video_taken:$this->session->flashdata('pictures_video_taken'),'id="pictures_video_taken" class="select2 form-control"'); ?>
                      </div>
                 </div>
             </div>

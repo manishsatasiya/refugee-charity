@@ -2,20 +2,14 @@
 
 <div class="row">
 	<div class="col-md-12">
-    <div class="portlet box blue">
+    <div class="portlet light">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i><?php echo $this->lang->line('register');?>
+                <i class="fa fa-th-list font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('refugee_register'); ?></span>
             </div>
             <div class="tools">
-                <a href="javascript:;" class="collapse">
-                </a>
-                <a href="#portlet-config" data-toggle="modal" class="config">
-                </a>
-                <a href="javascript:;" class="reload">
-                </a>
-                <a href="javascript:;" class="remove">
-                </a>
+                <a href="javascript:;" class="collapse"></a>
             </div>
         </div>
         <div class="portlet-body form">
@@ -73,7 +67,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('nationality'), 'nationality',array('class'=>'control-label')); ?>
-                    <?php print form_input(array('nationality' => 'nationality', 'id' => 'nationality', 'value' => ($rowdata)?$rowdata->nationality:$this->session->flashdata('nationality'), 'class' => 'form-control ')); ?>
+                    <?php print form_input(array('name' => 'nationality', 'id' => 'nationality', 'value' => ($rowdata)?$rowdata->nationality:$this->session->flashdata('nationality'), 'class' => 'form-control ')); ?>
                      </div>
                 </div>
                 <div class="col-md-6">
@@ -121,7 +115,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('what_qualifications_do_you_have'), 'what_qualifications_do_you_have',array('class'=>'control-label')); ?>
-                    <?php print form_input(array('what_qualifications_do_you_have' => 'what_qualifications_do_you_have', 'id' => 'what_qualifications_do_you_have', 'value' => ($rowdata)?$rowdata->what_qualifications_do_you_have:$this->session->flashdata('what_qualifications_do_you_have'), 'class' => 'form-control ')); ?>
+                    <?php print form_input(array('name' => 'what_qualifications_do_you_have', 'id' => 'what_qualifications_do_you_have', 'value' => ($rowdata)?$rowdata->what_qualifications_do_you_have:$this->session->flashdata('what_qualifications_do_you_have'), 'class' => 'form-control ')); ?>
                      </div>
                 </div>
             </div>

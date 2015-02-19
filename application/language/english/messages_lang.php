@@ -162,7 +162,7 @@ $lang['privilege'] = 'Privilege';
 $lang['staff'] = 'Users';
 $lang['role_sub'] = 'Role';
 $lang['list_role'] = 'Role';
-$lang['staff_user_sub'] = 'New Employee';
+$lang['staff_user_sub'] = 'Users';
 $lang['add_document'] = 'Add Document';
 $lang['documents'] = 'Documents';
 $lang['user_priviledge_sub'] = 'User Privilege';
@@ -215,7 +215,7 @@ $lang['role_p_role'] = 'Role';
 /*
  * List User
  */
-$lang['user_p_heading'] = 'New Employee';
+$lang['user_p_heading'] = 'Users';
 $lang['user_p_role'] = 'Role';
 $lang['user_p_id'] = 'ID';
 $lang['user_p_full_name'] = 'Full Name';
@@ -240,7 +240,7 @@ $lang['created_date'] = 'Created date';
 /*
  * Register
  */
-$lang['register'] = 'Register';
+$lang['refugee_register'] = 'Register';
 $lang['date_of_data_entry'] = 'Date of data entry';
 $lang['association_name'] = 'Association Name';
 $lang['location_of_association'] = 'Location of Association';
@@ -275,7 +275,7 @@ $lang['month'] = 'Month';
 $lang['year'] = 'Year';
 
 
-$lang['home_visit'] = 'Home visit';
+$lang['home_visit'] = 'Home Visit';
 $lang['date_of_upload'] = 'Date of upload';
 $lang['date_of_visit'] = 'Date of visit';
 $lang['location_of_visit'] = 'Location of visit';
@@ -301,4 +301,6 @@ $lang['any_other_info'] = 'Any other info';
 
 $lang['donations'] = 'Donations';
 $lang['add_donations'] = 'Add Donations';
-$lang['donations_add_success'] = 'Data added sucessfully.';
+$lang['save_success'] = 'Data save sucessfully.';
+$lang['active'] = 'Active';
+$lang['inactive'] = 'Inactive';

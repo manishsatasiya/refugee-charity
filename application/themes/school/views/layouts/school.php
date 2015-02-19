@@ -16,10 +16,13 @@
 <link href="<?php print base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-
+<link href="<?php print base_url(); ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/select2/select2.css"/>
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/datatables/extensions/ColVis/dataTables.colVis.css"/>
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 
@@ -77,7 +80,7 @@ $(document).ready(function() {
 		
 		<!-- BEGIN PAGE CONTENT -->
 		<div class="page-content"> 
-			<div class="container">
+			<div class="container-fluid">
 	<?php } ?> 
 				<?php print $template['body']; ?>
 	<?php if($controller_name != "login") { ?>
@@ -113,10 +116,13 @@ $(document).ready(function() {
 	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/datatables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
 	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="<?php print base_url(); ?>assets/global/plugins/icheck/icheck.min.js"></script>	
+	<script src="<?php print base_url(); ?>assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 	<!-- END PAGE LEVEL PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-
+	
 	<script src="<?php print base_url(); ?>assets/global/scripts/metronic.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/scripts/layout.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/scripts/demo.js" type="text/javascript"></script>
@@ -136,10 +142,11 @@ $(document).ready(function() {
 	   Metronic.init(); // init metronic core componets
 	   Layout.init(); // init layout
 	   Demo.init(); // init demo(theme settings page)
-	   ComponentsPickers.init();
+	   //ComponentsPickers.init();
 	   //Index.init(); // init index page
 	   //Tasks.initDashboardWidget(); // init tash dashboard widget
 	   //TableAjax.init();
+	   
 	});
 	</script>
 	<!-- END JAVASCRIPTS -->

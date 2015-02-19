@@ -2,20 +2,14 @@
 
 <div class="row">
 	<div class="col-md-12">
-    <div class="portlet box blue">
+    <div class="portlet light">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i><?php echo $this->lang->line('donations_info');?>
+                <i class="fa fa-th-list font-green-sharp"></i>
+                <span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('donations_info'); ?></span>
             </div>
             <div class="tools">
-                <a href="javascript:;" class="collapse">
-                </a>
-                <a href="#portlet-config" data-toggle="modal" class="config">
-                </a>
-                <a href="javascript:;" class="reload">
-                </a>
-                <a href="javascript:;" class="remove">
-                </a>
+                <a href="javascript:;" class="collapse"></a>
             </div>
         </div>
         <div class="portlet-body form">
@@ -39,12 +33,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('date_of_donation'), 'date_of_donation',array('class'=>'control-label')); ?>
-                    <div class="input-group input-medium date date-picker" data-date="" data-date-format="dd-mm-yyyy" data-date-viewmode="">
-                        <?php print form_input(array('name' => 'date_of_donation', 'id' => 'date_of_donation', 'value' => ($rowdata)?$rowdata->date_of_donation:$this->session->flashdata('date_of_donation'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
+                    <div class="input-group date date-picker" data-date="<?php echo ($rowdata)?date("d-m-Y",strtotime($rowdata->date_of_donation)):''?>" data-date-format="D, dd M yyyy" data-date-viewmode="">
+                        <?php print form_input(array('name' => 'date_of_donation', 'id' => 'date_of_donation', 'value' => ($rowdata)?make_dp_date($rowdata->date_of_donation):$this->session->flashdata('birth_date'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
                         <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                         </span>
-                    </div>
-                    
+                    </div>                    
                      </div>
                 </div>
                 <div class="col-md-6">

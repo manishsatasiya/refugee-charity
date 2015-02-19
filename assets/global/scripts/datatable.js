@@ -56,7 +56,8 @@ var Datatable = function() {
                     // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/scripts/datatable.js). 
                     // So when dropdowns used the scrollable div should be removed. 
                     //"dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-scrollable't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable layout
-                    "dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'f>r>t<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
+                    //"dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'f>r>t<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
+                    "dom": 'fCl<"clear">rt<"row"<"col-md-12"p i>>',
                     "pageLength": 10, // default records per page
                     "language": { // language settings
                         // metronic spesific
@@ -64,7 +65,8 @@ var Datatable = function() {
                         "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
+                        //"lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
+                        "lengthMenu": "_MENU_",
                         "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
                         "infoEmpty": "No records found to show",
                         "emptyTable": "No data available in table",
@@ -82,6 +84,9 @@ var Datatable = function() {
                         [10, 20, 50, 100, 150, -1],
                         [10, 20, 50, 100, 150, "All"] // change per page values here
                     ],
+                    "oColVis": {
+                        "aiExclude": [table_total_col-1]
+                    },
                     "orderCellsTop": true,
                     "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                         'orderable': false,

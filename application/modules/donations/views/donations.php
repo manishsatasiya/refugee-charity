@@ -22,6 +22,7 @@
 
 <div class="row">
 	<div class="col-md-12">
+		<?php $this->load->view('generic/flash_error'); ?>
 		<div class="portlet light">
 			<div class="portlet-title">
 				<div class="caption">
@@ -29,7 +30,9 @@
 					<span class="caption-subject font-green-sharp bold uppercase"><?php echo $this->lang->line('donations'); ?></span>
 				</div>
 				<div class="actions">
-					<a href="donations/add" class="btn green"><?php echo $this->lang->line('add_new'); ?> <i class="fa fa-plus"></i></a>
+					<?php if($this->session->userdata('role_id') == '1' || in_array("add",$this->arrAction)) { ?>
+					<a href="donations/add" class="btn green"><i class="fa fa-plus"></i> <?php echo $this->lang->line('add_new'); ?></a>
+					<?php } ?>
 				</div>
 			</div>
 			<div class="portlet-body ">

@@ -62,9 +62,15 @@ class List_role extends Private_Controller {
     	if($data){
     		foreach($data->result_array() AS $result_row){
     			$row = array();
+                $action_btn = '';
+                if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
+                    $action_btn .= '<a href="'.base_url('list_role/add/'.$result_row["user_roll_id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
+                }
+                $action_btn .= '<a href="javascript:;" onclick=dt_delete("user_roll","user_roll_id",'.$result_row["user_roll_id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+
     			$row[] = $result_row["user_roll_id"];
     			$row[] = $result_row["user_roll_name"];
-    			$row[] = '<a href="'.base_url('list_role/add/'.$result_row["user_roll_id"]).'" data-target="#myModal" data-toggle="modal" class="btn default btn-xs purple"><i class="fa fa-edit"></i> </a>';
+                $row[] = $action_btn;
     			$output['data'][] = $row;
     		}
     	}

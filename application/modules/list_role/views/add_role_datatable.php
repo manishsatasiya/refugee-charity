@@ -12,7 +12,7 @@ print form_open('list_role/add/'.$id, array('id' => 'add_role_form_datatable','n
 
 	<div class="containerfdfdf"></div>
 	<div class="row form-row">
-		<div class="col-md-6">
+		<div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('role_p_role'), 'reg_user_roll_name'); ?></div>
 			<div class="input_box_thin"><?php print form_input(array('name' => 'user_roll_name', 'id' => 'reg_user_roll_name', 'value' => ($rowdata)?$rowdata->user_roll_name:$this->session->flashdata('user_roll_name'), 'class' => 'form-control qtip_user_roll_name')); ?></div>
 		</div>
@@ -21,11 +21,7 @@ print form_open('list_role/add/'.$id, array('id' => 'add_role_form_datatable','n
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<input type="submit" name="student_submit" id="student_submit" value="<?php if(!$id){ echo 'Add Role'; }else{ echo 'Edit Role'; } ?>" class="btn btn-primary"/>
-	<?php if($id){?>
-		<input type="button" name="data_delete" id="data_delete" value="Delete" class="btn btn-danger" onclick="javascript:deleterecord('list_role',<?php echo $id;?>);"/>
-	<?php
-	} ?>
+	<input type="submit" name="student_submit" id="student_submit" value="<?php if(!$id){ echo 'Add Role'; }else{ echo 'Edit Role'; } ?>" class="btn green"/>
 </div>
 <?php	
 print form_close() ."\r\n";

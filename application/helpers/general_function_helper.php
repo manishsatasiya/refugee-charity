@@ -334,57 +334,15 @@ if (!function_exists('check_access')) {
 			$cotroller != "profile" && $cotroller != "reset_password" && $cotroller != "forgot_password" 
 			&& $cotroller != "forgot_username" && $action != "update_account" && $action != "update_password" 
 			&& $action != "upload_profile_pic" && $action != "reset" && $action != "index_json" && 
-			$action != "getdata" && $action != "show_comment" && $action != "export_to_excel" && $action != "get_existing_privilege" 
-			&& $action != "get_listbox" && $action != "view_report" && $action != "update_student" 
-			&& $action != "delete" && $action != "viewlog" && $cotroller != "add_privilege" && $action != "add_reason" 
-			&& $action != "update_course_class" && $action != "update_course" && $action != "update_section" 
-			&& $action != "update_class_room" && $action != "add_ca_mark" && $action != "callthirdmarkerpage" 
-			&& $action != "list_thirdmarker_stu" && $action != "view_attendance_log" && $action != "add_reason" && 
-			$cotroller != "createpdf" && $action != "get_campus_section" && $action != "get_campus_course" &&
+			$action != "getdata" && $action != "show_comment" && $action != "export_to_excel" 
+			&& $action != "get_existing_privilege"
+			&& $action != "delete" &&
 			$cotroller != "home" &&	
-            $cotroller != "appointment" && 
-			$action != "edit_profile" &&	
-			$cotroller != "my_attendance" &&	
-			$cotroller != "my_inductions" &&	
-			$cotroller != "schedule" &&	
-			$cotroller != "workshops_staff" && 	
-			$cotroller != "line_managers_list" &&	
-			$cotroller != "list_all_user" &&	
-			$action != "get_viewstatuslog_json"  &&
-			$action != "get_observations_json"  &&
+            $cotroller != "list_all_user" &&	
 			$action != "get_user_existing_privilege"  &&
 			$action != "edit_partial_profile" &&
 			$action != "save_user_status" &&
-			$action != "email_export" &&
-			$action != "add_profile" &&
-			$action != "view_grade_report_log"  && $cotroller != "list_enable_week" && $action != "add_user_privilege" 
-			&& $action != "get_profile_comment_json" 
-			&& $action != "delete" && $cotroller != "add_employee" && $cotroller != "list_course_class"
-            && $action != "get_my_lessions_json" && 
-            $action != "get_my_lessions_teacher_json" && 
-			$action != "get_lessons_observation_json" && 
-            $action != "get_line_management_attendance_json" && 
-			$action!="workshop_inactive_json" && 
-			$action!="attended" && 
-			$action!="attendees" && 
-			$action!="get_attended_json" && 
-			$action!="get_attendees_json" && 
-			$action!="add_attendee" && 
-			$action!="sign_up_sheet" && 
-			$action!="add_obs_comment" && 
-			$action!="add_obs_score" && 
-			$action != "get_sign_up_sheet_json" &&
-			$action != "upload_profile_document" &&
-			$action != "delete_profile_document" &&
-			$action != "absent" &&
-			$action != "delete_attendee" &&
-			$action != "get_grade_type_component" &&
-			$action != "get_StudentTeacher" &&
-			$action != "get_category_comment_count" &&
-            $action != "add_emergency_contact" &&
-            $action != "save_teacher_comment" &&
-            $action != "save_teacher_review" &&
-			$action != "view_detail"
+			$action != "email_export"
 			)
 		{
 			if(get_priviledge_action($cotroller,$action)){
@@ -694,14 +652,9 @@ function get_priviledge_action($controller_name,$action=""){
 								  "grade_report",	
 								  "complaint"
 								 );	
-	if($controller_name != "" && !in_array($controller_name,$arrDefinedController)){
-		$query .= " AND (menu_action.controller = '$controller_name' OR menu_action.controller = 'list_user') ";
-		$query_custom .= " AND (menu_action.controller = '$controller_name' OR menu_action.controller = 'list_user') ";
-	}	
-	else{
-		$query .= " AND (menu_action.controller = '$controller_name') ";
-		$query_custom .= " AND (menu_action.controller = '$controller_name' OR menu_action.controller = 'list_user') ";
-	}	
+	$query .= " AND (menu_action.controller = '$controller_name') ";
+	$query_custom .= " AND (menu_action.controller = '$controller_name') ";
+		
 	if($action != ""){
 		$query .= " AND (menu_action.action = '$action' OR controller_action = '$action') ";
 		$query_custom .= " AND (menu_action.action = '$action' OR controller_action = '$action') ";

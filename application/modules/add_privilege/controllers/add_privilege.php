@@ -52,12 +52,9 @@ $this->template->set_partial('sidebar', 'sidebar');
         }
         // load school model model
         $this->load->model('privilege_model');
-        if($this->privilege_model->create_privilege($this->input->post('user_roll_id'), $this->input->post('action'))) {
-        	set_activity_log('0','add','privilege','add privilege');
-            $this->session->set_flashdata('message', $this->lang->line('privilege_created'));
-        }else{
-            $this->session->set_flashdata('message', $this->lang->line('unable_to_register'));
-        }
+        
+        $this->privilege_model->create_privilege($this->input->post('user_roll_id'), $this->input->post('action'));
+        $this->session->set_flashdata('message', $this->lang->line('save_success'));
         redirect('/add_privilege');
     }
 	

@@ -50,19 +50,20 @@ print form_open('list_user/add/'.$id, array('id' => 'add_user_form_datatable','n
             </div>
 		</div>
 
-		<div class="col-md-4 form-group">
+		<div class="col-md-3 form-group">
 			<div class="form_label2"><?php print form_label('gender', 'gender'); ?></div>
 			<div class="input_box_thin"><?php  
 				print form_dropdown('gender',array('M'=>'Male','F'=>'Female'),($rowdata)?$rowdata->gender:'0','id="gender" class="form-control"');	?>
             </div>
 		</div>
 		
-		<div class="col-md-4 form-group">
-			<div class="form_label2"><?php print form_label($this->lang->line('user_p_birth_date'), 'birth_date'); ?></div>
-			<div class="input-append success date col-md-10 no-padding">	
-				<?php print form_input(array('name' => 'birth_date', 'id' => 'show_dp', 'value' => ($rowdata)?make_dp_date($rowdata->birth_date):$this->session->flashdata('birth_date'), 'class' => 'form-control')); ?>
-				<span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span>
-			</div>
+		<div class="col-md-5 form-group">
+            <?php print form_label($this->lang->line('user_p_birth_date'), 'birth_date',array('class'=>'control-label')); ?>
+            <div class="input-group date date-picker" data-date="<?php echo ($rowdata)?date("d-m-Y",strtotime($rowdata->birth_date)):''?>" data-date-format="D, dd M yyyy" data-date-viewmode="">
+                <?php print form_input(array('name' => 'birth_date', 'id' => 'birth_date', 'value' => ($rowdata)?make_dp_date($rowdata->birth_date):$this->session->flashdata('birth_date'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
+                <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
 		</div>
 
 		<div class="clear"></div>
@@ -132,11 +133,7 @@ print form_open('list_user/add/'.$id, array('id' => 'add_user_form_datatable','n
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<input type="submit" name="student_submit" id="student_submit" value="<?php if(!$id){ echo 'Add User'; }else{ echo 'Update User'; } ?>" class="btn btn-primary"/>
-	<?php if($id){?>
-		<input type="button" name="data_delete" id="data_delete" value="Delete" class="btn btn-danger" onclick="javascript:deleterecord('list_user',<?php echo $id;?>);"/>
-	<?php
-	} ?>
+	<input type="submit" name="student_submit" id="student_submit" value="<?php if(!$id){ echo 'Add User'; }else{ echo 'Update User'; } ?>" class="btn green"/>
 </div>	
 <?php	
 print form_close() ."\r\n";
