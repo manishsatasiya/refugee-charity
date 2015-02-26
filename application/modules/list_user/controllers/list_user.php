@@ -26,8 +26,8 @@ class List_user extends Private_Controller {
      *
      */
 
-    public function index() {
-    	
+    public function index($id = 0) {
+    	echo $id;exit;
         $content_data = array();
 
         // set layout data
@@ -140,16 +140,18 @@ class List_user extends Private_Controller {
     		if($id){
     			 
     			$this->form_validation->set_rules('first_name', 'first name', 'trim|required|max_length[40]|min_length[2]');
-                        $this->form_validation->set_rules('last_name', 'last name', 'trim|required|max_length[40]|min_length[2]');
+                $this->form_validation->set_rules('last_name', 'last name', 'trim|required|max_length[40]|min_length[2]');
 		        $this->form_validation->set_rules('email', 'email', 'trim|required|max_length[255]|is_valid_email|is_existing_field[users.email^users.user_id !=^'.$id.']');
 				if ($password <> '') {
-                    $this->form_validation->set_rules('password', 'password', 'trim|required|max_length[64]|matches[password_confirm]');
+                    $this->form_validation->set_rules('password', 'password', 'trim|required|max_length[64]|min_length[6]|matches[password_confirm]');
                     $this->form_validation->set_rules('password_confirm', 'repeat password', 'trim|required|max_length[64]');
                 }
 		       	if (!$this->form_validation->run()) {
     				if (form_error('first_name')) {
     					$error .= form_error('first_name').$error_seperator;
-    				}elseif (form_error('email')) {
+    				}elseif (form_error('last_name')) {
+                        $error .= form_error('last_name').$error_seperator;
+                    }elseif (form_error('email')) {
     					$error .= form_error('email').$error_seperator;
     				}elseif (form_error('password')) {
                         $error .= form_error('password').$error_seperator;
@@ -180,7 +182,7 @@ class List_user extends Private_Controller {
     		}else{
     			 
     			$this->form_validation->set_rules('first_name', 'first name', 'trim|required|max_length[40]|min_length[2]');
-                        $this->form_validation->set_rules('last_name', 'first name', 'trim|required|max_length[40]|min_length[2]');
+                $this->form_validation->set_rules('last_name', 'last name', 'trim|required|max_length[40]|min_length[2]');
 		        $this->form_validation->set_rules('email', 'e-mail', 'trim|required|max_length[255]|is_valid_email|is_existing_unique_field[users.email]');
 		        $this->form_validation->set_rules('password', 'password', 'trim|required|max_length[64]|min_length[6]|matches[password_confirm]');
                 $this->form_validation->set_rules('password_confirm', 'repeat password', 'trim|required|max_length[64]|min_length[6]');
@@ -188,7 +190,9 @@ class List_user extends Private_Controller {
 		       	if (!$this->form_validation->run()) {
     				if (form_error('first_mame')) {
     					$error .= form_error('first_mame').$error_seperator;
-    				}elseif (form_error('email')) {
+    				}elseif (form_error('last_name')) {
+                        $error .= form_error('last_name').$error_seperator;
+                    }elseif (form_error('email')) {
     					$error .= form_error('email').$error_seperator;
     				}elseif (form_error('username')) {
     					$error .= form_error('username').$error_seperator;

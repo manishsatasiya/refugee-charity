@@ -41,6 +41,10 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
+$route['profile/upload_profile_pic'] = 'profile/upload_profile_pic';
+$route['profile/update_password'] = 'profile/update_password';
+$route['profile/update_account'] = 'profile/update_account';
+$route['profile/(:any)'] = 'profile/index/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

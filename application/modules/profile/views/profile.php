@@ -1,143 +1,220 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<div class="page-title">
-  <h3><?php print $this->lang->line('profile_page_heading'); ?></h3>
-  <div class="pull-right"> <img src="<?php echo $profile_picture; ?>" width="63" height="63" id="previewimg"/><br />
-    <a href="javascript:void(0)" class="button" onclick="changepic();"><?php print $this->lang->line('pro_p_change_pic'); ?></a> </div>
-</div>
+<link href="<?php print base_url(); ?>assets/pages/css/profile.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<?php print base_url(); ?>js/jquery.form.js"></script>
 <div class="row">
+  <div class="col-md-12"><?php $this->load->view('generic/flash_error'); ?></div>
+</div>
+<div class="row margin-top-10">
   <div class="col-md-12">
-    <div class="grid simple">
-      <div class="grid-body no-border">
-        <?php
-        if ($this->session->flashdata('message')) {
-            print "<br><div class=\"alert alert-error\">". $this->session->flashdata('message') ."</div>";
-        }
-        ?>
-    <?php
-	print form_open('profile/upload_profile_pic', array('id' => 'uploadpic_form')) ."\r\n";
-		print form_upload(array('name' => 'uploadpic', 'id' => 'uploadpic', 'value' => '', 'onchange'=>'previewUploadImg(this)', 'style'=>'display:none;'));
-	print form_close(); ?>
-    <?php
-	print form_open('profile/update_account', array('id' => 'profile_form','class' => 'form-no-horizontal-spacing')) ."\r\n";
-	if($this->session->userdata('role_id') == 3){
-	?>
-        <table border="0" cellpadding="5" cellspacing="0" width="100%" style="" id="profile_form">
-          <tr>
-            <td><h2><?php print $this->lang->line('profile_course_heading'); ?></h2></td>
-          </tr>
-          <tr>
-            <td><table border="1" cellpadding="5" cellspacing="0" width="100%">
-                <tr>
-                  <th><?php print $this->lang->line('pro_p_coursename'); ?></th>
-                  <th><?php print $this->lang->line('pro_p_section'); ?></th>
-                  <th><?php print $this->lang->line('pro_p_classroom'); ?></th>
-                  <th><?php print $this->lang->line('pro_p_shift'); ?></th>
-                  <th><?php print $this->lang->line('pro_p_reg_student'); ?></th>
-                </tr>
-                <?php
-					if($course_detail){
-					foreach ($course_detail as $row){ 
-					?>
-                <tr>
-                  <td align="center"><?php echo $row['course_name']?></td>
-                  <td align="center"><?php echo $row['section']?></td>
-                  <td align="center"><?php echo $row['class_room']?></td>
-                  <td align="center"><?php echo $row['shift']?></td>
-                  <td align="center"><?php echo $row['no_of_student']?></td>
-                </tr>
-                <?php
-					}
-					}else{ 
-					?>
-                <tr>
-                  <td colspan="5" align="center"><?php print $this->lang->line('no_data_found'); ?></td>
-                </tr>
-                <?php
-					} 
-					?>
-              </table></td>
-          </tr>
-        </table>
-        <?php
-	} 
-	?>
-        <div class="row column-seperation">
-          <div class="col-md-6">
-            <h4></h4>
-            <div class="row form-row">
-              <div class="col-md-12"> <?php print form_label($this->lang->line('pro_p_firstname'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'first_name', 'id' => 'profile_first_name', 'value' => $first_name, 'class' => 'form-control','style'=>'')); ?> 
-			  </div>
-            </div>
-            <div class="row form-row">
-              <div class="col-md-12"> <?php print form_label($this->lang->line('pro_p_address1'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'address1', 'id' => '', 'value' => $address1, 'class' => 'form-control','style'=>'')); ?> </div>
-            </div>
-            <div class="row form-row">
-              <div class="col-md-6"> <?php print form_label($this->lang->line('pro_p_city'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'city', 'id' => '', 'value' => $city, 'class' => 'form-control','style'=>'')); ?> </div>
-              <div class="col-md-6"> <?php print form_label($this->lang->line('pro_p_state'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'state', 'id' => '', 'value' => $state, 'class' => 'form-control','style'=>'')); ?> </div>
-            </div>
-            <div class="row form-row">
-              <div class="col-md-8"> <?php print form_label($this->lang->line('pro_p_zip'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'zip', 'id' => '', 'value' => $zip, 'class' => 'form-control','style'=>'')); ?> </div>
-              <div class="col-md-4"> </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h4></h4>
-            <div class="row form-row">					
-              <div class="col-md-6"> <?php print form_label($this->lang->line('pro_p_birthdate'), 'profile_first_name'); ?> 
-			  	<div class="input-append success date col-md-10 col-lg-6 no-padding">
-                   <?php print form_input(array('name' => 'birth_date', 'id' => 'reg_birth_date', 'value' => $birth_date, 'class' => 'form-control','style'=>'')); ?> 
-                    <span class="add-on"><span class="arrow"></span><i class="fa fa-th"></i></span> </div>
-				</div>
-				
-              <div class="col-md-6"> <?php print form_label($this->lang->line('pro_p_workphone'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'work_phone', 'id' => '', 'value' => $work_phone, 'class' => 'form-control','style'=>'')); ?> </div>
-            </div>
-            <div class="row form-row">
-              <div class="col-md-12"> <?php print form_label($this->lang->line('pro_p_languange'), 'profile_first_name'); ?> <?php print form_input(array('name' => 'language_known', 'id' => '', 'value' => $language_known, 'class' => 'form-control','style'=>'')); ?> </div>
-            </div>
-            <div class="row form-row">
-              <div class="col-md-6"> <?php print form_label($this->lang->line('change_email'), 'profile_email'); ?> <?php print form_input(array('name' => 'email', 'id' => 'profile_email', 'class' => 'form-control','style'=>'')); ?> <br/>
-                <?php print $this->lang->line('current_email') .": <strong>". $email; ?>
-                <div id="email_valid"></div>
-                <div id="email_taken"></div>
-              </div>
-              <div class="col-md-6"> <?php print $this->lang->line('password_required_for_changes'); ?> <?php print form_password(array('name' => 'password', 'id' => 'profile_password', 'class' => 'form-control','style'=>'')); ?> </div>
-            </div>
-          </div>
+    <!-- BEGIN PROFILE SIDEBAR -->
+    <div class="profile-sidebar" style="width: 250px;">
+      <!-- PORTLET MAIN -->
+      <div class="portlet light profile-sidebar-portlet">
+        <!-- SIDEBAR USERPIC -->
+        <div class="profile-userpic">
+          <img src="<?php echo $profile_picture;?>" class="img-responsive" alt="">
         </div>
-        <div class="form-actions">
-          <div class="pull-right"> <?php print form_submit(array('name' => 'submit', 'value' => $this->lang->line('update_profile'), 'id' => 'profile_submit', 'class' => 'btn btn-danger btn-cons', 'style'=>'')); ?> </div>
+        <!-- END SIDEBAR USERPIC -->
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usertitle">
+          <div class="profile-usertitle-name">
+             <?php echo $user_data->first_name.' '.$user_data->last_name; ?>
+          </div>
+          <div class="profile-usertitle-job"> </div>
         </div>
-        <?php print form_close(); ?> </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <div class="grid simple">
-      <div class="grid-title no-border">
-        <h4><?php print  $this->lang->line('edit_password'); ?></h4>
+        <!-- END SIDEBAR USER TITLE -->
+        <!-- SIDEBAR BUTTONS -->
+       
+        <!-- END SIDEBAR BUTTONS -->
+        <!-- SIDEBAR MENU -->
+        <div class="profile-usermenu"></div>
+        <!-- END MENU -->
       </div>
-      <div class="grid-body no-border"> 
-	  	<?php print form_open('profile/update_password', array('id' => 'profile_pwd_form', 'class' => 'membership_form')) ."\r\n"; ?>
-		<?php
-		if ($this->session->flashdata('pwd_message')) {
-			print "<div class=\"alert alert-error\">". $this->session->flashdata('pwd_message') ."</div>";
-		}
-		?>
-        <div class="form-group"> <?php print form_label($this->lang->line('current_password'), 'form-label'); ?>
-          <div class="input-with-icon  right"> <i class=""></i> <?php print form_password(array('name' => 'current_password', 'id' => 'current_password', 'class' => 'form-control')); ?> </div>
-        </div>
-        <div class="form-group"> <?php print form_label($this->lang->line('new_password'), 'profile_new_password'); ?>
-          <div class="input-with-icon  right"> <i class=""></i> <?php print form_password(array('name' => 'new_password', 'id' => 'profile_new_password', 'class' => 'form-control')); ?> </div>
-        </div>
-        <div class="form-group"> <?php print form_label($this->lang->line('new_password_again'), 'new_password_again'); ?>
-          <div class="input-with-icon  right"> <i class=""></i> <?php print form_password(array('name' => 'new_password_again', 'id' => 'new_password_again', 'class' => 'form-control')); ?> </div>
-        </div>
-        <div class="form-actions"> <?php print form_hidden('email', $email); ?>
-          <div class="pull-right"> <?php print form_submit(array('name' => 'submit', 'value' => $this->lang->line('update_password'), 'id' => 'profile_pwd_submit', 'class' => 'btn btn-success btn-cons')); ?> </div>
-        </div>
-        <?php print form_close() ."\r\n"; ?> 
-	  </div>
+      <!-- END PORTLET MAIN -->
+      
     </div>
+    <!-- END BEGIN PROFILE SIDEBAR -->
+    <!-- BEGIN PROFILE CONTENT -->
+    <div class="profile-content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="portlet light">
+            <div class="portlet-title tabbable-line">
+              <div class="caption caption-md">
+                <i class="icon-globe theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase"><?php print $this->lang->line('profile_page_heading'); ?></span>
+              </div>
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a href="#tab_1_1" data-toggle="tab"><?php print $this->lang->line('personal_info'); ?></a>
+                </li>
+                <li>
+                  <a href="#tab_1_2" data-toggle="tab"><?php print $this->lang->line('pro_p_change_pic'); ?></a>
+                </li>
+                <li>
+                  <a href="#tab_1_3" data-toggle="tab"><?php print $this->lang->line('change_password'); ?></a>
+                </li>
+              </ul>
+            </div>
+            <div class="portlet-body">
+              <div class="tab-content">
+                <!-- PERSONAL INFO TAB -->
+                <div class="tab-pane active" id="tab_1_1">
+                  <?php print form_open('profile/update_account', array('id' => 'profile_form','class' => 'form-no-horizontal-spacing')) ."\r\n"; ?>
+                  <div class="containerfdfdf"></div>                  
+                  <div class="row form-row">
+                    <div class="col-md-6 form-group">
+                        <div class="form_label2">
+                            <?php print form_label($this->lang->line('user_p_first_name'), 'reg_first_name'); ?>
+                        </div>
+                        <div class="input_box_thin"><?php print form_input(array('name' => 'first_name', 'id' => 'reg_first_name', 'value' => ($user_data) ? $user_data->first_name : $this->session->flashdata('first_name'), 'class' => 'form-control qtip_first_name')); ?></div>
+                    </div>
+                    
+                    <div class="col-md-6 form-group">
+                        <div class="form_label2">
+                            <?php print form_label($this->lang->line('user_p_last_name'), 'reg_last_name'); ?>
+                        </div>
+                        <div class="input_box_thin"><?php print form_input(array('name' => 'last_name', 'id' => 'reg_last_name', 'value' => ($user_data) ? $user_data->last_name : $this->session->flashdata('last_name'), 'class' => 'form-control qtip_first_name')); ?></div>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  
+                  <div class="row form-row">
+                    
+                    <div class="col-md-6 form-group">
+                      <div class="form_label2"><?php print form_label($this->lang->line('user_p_email_address'), 'reg_email'); ?></div>
+                      <div class="input_box_thin"><?php print form_input(array('name' => 'email', 'id' => 'reg_email', 'value' => ($user_data)?$user_data->email:$this->session->flashdata('email'), 'class' => 'form-control qtip_email', 'readonly' => 'readonly')); ?></div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <div class="form_label2"><?php print form_label($this->lang->line('user_p_cell_phone'), 'reg_cell_phone'); ?></div>
+                      <div class="input_box_thin"><?php print form_input(array('name' => 'cell_phone', 'id' => 'reg_cell_phone', 'value' => ($user_data)?$user_data->cell_phone:$this->session->flashdata('cell_phone'), 'class' => 'form-control qtip_cell_phone')); ?></div>
+                    </div>
+                            
+                    <div class="clear"></div>
+                  </div>
+
+                  <div class="row form-row">
+                    <div class="col-md-6 form-group">
+                      <div class="form_label2"><?php print form_label('gender', 'gender'); ?></div>
+                      <div class="input_box_thin"><?php  
+                        print form_dropdown('gender',array('M'=>'Male','F'=>'Female'),($user_data)?$user_data->gender:'0','id="gender" class="form-control"');  ?>
+                            </div>
+                    </div>
+                    
+                    <div class="col-md-3 form-group">
+                            <?php print form_label($this->lang->line('user_p_birth_date'), 'birth_date',array('class'=>'control-label')); ?>
+                            <div class="input-group date date-picker" data-date="<?php echo ($user_data)?date("d-m-Y",strtotime($user_data->birth_date)):''?>" data-date-format="D, dd M yyyy" data-date-viewmode="">
+                                <?php print form_input(array('name' => 'birth_date', 'id' => 'birth_date', 'value' => ($user_data)?make_dp_date($user_data->birth_date):$this->session->flashdata('birth_date'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
+                                <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                    </div>
+
+                    <div class="clear"></div>
+                  </div>
+
+                  <div class="row form-row">
+                    <div class="col-md-12 form-group">
+                            <div class="form_label2"><?php print form_label('Address', 'address1'); ?></div>
+                            <div class="">  
+                                <?php print form_input(array('name' => 'address1', 'id' => 'address1', 'value' => ($user_data) ? $user_data->address1 : $this->session->flashdata('address1'), 'class' => 'form-control')); ?>
+
+                            </div>
+                        </div>
+                    <div class="col-md-6 form-group">
+                            <div class="form_label2"><?php print form_label('city', 'city'); ?></div>
+                            <div class="">  
+                                <?php print form_input(array('name' => 'city', 'id' => 'city', 'value' => ($user_data) ? $user_data->city : $this->session->flashdata('city'), 'class' => 'form-control')); ?>
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <div class="form_label2"><?php print form_label('state', 'state'); ?></div>
+                            <div class="">  
+                                <?php print form_input(array('name' => 'state', 'id' => 'state', 'value' => ($user_data) ? $user_data->state : $this->session->flashdata('state'), 'class' => 'form-control')); ?>
+
+                            </div>
+                        </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="row form-row">
+                    
+                    <div class="col-md-6 form-group">
+                            <div class="form_label2"><?php print form_label('country', 'country'); ?></div>
+                            <div class="">  
+                                <?php print form_input(array('name' => 'country', 'id' => 'country', 'value' => ($user_data) ? $user_data->country : $this->session->flashdata('country'), 'class' => 'form-control')); ?>
+
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <div class="form_label2"><?php print form_label('zip', 'zip'); ?></div>
+                            <div class="">  
+                                <?php print form_input(array('name' => 'zip', 'id' => 'zip', 'value' => ($user_data) ? $user_data->zip : $this->session->flashdata('zip'), 'class' => 'form-control')); ?>
+
+                            </div>
+                        </div>
+                    <div class="clear"></div>
+                  </div>
+                  
+                  <div class="margiv-top-10">
+                    <?php print form_hidden('user_id', $user_id); ?>
+                    <input type="submit" name="submit" value="<?php echo $this->lang->line('submit');?>" class="btn green">
+                  </div>
+                  <?php print form_close(); ?>
+                </div>
+                <!-- END PERSONAL INFO TAB -->
+                <!-- CHANGE AVATAR TAB -->
+                <div class="tab-pane" id="tab_1_2">
+                  <?php
+                  print form_open('profile/upload_profile_pic', array('id' => 'uploadpic_form')) ."\r\n";
+                    print form_upload(array('name' => 'uploadpic', 'id' => 'uploadpic', 'value' => '', 'onchange'=>'previewUploadImg(this)', 'style'=>'display:none;'));
+                  print form_close(); ?>
+                  <div class="form-group">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                      <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+                        <img src="<?php echo $profile_picture; ?>" width="150" height="150" id="previewimg"/>
+                      </div>
+                      <a href="javascript:void(0)" class="btn default btn-file" onclick="changepic();"><?php print $this->lang->line('pro_p_change_pic'); ?></a>
+                    </div>
+                  </div>
+                </div>
+                <!-- END CHANGE AVATAR TAB -->
+                <!-- CHANGE PASSWORD TAB -->
+                <div class="tab-pane" id="tab_1_3">
+                  <div class="row form-row">
+                  <div class="col-md-6">
+                  <?php print form_open('profile/update_password', array('id' => 'profile_pwd_form', 'class' => 'membership_form')) ."\r\n"; ?>
+                    <div class="form-group">
+                      <?php print form_label($this->lang->line('current_password'), 'form-label'); ?>
+                      <?php print form_password(array('name' => 'current_password', 'id' => 'current_password', 'class' => 'form-control')); ?>
+                    </div>
+                    <div class="form-group">
+                      <?php print form_label($this->lang->line('new_password'), 'profile_new_password'); ?>
+                      <?php print form_password(array('name' => 'new_password', 'id' => 'profile_new_password', 'class' => 'form-control')); ?>
+                    </div>
+                    <div class="form-group">
+                      <?php print form_label($this->lang->line('new_password_again'), 'new_password_again'); ?>
+                      <?php print form_password(array('name' => 'new_password_again', 'id' => 'new_password_again', 'class' => 'form-control')); ?>
+                    </div>
+                    <div class="margin-top-10">
+                      <?php print form_hidden('user_id', $user_id); ?>
+                      <?php print form_submit(array('name' => 'submit', 'value' => $this->lang->line('update_password'), 'id' => 'submit', 'class' => 'btn btn-success btn-cons')); ?>
+                    </div>
+                   <?php print form_close() ."\r\n"; ?> 
+                   </div>
+                   </div>
+                   <div class="clear"></div>
+                </div>
+                <!-- END CHANGE PASSWORD TAB -->
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PROFILE CONTENT -->
   </div>
 </div>

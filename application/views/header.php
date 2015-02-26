@@ -30,7 +30,7 @@
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
-								<a href="<?php print site_url('list_user/edit_profile/'.encrypt_decrypt('e', $this->session->userdata('user_id'))); ?>">
+								<a href="<?php print site_url('profile/'.encrypt_decrypt('e', $this->session->userdata('user_id'))); ?>">
 								<i class="icon-user"></i> My Profile </a>
 							</li>
 							<li>

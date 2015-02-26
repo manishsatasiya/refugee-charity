@@ -159,6 +159,7 @@ $lang['role_menu'] = array('list_role');
 $lang['home'] = 'Home';
 $lang['my_profile'] = 'My Profile';
 $lang['privilege'] = 'Privilege';
+$lang['refugees'] = 'Refugees';
 $lang['staff'] = 'Users';
 $lang['role_sub'] = 'Role';
 $lang['list_role'] = 'Role';
@@ -173,6 +174,8 @@ $lang['user_priviledge_sub'] = 'User Privilege';
 $lang['hide_show_col_heading'] = 'Show/Hide Column';
 // my profile page
 $lang['edit_profile'] = 'Edit profile';
+$lang['personal_info'] = 'Personal Info';
+$lang['change_password'] = 'Change Password';
 $lang['update_profile'] = 'Update account';
 $lang['current_password'] = 'Current Password';
 $lang['new_password'] = 'New Password';
@@ -240,7 +243,7 @@ $lang['created_date'] = 'Created date';
 /*
  * Register
  */
-$lang['refugee_register'] = 'Register';
+$lang['refugee_register'] = 'Refugees';
 $lang['date_of_data_entry'] = 'Date of data entry';
 $lang['association_name'] = 'Association Name';
 $lang['location_of_association'] = 'Location of Association';
@@ -273,6 +276,10 @@ $lang['total_number_of_people_in_house'] = 'Total Number of people in house';
 $lang['telephone_no'] = 'Telephone No';
 $lang['month'] = 'Month';
 $lang['year'] = 'Year';
+
+$lang['photos'] = 'Photos';
+$lang['info'] = 'Info';
+$lang['video'] = 'Video';
 
 
 $lang['home_visit'] = 'Home Visit';

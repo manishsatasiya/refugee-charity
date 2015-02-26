@@ -724,7 +724,7 @@ function get_countries() {
 
 function get_profile_pic($user_id = 0,$profile_picture = '',$show_from_id = true) {
 	$ci =& get_instance();
-	$profile_pic = array('150'=> base_url()."images/noimage.jpg",'75'=> base_url()."images/noimage.jpg",'elsd_id'=>'','job_title_name'=>'');
+	$profile_pic = array('150'=> base_url()."images/noimage.jpg",'75'=> base_url()."images/noimage.jpg");
 	
 	if($user_id == 0 && $show_from_id == true)
 		$user_id = $ci->session->userdata('user_id');
@@ -739,8 +739,7 @@ function get_profile_pic($user_id = 0,$profile_picture = '',$show_from_id = true
             $row = $query->row();            
             $profile_picture = $row->profile_picture;
         }
-    }
-	
+    }	
 	
 	$curr_dir = str_replace("\\","/",getcwd()).'/';
 	$filepath = $curr_dir.'images/profile_picture/thumb7575/'.$profile_picture;

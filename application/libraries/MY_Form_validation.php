@@ -111,11 +111,11 @@ class MY_Form_validation extends CI_Form_validation {
      *
      */
 
-    public function is_member_password($password) {
-
+    public function is_member_password($password,$user_id) {
+        
         $this->CI->db->select('nonce, password');
         $this->CI->db->from('users');
-        $this->CI->db->where('username', $this->CI->session->userdata('username'));
+        $this->CI->db->where('user_id', $user_id);
         $this->CI->db->limit(1);
 
         $query = $this->CI->db->get();

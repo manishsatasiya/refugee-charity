@@ -120,6 +120,7 @@ $(document).ready(function() {
 	<script type="text/javascript" src="<?php print base_url(); ?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="<?php print base_url(); ?>assets/global/plugins/icheck/icheck.min.js"></script>	
 	<script src="<?php print base_url(); ?>assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
 	<!-- END PAGE LEVEL PLUGINS -->
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
 	
@@ -128,6 +129,8 @@ $(document).ready(function() {
 	<script src="<?php print base_url(); ?>assets/scripts/demo.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/global/scripts/datatable.js"></script>
 	<script src="<?php print base_url(); ?>assets/global/scripts/components-pickers.js"></script>
+	 
+    <script src="<?php print base_url(); ?>assets/pages/scripts/form-fileupload.js"></script>
 	<!--<script src="<?php print base_url(); ?>assets/pages/scripts/table-ajax.js"></script>-->
 	<!-- END PAGE LEVEL SCRIPTS -->
 

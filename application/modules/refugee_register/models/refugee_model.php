@@ -76,6 +76,22 @@ class refugee_model extends CI_Model {
 
         return false;
     }
+
+    public function get_refugee_doc($type,$user_id) {
+        $this->db->select('*');
+        $this->db->from('refugee_documents');
+       
+        $this->db->where('type', $type);
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+
+        if ($query->num_rows() > 0) {
+            return $query;
+        }
+
+        return false;
+    }
 }
 
 /* End of file list_user_model.php */

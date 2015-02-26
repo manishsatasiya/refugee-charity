@@ -96,9 +96,14 @@ class Documents extends Private_Controller {
 					}
 					else
 					{
-						$errors .= ''.$this->upload->display_errors()."<br>";
+						$errors .= ''.$this->upload->display_errors();
 					}
 				}
+			}
+
+			if ($errors <> '') {
+				$this->session->set_flashdata('errormessage', $errors);
+				redirect('documents');
 			}
 		
 			if(isset($data) && is_array($data) && count($data) > 0)

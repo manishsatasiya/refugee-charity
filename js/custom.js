@@ -57,8 +57,8 @@ if(CI.controller_name == 'profile' || CI.controller_name == 'list_user')
 				
 				$('#previewimg')
 					.attr('src', e.target.result)
-					.width(198)
-					.height(197);
+					.width(150)
+					.height(150);
 				uploadpicture();
 			};
 			reader.readAsDataURL(input.files[0]);
@@ -68,8 +68,11 @@ if(CI.controller_name == 'profile' || CI.controller_name == 'list_user')
 		$("#uploadpic_form").ajaxForm(
 		{
 			success: function(data){
-				if(data != ''){
-					
+				if(data == '1'){
+					location.reload();
+				}else{
+					alert('Sorry, Something went wrong!');
+					location.reload();
 				}
 			},
 			beforeSubmit: function(arr, $form, options) {
