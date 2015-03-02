@@ -27,7 +27,6 @@ class List_user extends Private_Controller {
      */
 
     public function index($id = 0) {
-    	echo $id;exit;
         $content_data = array();
 
         // set layout data
