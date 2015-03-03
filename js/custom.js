@@ -1,4 +1,21 @@
 var table_total_col = $('table.table thead tr').children().length;
+var handleTagsInput = function () {
+	if (!jQuery().tagsInput) {
+		return;
+	}
+	$('#tags_1').tagsInput({
+		width: 'auto',
+		'onAddTag': function () {
+			var tags = $(this).closest("#tags_1").val();
+		},
+	});
+}
+var handleBootstrapMaxlength = function() {
+	$('.maxlength_textarea').maxlength({
+		limitReachedClass: "label label-danger",
+		alwaysShow: true
+	});
+}		
 $('body').on('hidden.bs.modal','#myModal', function() {
 	$(this).removeData('bs.modal');
 	$(this).find('.modal-header').html('<h2>Loading....</h2><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><br />');
@@ -173,7 +190,8 @@ $(document).ready(function(){
 		$(this).popover({ trigger: "hover focus",html:true });
 		$(this).popover('show');
 	});
-	
+	handleTagsInput();
+	handleBootstrapMaxlength();
 });
 
 function dt_delete(table,where_col,where_col_id){

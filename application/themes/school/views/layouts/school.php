@@ -14,6 +14,7 @@
 <link href="<?php print base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
 <link href="<?php print base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="<?php print base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+<link href="<?php print base_url(); ?>assets/global/plugins/jquery-tags-input/jquery.tagsinput.css" rel="stylesheet" type="text/css">
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 <link href="<?php print base_url(); ?>assets/global/plugins/icheck/skins/all.css" rel="stylesheet"/>
@@ -108,6 +109,8 @@ $(document).ready(function() {
 	<script src="<?php print base_url(); ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 	<script src="<?php print base_url(); ?>assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+	<script src="<?php print base_url(); ?>assets/global/plugins/jquery-tags-input/jquery.tagsinput.min.js" type="text/javascript"></script>
+	<script src="<?php print base_url(); ?>assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 	<!-- END CORE PLUGINS -->
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
 	

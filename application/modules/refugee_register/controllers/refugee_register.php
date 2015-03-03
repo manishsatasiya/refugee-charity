@@ -95,6 +95,12 @@ class refugee_register extends Private_Controller {
 		$specia_case_list = specia_case_dropdown();
 		$month_list = month_dropdown();
 		$year_list = year_dropdown();
+		$age_list = age_dropdown();
+		$gender_list = gender_dropdown();
+		$children_list = children_dropdown();
+		$housepeople_list = housepeople_dropdown();
+		$maritalstatus_list = maritalstatus_dropdown();
+		$nationality_list = get_nationality_list();
 
 		$errors = "";
 		if($this->input->post()){
@@ -184,6 +190,12 @@ class refugee_register extends Private_Controller {
 		}
 
 		$content_data['work_list'] = $work_list;
+		$content_data['age_list'] = $age_list;
+		$content_data['gender_list'] = $gender_list;
+		$content_data['children_list'] = $children_list;
+		$content_data['housepeople_list'] = $housepeople_list;
+		$content_data['maritalstatus_list'] = $maritalstatus_list;
+		$content_data['nationality_list'] = $nationality_list;
 		$content_data['sicklist'] = $sicklist;
 		$content_data['medicationequipment_list'] = $medicationequipment_list;
 		$content_data['livelist'] = $livelist;

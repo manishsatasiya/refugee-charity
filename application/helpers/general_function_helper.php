@@ -2,6 +2,68 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 if (!function_exists('get_other_user_list')) {
+	function age_dropdown($id = null)
+	{
+		$_arr = array();
+		
+		for($i=1;$i<=100;$i++)
+		{
+			$_arr[$i] = $i;
+		}
+		
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
+	function children_dropdown($id = null)
+	{
+		$_arr = array();
+		
+		for($i=0;$i<=15;$i++)
+		{
+			$_arr[$i] = $i;
+		}
+		
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	function housepeople_dropdown($id = null)
+	{
+		$_arr = array();
+		
+		for($i=1;$i<=20;$i++)
+		{
+			$_arr[$i] = $i;
+		}
+		
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
+	function gender_dropdown($id = null)
+	{
+		$_arr = array('Male'=> 'Male','Female'=>'Female');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
+	function maritalstatus_dropdown($id = null)
+	{
+		$_arr = array('Single'=> 'Single','Married'=>'Married','Divorced'=>'Divorced','Widowed'=>'Widowed');
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
+	}
+	
 	function work_dropdown($id = null)
 	{
 		$_arr = array(''=>'Choose','1'=> 'Yes','2'=>'No');
@@ -829,6 +891,21 @@ function encrypt_decrypt($action, $string) {
     return $output;
 }
 
-
+function get_nationality_list() {
+	$ci =& get_instance();
+	$ci->db->select('countries.*');
+	$ci->db->from('countries');
+	$ci->db->order_by("native", "asc");
+	$ci->db->order_by("nationality", "asc");
+	
+	$query = $ci->db->get();
+	$nationality_data = $query->result_array();
+	$nationality_arr = array();
+	$nationality_arr[0] = '--Select--';
+	foreach ($nationality_data as $nationality_datas){
+		$nationality_arr[$nationality_datas['id']] = $nationality_datas['nationality'];
+	}
+	return $nationality_arr;
+}
 /* End of file general_function_helper.php */
 /* Location: ./application/helpers/general_function_helper.php */ 
