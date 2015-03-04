@@ -1,6 +1,12 @@
 <?php
 //Homepage
 $lang['welcome'] = 'Welcome';
+/*
+ * Settings
+ */
+$lang['settings'] = 'Settings';
+$lang['refugee_settings'] = 'Refugee Settings';
+
 // membership views
 $lang['username'] = 'username';
 $lang['password'] = 'password';
@@ -237,6 +243,9 @@ $lang['user_p_edit_user'] = 'Edit User';
 
 $lang['submit'] = 'Submit';
 $lang['add_new'] = 'Add new';
+$lang['add'] = 'Add';
+$lang['Edit'] = 'Edit';
+$lang['name'] = 'Name';
 $lang['action'] = 'Action';
 $lang['db_id'] = 'DB #';
 $lang['created_date'] = 'Created date';
@@ -267,7 +276,10 @@ $lang['what_is_it_that_you_need_most'] = 'What is it that you need most';
 $lang['how_many_children_do_you_have'] = 'How many children do you have';
 $lang['childrens_names_ages_genders'] = 'Childrens names ages genders';
 $lang['other_family_members_names_ages_genders'] = 'Other family members names ages genders';
-$lang['contact_details_email_skype_whatsapp'] = 'Contact details Email skype whatsapp';
+$lang['email'] = 'Email';
+$lang['skype'] = 'Skype';
+$lang['whatsapp'] = 'WhatsApp';
+$lang['other_contact'] = 'Other Contact';
 $lang['name_administrator'] = 'Name administrator';
 $lang['any_other_information'] = 'Any other information';
 $lang['special_case'] = 'Special case';
@@ -279,6 +291,7 @@ $lang['year'] = 'Year';
 
 $lang['photos'] = 'Photos';
 $lang['info'] = 'Info';
+$lang['contact'] = 'Contacts';
 $lang['video'] = 'Video';
 
 

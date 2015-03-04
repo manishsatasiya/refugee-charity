@@ -12,16 +12,19 @@
                 <li class="active">
                   <a href="#tab_1_1" data-toggle="tab"><?php print $this->lang->line('info'); ?></a>
                 </li>
-                <?php
+				<?php
                 if($id) { ?>
-                <li>
-                  <a href="#tab_1_2" data-toggle="tab"><?php print $this->lang->line('photos'); ?></a>
+				<li>
+                  <a href="#tab_1_2" data-toggle="tab"><?php print $this->lang->line('contact'); ?></a>
                 </li>
                 <li>
-                  <a href="#tab_1_3" data-toggle="tab"><?php print $this->lang->line('documents'); ?></a>
+                  <a href="#tab_1_3" data-toggle="tab"><?php print $this->lang->line('photos'); ?></a>
                 </li>
                 <li>
-                  <a href="#tab_1_4" data-toggle="tab"><?php print $this->lang->line('video'); ?></a>
+                  <a href="#tab_1_4" data-toggle="tab"><?php print $this->lang->line('documents'); ?></a>
+                </li>
+                <li>
+                  <a href="#tab_1_5" data-toggle="tab"><?php print $this->lang->line('video'); ?></a>
                 </li>
                 <?php } ?>
             </ul>
@@ -190,18 +193,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <?php print form_label($this->lang->line('contact_details_email_skype_whatsapp'), 'contact_details_email_skype_whatsapp',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'contact_details_email_skype_whatsapp', 'id' => 'contact_details_email_skype_whatsapp', 'value' => ($rowdata)?$rowdata->contact_details_email_skype_whatsapp:$this->session->flashdata('contact_details_email_skype_whatsapp'), 'class' => 'form-control ')); ?>
-                                 </div>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-md-6">
-                                <div class="form-group">
                                 <?php print form_label($this->lang->line('any_other_information'), 'any_other_information',array('class'=>'control-label')); ?>
 								<textarea id="maxlength_textarea" name="any_other_information" class="form-control maxlength_textarea" maxlength="250" rows="2" placeholder="This textarea has a limit of 250 chars."><?= ($rowdata)?$rowdata->any_other_information:$this->session->flashdata('any_other_information')?></textarea>
                                  </div>
                             </div>
+						</div>
+                        <div class="row ">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('special_case'), 'special_case',array('class'=>'control-label')); ?>
@@ -209,26 +206,18 @@
 
                                  </div>
                             </div>
-						</div>
-                        <div class="row ">	
-                            <div class="col-md-6">
+						    <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('special_case_more_info'), 'special_case_more_info',array('class'=>'control-label')); ?>
 								<textarea id="maxlength_textarea" name="special_case_more_info" class="form-control maxlength_textarea" maxlength="250" rows="2" placeholder="This textarea has a limit of 250 chars."><?= ($rowdata)?$rowdata->special_case_more_info:$this->session->flashdata('special_case_more_info')?></textarea>
                                  </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <?php print form_label($this->lang->line('total_number_of_people_in_house'), 'total_number_of_people_in_house',array('class'=>'control-label')); ?>
-								<?php print form_dropdown('total_number_of_people_in_house',$housepeople_list,($rowdata)?$rowdata->total_number_of_people_in_house:$this->session->flashdata('total_number_of_people_in_house'),'id="total_number_of_people_in_house" class="select2 form-control"'); ?>
-                                 </div>
-                            </div>
 						</div>
                         <div class="row ">	
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <?php print form_label($this->lang->line('telephone_no'), 'telephone_no',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'telephone_no', 'id' => 'telephone_no', 'value' => ($rowdata)?$rowdata->telephone_no:$this->session->flashdata('telephone_no'), 'class' => 'form-control ')); ?>
+                                <?php print form_label($this->lang->line('total_number_of_people_in_house'), 'total_number_of_people_in_house',array('class'=>'control-label')); ?>
+								<?php print form_dropdown('total_number_of_people_in_house',$housepeople_list,($rowdata)?$rowdata->total_number_of_people_in_house:$this->session->flashdata('total_number_of_people_in_house'),'id="total_number_of_people_in_house" class="select2 form-control"'); ?>
                                  </div>
                             </div>
                         </div>
@@ -238,9 +227,65 @@
                     </div>
                     <?php print form_close(); ?>
                 </div>
-                <?php
+				<?php
                 if($id) { ?>
-                <div class="tab-pane" id="tab_1_2">
+				<div class="tab-pane" id="tab_1_2">
+					<?php print form_open_multipart('refugee_register/add_contact/'.$id, array('id' => 'add_refugee','name'=>'add_refugee')) ."\r\n"; ?>
+					<div class="form-body">
+						<?php
+						if ($this->session->flashdata('message')) {
+							print "<br><div class=\"alert alert-error\">". $this->session->flashdata('message') ."</div>";
+						}
+						?>
+						<div class="containerfdfdf"></div>
+						<div class="row ">	
+							<div class="col-md-6">
+								<div class="form-group">
+								<?php print form_label($this->lang->line('telephone_no'), 'telephone_no',array('class'=>'control-label')); ?>
+								<?php print form_input(array('name' => 'telephone_no', 'id' => 'telephone_no', 'value' => ($rowdata)?$rowdata->telephone_no:$this->session->flashdata('telephone_no'), 'class' => 'form-control ')); ?>
+								 </div>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-md-6">
+								<div class="form-group">
+								<?php print form_label($this->lang->line('email'), 'email',array('class'=>'control-label')); ?>
+								<?php print form_input(array('name' => 'email', 'id' => 'email', 'value' => ($rowdata)?$rowdata->email:$this->session->flashdata('email'), 'class' => 'form-control ')); ?>
+								 </div>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-md-6">
+								<div class="form-group">
+								<?php print form_label($this->lang->line('skype'), 'skype',array('class'=>'control-label')); ?>
+								<?php print form_input(array('name' => 'skype', 'id' => 'skype', 'value' => ($rowdata)?$rowdata->skype:$this->session->flashdata('skype'), 'class' => 'form-control ')); ?>
+								 </div>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-md-6">
+								<div class="form-group">
+								<?php print form_label($this->lang->line('whatsapp'), 'whatsapp',array('class'=>'control-label')); ?>
+								<?php print form_input(array('name' => 'whatsapp', 'id' => 'whatsapp', 'value' => ($rowdata)?$rowdata->whatsapp:$this->session->flashdata('whatsapp'), 'class' => 'form-control ')); ?>
+								 </div>
+							</div>
+						</div>
+						<div class="row ">
+							<div class="col-md-6">
+								<div class="form-group">
+								<?php print form_label($this->lang->line('other_contact'), 'other_contact',array('class'=>'control-label')); ?>
+								<?php print form_input(array('name' => 'other_contact', 'id' => 'other_contact', 'value' => ($rowdata)?$rowdata->other_contact:$this->session->flashdata('other_contact'), 'class' => 'form-control ')); ?>
+								 </div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="form-actions right">
+						<input type="submit" name="submit" value="<?php echo $this->lang->line('submit');?>" class="btn blue">
+					</div>
+					<?php print form_close(); ?>
+				</div>
+                <div class="tab-pane" id="tab_1_3">
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet"/>
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
@@ -404,7 +449,7 @@
                     </script>
                 </div>
 
-                <div class="tab-pane" id="tab_1_3">
+                <div class="tab-pane" id="tab_1_4">
                     <div class="row">
                         <div class="col-md-12">
                             <?php print form_open_multipart('refugee_register/upload_photos/document/'.$id, array('id' => 'fileupload2','name'=>'upload_document')) ."\r\n"; ?>
@@ -442,7 +487,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane " id="tab_1_4">
+                <div class="tab-pane " id="tab_1_5">
                     <div class="row">
                         <div class="col-md-12">
                             <?php print form_open_multipart('refugee_register/upload_photos/video/'.$id, array('id' => 'fileupload3','name'=>'upload_video')) ."\r\n"; ?>

@@ -36,8 +36,6 @@ class refugee_register extends Private_Controller {
 						'age',
 						'gender',
 						'nationality',
-						'month',
-						'year',
 						'created_date');
 
     	$grid_data = get_search_data($aColumns);
@@ -75,8 +73,6 @@ class refugee_register extends Private_Controller {
 				$row[] = $result_row['age'];
 				$row[] = $result_row['gender'];
 				$row[] = $result_row['nationality'];
-				$row[] = $result_row['month'];
-				$row[] = $result_row['year'];
 				$row[] = $result_row['created_date'];
                 $row[] = $action_btn;
     			$output['data'][] = $row;
@@ -128,13 +124,11 @@ class refugee_register extends Private_Controller {
 			$how_many_children_do_you_have = $this->input->post('how_many_children_do_you_have');
 			$childrens_names_ages_genders = $this->input->post('childrens_names_ages_genders');
 			$other_family_members_names_ages_genders = $this->input->post('other_family_members_names_ages_genders');
-			$contact_details_email_skype_whatsapp = $this->input->post('contact_details_email_skype_whatsapp');
 			$name_administrator = $this->input->post('name_administrator');
 			$any_other_information = $this->input->post('any_other_information');
 			$special_case = $this->input->post('special_case');
 			$special_case_more_info = $this->input->post('special_case_more_info');
 			$total_number_of_people_in_house = $this->input->post('total_number_of_people_in_house');
-			$telephone_no = $this->input->post('telephone_no');
 			$month = $this->input->post('month');
 			$year = $this->input->post('year');			
 			
@@ -161,13 +155,11 @@ class refugee_register extends Private_Controller {
 			$data_document['how_many_children_do_you_have'] = $how_many_children_do_you_have;
 			$data_document['childrens_names_ages_genders'] = $childrens_names_ages_genders;
 			$data_document['other_family_members_names_ages_genders'] = $other_family_members_names_ages_genders;
-			$data_document['contact_details_email_skype_whatsapp'] = $contact_details_email_skype_whatsapp;
 			$data_document['name_administrator'] = $name_administrator;
 			$data_document['any_other_information'] = $any_other_information;
 			$data_document['special_case'] = $special_case;
 			$data_document['special_case_more_info'] = $special_case_more_info;
 			$data_document['total_number_of_people_in_house'] = $total_number_of_people_in_house;
-			$data_document['telephone_no'] = $telephone_no;
 			$data_document['month'] = $month;
 			$data_document['year'] = $year;
 
@@ -216,6 +208,49 @@ class refugee_register extends Private_Controller {
         $this->template->build('add', $content_data);
     }
 
+	public function add_contact($id = null) {
+    	$content_data = array();
+    	$errors = "";
+		if($this->input->post()){
+
+			$email = $this->input->post('email');
+			$skype = $this->input->post('skype');
+			$whatsapp = $this->input->post('whatsapp');
+			$other_contact = $this->input->post('other_contact');
+			$telephone_no = $this->input->post('telephone_no');
+			
+			$data_document['email'] = $email;
+			$data_document['skype'] = $skype;
+			$data_document['whatsapp'] = $whatsapp;
+			$data_document['other_contact'] = $other_contact;
+			$data_document['telephone_no'] = $telephone_no;
+
+			$table = 'refugee';		
+			$wher_column_name = 'id';
+			if($id){
+				grid_data_updates($data_document,$table,$wher_column_name,$id);    
+			}
+						
+			$this->session->set_flashdata('message', $this->lang->line('save_success'));
+			redirect('refugee_register');
+		}
+		
+		$rowdata= array();
+		if($id){
+			$rowdata = $this->refugee_model->get_refugee_data($id);
+		}
+
+		// set layout data
+        $this->template->set_theme(Settings_model::$db_config['default_theme']);
+        $this->template->set_layout('school');
+        
+        $this->template->title($this->lang->line('add_refugee'));
+        $this->template->set_partial('header', 'header');
+		$this->template->set_partial('sidebar', 'sidebar');
+        $this->template->set_partial('footer', 'footer');
+        $this->template->build('add', $content_data);
+    }
+	
     public function upload_photos($type = 'photo',$user_id = null) {
     	//print_r($_FILES);
     	
