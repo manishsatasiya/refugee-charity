@@ -36,6 +36,9 @@ function reload_datatable(){
 	//Datatable.reloadDatatable1();
 	//TableAjax.ajax.reload();
 }
+function reload_datatable2(){
+	TableAjax2.reload_dt();
+}
 function deleterecord(url,id)
 {
 	var conf = confirm("Are you sure you want to delete this record?");

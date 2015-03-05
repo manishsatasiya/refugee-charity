@@ -105,6 +105,86 @@ class refugee_settings extends Private_Controller {
     	$this->template->build('add_location_association', $content_data);
     }
 
+
+    public function association_name_json() {
+        /* Array of database columns which should be read and sent back to DataTables. Use a space where
+         * you want to insert a non-database field (for example a counter or static image)
+        */
+        $aColumns = array( 'id','name' );
+        $grid_data = get_search_data($aColumns);
+        $sort_order = $grid_data['sort_order'];
+        $order_by = $grid_data['order_by'];
+
+        if($order_by == '')
+            $order_by = "name";
+        if($sort_order == '')
+            $sort_order = "asc";
+        /*
+         * Paging
+        */
+        $per_page =  $grid_data['per_page'];
+        $offset =  $grid_data['offset'];
+        
+        $data = $this->refugee_settings_model->get_association_name($per_page, $offset, $order_by, $sort_order, $grid_data['search_data']);
+        $count = $this->refugee_settings_model->get_association_name($per_page, $offset, $order_by, $sort_order, $grid_data['search_data'],true);
+         
+        /*
+         * Output
+        */
+        $output = array(
+                "sEcho" => intval($_POST['draw']),
+                "recordsTotal" => $count,
+                "recordsFiltered" => $count,
+                "data" => array()
+        );
+        
+        
+        if($data){
+            foreach($data->result_array() AS $result_row){
+                $row = array();
+                $action_btn = '';
+                if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
+                    $action_btn .= '<a href="'.base_url('refugee_settings/add_association_name/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
+                }
+                $action_btn .= '<a href="javascript:;" onclick=dt_delete("association_name","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+
+                $row[] = $result_row["id"];
+                $row[] = $result_row["name"];
+                $row[] = $action_btn;
+                $output['data'][] = $row;
+            }
+        }
+        
+        echo json_encode( $output );
+    }
+    
+    public function add_association_name($id = null) {
+        $content_data['id'] = $id;
+        $rowdata = array();
+        if($id){
+            $rowdata = $this->refugee_settings_model->get_association_name_data($id);
+        }
+    
+        $content_data['rowdata'] = $rowdata;
+        if($this->input->post()){
+            $name = $this->input->post('name');
+
+            $data = array();
+            $data['name'] = $name;
+            $table = 'association_name';
+            $wher_column_name = 'id';
+            
+            if($id){
+                grid_data_updates($data,$table,$wher_column_name,$id);
+                
+            }else{
+                $lastinsertid = grid_add_data($data,$table);
+            }
+            exit;
+        }
+        $this->template->build('add_association_name', $content_data);
+    }
+
     public function upload_photos($type = 'photo',$user_id = null) {
     	//print_r($_FILES);
     	
