@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2015 at 05:04 AM
+-- Generation Time: Mar 09, 2015 at 02:23 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -519,7 +519,6 @@ INSERT INTO `recover_password` (`id`, `user_id`, `token`, `email`, `date_added`)
 
 CREATE TABLE IF NOT EXISTS `refugee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_of_data_entry` date NOT NULL,
   `association_name` varchar(255) NOT NULL,
   `location_of_association` varchar(255) NOT NULL,
   `full_name` varchar(255) NOT NULL,
@@ -532,7 +531,6 @@ CREATE TABLE IF NOT EXISTS `refugee` (
   `previous_occupation` varchar(255) NOT NULL,
   `are_you_able_to_work` int(11) NOT NULL,
   `what_skills_do_you_have_for_working` varchar(255) NOT NULL,
-  `what_qualifications_do_you_have` varchar(255) NOT NULL,
   `are_you_sick` int(11) NOT NULL,
   `need_of_medicationequipment` int(11) NOT NULL,
   `if_yes_please_specify` text NOT NULL,
@@ -541,7 +539,6 @@ CREATE TABLE IF NOT EXISTS `refugee` (
   `what_is_it_that_you_need_most` varchar(255) NOT NULL,
   `how_many_children_do_you_have` varchar(255) NOT NULL,
   `childrens_names_ages_genders` text NOT NULL,
-  `other_family_members_names_ages_genders` text NOT NULL,
   `email` varchar(255) NOT NULL,
   `skype` varchar(255) NOT NULL,
   `whatsapp` varchar(255) NOT NULL,
@@ -552,8 +549,6 @@ CREATE TABLE IF NOT EXISTS `refugee` (
   `special_case_more_info` text NOT NULL,
   `total_number_of_people_in_house` int(11) NOT NULL,
   `telephone_no` varchar(15) NOT NULL,
-  `month` varchar(20) NOT NULL,
-  `year` int(11) NOT NULL,
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -563,9 +558,9 @@ CREATE TABLE IF NOT EXISTS `refugee` (
 -- Dumping data for table `refugee`
 --
 
-INSERT INTO `refugee` (`id`, `date_of_data_entry`, `association_name`, `location_of_association`, `full_name`, `age`, `gender`, `nationality`, `nationality_id_no`, `un_id`, `marital_status`, `previous_occupation`, `are_you_able_to_work`, `what_skills_do_you_have_for_working`, `what_qualifications_do_you_have`, `are_you_sick`, `need_of_medicationequipment`, `if_yes_please_specify`, `where_do_you_live_location`, `do_you_live_in_tent_house`, `what_is_it_that_you_need_most`, `how_many_children_do_you_have`, `childrens_names_ages_genders`, `other_family_members_names_ages_genders`, `email`, `skype`, `whatsapp`, `other_contact`, `name_administrator`, `any_other_information`, `special_case`, `special_case_more_info`, `total_number_of_people_in_house`, `telephone_no`, `month`, `year`, `created_by`, `created_date`) VALUES
-(1, '0000-00-00', 'fghfgh1', 'hfdhfd1', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 'What qualifications do you have', 2, 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', '0', '0', 'mily members names ages genders', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', '0', 0, 0, '2015-02-14 08:20:32'),
-(2, '0000-00-00', 'Association Name', 'ocation of Association', 'Full Name', 0, 'Gender', 'Nationality', 'Nationality ID No', 'N ID', 'Marital Status', 'Previous Occupation', 2, 'What skills do you have for wo', 'What qualifications do you have', 2, 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', 'How many children do you have', 'hildrens names ages genders', 'mily members names ages genders', 'act details Email skype whatsapp', '', '', '', 'inistrator', 'Any other information', 4, 'pecial case more info', 23, 'Telephone No', 'July', 2015, 0, '2015-02-18 10:57:34');
+INSERT INTO `refugee` (`id`, `association_name`, `location_of_association`, `full_name`, `age`, `gender`, `nationality`, `nationality_id_no`, `un_id`, `marital_status`, `previous_occupation`, `are_you_able_to_work`, `what_skills_do_you_have_for_working`, `are_you_sick`, `need_of_medicationequipment`, `if_yes_please_specify`, `where_do_you_live_location`, `do_you_live_in_tent_house`, `what_is_it_that_you_need_most`, `how_many_children_do_you_have`, `childrens_names_ages_genders`, `email`, `skype`, `whatsapp`, `other_contact`, `name_administrator`, `any_other_information`, `special_case`, `special_case_more_info`, `total_number_of_people_in_house`, `telephone_no`, `created_by`, `created_date`) VALUES
+(1, 'fghfgh1', 'hfdhfd1', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 2, 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', '0', '0', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', 0, '2015-02-14 08:20:32'),
+(2, 'Association Name', 'ocation of Association', 'Full Name', 0, 'Gender', 'Nationality', 'Nationality ID No', 'N ID', 'Marital Status', 'Previous Occupation', 2, 'What skills do you have for wo', 2, 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', 'How many children do you have', 'hildrens names ages genders', 'act details Email skype whatsapp', '', '', '', 'inistrator', 'Any other information', 4, 'pecial case more info', 23, 'Telephone No', 0, '2015-02-18 10:57:34');
 
 -- --------------------------------------------------------
 
@@ -587,6 +582,56 @@ CREATE TABLE IF NOT EXISTS `refugee_documents` (
 
 INSERT INTO `refugee_documents` (`id`, `type`, `user_id`, `file`) VALUES
 (24, 'photo', 1, 'uploads/1/7ce063631ec83ff7a2e20ee0669ee629.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `refugee_family_members`
+--
+
+CREATE TABLE IF NOT EXISTS `refugee_family_members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `refugee_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `relation` varchar(50) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `age` int(11) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `refugee_family_members`
+--
+
+INSERT INTO `refugee_family_members` (`id`, `refugee_id`, `name`, `relation`, `gender`, `age`, `created_by`, `created_date`) VALUES
+(1, 1, 'test', 'son', 'male', 12, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `refugee_qualifications`
+--
+
+CREATE TABLE IF NOT EXISTS `refugee_qualifications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `refugee_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `institute` varchar(255) NOT NULL,
+  `grade` varchar(50) NOT NULL,
+  `pass_year` varchar(50) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `refugee_qualifications`
+--
+
+INSERT INTO `refugee_qualifications` (`id`, `refugee_id`, `title`, `institute`, `grade`, `pass_year`, `created_by`, `created_date`) VALUES
+(1, 1, 'test', 'testrr', '2', '2015-03-09', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -750,7 +795,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-09 10:13:17', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-09 19:51:38', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

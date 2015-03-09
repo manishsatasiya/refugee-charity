@@ -97,11 +97,12 @@ class refugee_register extends Private_Controller {
 		$housepeople_list = housepeople_dropdown();
 		$maritalstatus_list = maritalstatus_dropdown();
 		$nationality_list = get_nationality_list();
+		$associatoin_loc_list = get_associatoin_loc_list();
+		$associatoin_name_list = get_associatoin_name_list();
 
 		$errors = "";
 		if($this->input->post()){
 
-			$date_of_data_entry = $this->input->post('date_of_data_entry');
 			$association_name = $this->input->post('association_name');
 			$location_of_association = $this->input->post('location_of_association');
 			$full_name = $this->input->post('full_name');
@@ -114,7 +115,6 @@ class refugee_register extends Private_Controller {
 			$previous_occupation = $this->input->post('previous_occupation');
 			$are_you_able_to_work = $this->input->post('are_you_able_to_work');
 			$what_skills_do_you_have_for_working = $this->input->post('what_skills_do_you_have_for_working');
-			$what_qualifications_do_you_have = $this->input->post('what_qualifications_do_you_have');
 			$are_you_sick = $this->input->post('are_you_sick');
 			$need_of_medicationequipment = $this->input->post('need_of_medicationequipment');
 			$if_yes_please_specify = $this->input->post('if_yes_please_specify');
@@ -122,9 +122,6 @@ class refugee_register extends Private_Controller {
 			$do_you_live_in_tent_house = $this->input->post('do_you_live_in_tent_house');
 			$what_is_it_that_you_need_most = $this->input->post('what_is_it_that_you_need_most');
 			$how_many_children_do_you_have = $this->input->post('how_many_children_do_you_have');
-			$childrens_names_ages_genders = $this->input->post('childrens_names_ages_genders');
-			$other_family_members_names_ages_genders = $this->input->post('other_family_members_names_ages_genders');
-			$name_administrator = $this->input->post('name_administrator');
 			$any_other_information = $this->input->post('any_other_information');
 			$special_case = $this->input->post('special_case');
 			$special_case_more_info = $this->input->post('special_case_more_info');
@@ -132,7 +129,6 @@ class refugee_register extends Private_Controller {
 			$month = $this->input->post('month');
 			$year = $this->input->post('year');			
 			
-			$data_document['date_of_data_entry'] = $date_of_data_entry;
 			$data_document['association_name'] = $association_name;
 			$data_document['location_of_association'] = $location_of_association;
 			$data_document['full_name'] = $full_name;
@@ -145,7 +141,6 @@ class refugee_register extends Private_Controller {
 			$data_document['previous_occupation'] = $previous_occupation;
 			$data_document['are_you_able_to_work'] = $are_you_able_to_work;
 			$data_document['what_skills_do_you_have_for_working'] = $what_skills_do_you_have_for_working;
-			$data_document['what_qualifications_do_you_have'] = $what_qualifications_do_you_have;
 			$data_document['are_you_sick'] = $are_you_sick;
 			$data_document['need_of_medicationequipment'] = $need_of_medicationequipment;
 			$data_document['if_yes_please_specify'] = $if_yes_please_specify;
@@ -153,16 +148,11 @@ class refugee_register extends Private_Controller {
 			$data_document['do_you_live_in_tent_house'] = $do_you_live_in_tent_house;
 			$data_document['what_is_it_that_you_need_most'] = $what_is_it_that_you_need_most;
 			$data_document['how_many_children_do_you_have'] = $how_many_children_do_you_have;
-			$data_document['childrens_names_ages_genders'] = $childrens_names_ages_genders;
-			$data_document['other_family_members_names_ages_genders'] = $other_family_members_names_ages_genders;
-			$data_document['name_administrator'] = $name_administrator;
 			$data_document['any_other_information'] = $any_other_information;
 			$data_document['special_case'] = $special_case;
 			$data_document['special_case_more_info'] = $special_case_more_info;
 			$data_document['total_number_of_people_in_house'] = $total_number_of_people_in_house;
-			$data_document['month'] = $month;
-			$data_document['year'] = $year;
-
+			
 			$table = 'refugee';		
 			$wher_column_name = 'id';
 			if($id){
@@ -188,13 +178,13 @@ class refugee_register extends Private_Controller {
 		$content_data['housepeople_list'] = $housepeople_list;
 		$content_data['maritalstatus_list'] = $maritalstatus_list;
 		$content_data['nationality_list'] = $nationality_list;
+		$content_data['associatoin_loc_list'] = $associatoin_loc_list;
+		$content_data['associatoin_name_list'] = $associatoin_name_list;
 		$content_data['sicklist'] = $sicklist;
 		$content_data['medicationequipment_list'] = $medicationequipment_list;
 		$content_data['livelist'] = $livelist;
 		$content_data['specia_case_list'] = $specia_case_list;
-		$content_data['month_list'] = $month_list;
-		$content_data['year_list'] = $year_list;
-
+		
 		$content_data['rowdata'] = $rowdata;
 		$content_data['id'] = $id;
         // set layout data
@@ -418,6 +408,150 @@ class refugee_register extends Private_Controller {
 		echo json_encode(array($info));
         exit();
 	}
+
+	public function load_qualifications($refugee_id) {    	
+
+        $order_by = "title";
+        $sort_order = "asc";
+    	
+    	$data = $this->refugee_model->get_qualifications($refugee_id,$order_by, $sort_order);    	
+    	$output = '<div class="table-scrollable table-scrollable-borderless">
+					<table class="table table-hover table-light" id="grid_qualifications">
+					<thead>
+					<tr class="uppercase">
+						<th>'.$this->lang->line('title').'</th>
+						<th>'.$this->lang->line('institute').'</th>
+						<th>'.$this->lang->line('grade').'</th>
+						<th>'.$this->lang->line('pass_year').'</th>
+						<th>'.$this->lang->line('action').'</th>
+					</tr>
+					</thead>
+					<tbody>';
+    	if($data){
+    		foreach($data->result_array() AS $result_row){
+
+                $action_btn = '';
+                $action_btn .= '<a href="'.base_url('refugee_register/add_qualifications/'.$result_row["refugee_id"].'/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
+                $action_btn .= '<a href="javascript:;" onclick=table_delete("refugee_qualifications","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+
+                $output .= '<tr>';
+    			$output .= '<td>'.$result_row["title"].'</td>';
+    			$output .= '<td>'.$result_row["institute"].'</td>';
+    			$output .= '<td>'.$result_row["grade"].'</td>';
+    			$output .= '<td>'.$result_row["pass_year"].'</td>';
+                $output .= '<td>'.$action_btn.'</td>';
+                $output .= '</tr>';
+    		}
+    	}
+    	$output .= '</tbody></table></div>';
+    	echo ( $output );
+    }
+
+    public function add_qualifications($refugee_id,$id = null) {
+    	$content_data['id'] = $id;
+    	$content_data['refugee_id'] = $refugee_id;
+    	$rowdata = array();
+    	if($id){
+    		$rowdata = $this->refugee_model->get_qualifications_data($id);
+    	}
+    
+    	$content_data['rowdata'] = $rowdata;
+    	if($this->input->post()){
+    		$title = $this->input->post('title');
+    		$institute = $this->input->post('institute');
+    		$grade = $this->input->post('grade');
+    		$pass_year = $this->input->post('pass_year');
+
+    		$data = array();
+			$data['refugee_id'] = $refugee_id;
+			$data['title'] = $title;
+			$data['institute'] = $institute;
+			$data['grade'] = $grade;
+			$data['pass_year'] = $pass_year;
+			$table = 'refugee_qualifications';
+			$wher_column_name = 'id';
+    		
+    		if($id){
+    			grid_data_updates($data,$table,$wher_column_name,$id);    			
+    		}else{
+    			$lastinsertid = grid_add_data($data,$table);
+    		}
+    		exit;
+    	}
+    	$this->template->build('add_qualifications', $content_data);
+    }
+
+    public function load_family_members($refugee_id) {    	
+
+        $order_by = "name";
+        $sort_order = "asc";
+    	
+    	$data = $this->refugee_model->get_family_members($refugee_id,$order_by, $sort_order);    	
+    	$output = '<div class="table-scrollable table-scrollable-borderless">
+					<table class="table table-hover table-light" id="grid_family_members">
+					<thead>
+					<tr class="uppercase">
+						<th>'.$this->lang->line('name').'</th>
+						<th>'.$this->lang->line('relation').'</th>
+						<th>'.$this->lang->line('gender').'</th>
+						<th>'.$this->lang->line('age').'</th>
+						<th>'.$this->lang->line('action').'</th>
+					</tr>
+					</thead>
+					<tbody>';
+    	if($data){
+    		foreach($data->result_array() AS $result_row){
+
+                $action_btn = '';
+                $action_btn .= '<a href="'.base_url('refugee_register/add_family_members/'.$result_row["refugee_id"].'/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
+                $action_btn .= '<a href="javascript:;" onclick=table_delete("refugee_family_members","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+
+                $output .= '<tr>';
+    			$output .= '<td>'.$result_row["name"].'</td>';
+    			$output .= '<td>'.$result_row["relation"].'</td>';
+    			$output .= '<td>'.$result_row["gender"].'</td>';
+    			$output .= '<td>'.$result_row["age"].'</td>';
+                $output .= '<td>'.$action_btn.'</td>';
+                $output .= '</tr>';
+    		}
+    	}
+    	$output .= '</tbody></table></div>';
+    	echo ( $output );
+    }
+
+    public function add_family_members($refugee_id,$id = null) {
+    	$content_data['id'] = $id;
+    	$content_data['refugee_id'] = $refugee_id;
+    	$rowdata = array();
+    	if($id){
+    		$rowdata = $this->refugee_model->get_family_members_data($id);
+    	}
+    
+    	$content_data['rowdata'] = $rowdata;
+    	if($this->input->post()){
+    		$name = $this->input->post('name');
+    		$relation = $this->input->post('relation');
+    		$gender = $this->input->post('gender');
+    		$age = $this->input->post('age');
+
+    		$data = array();
+			$data['refugee_id'] = $refugee_id;
+			$data['name'] = $name;
+			$data['relation'] = $relation;
+			$data['gender'] = $gender;
+			$data['age'] = $age;
+			$table = 'refugee_family_members';
+			$wher_column_name = 'id';
+    		
+    		if($id){
+    			grid_data_updates($data,$table,$wher_column_name,$id);    			
+    		}else{
+    			$lastinsertid = grid_add_data($data,$table);
+    		}
+    		exit;
+    	}
+    	$this->template->build('add_family_members', $content_data);
+    }
 	
 }
 /* End of file documents.php */

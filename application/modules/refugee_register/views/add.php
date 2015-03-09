@@ -1,4 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<script type="text/javascript" src="<?php print base_url(); ?>js/grid/association_name.js"></script>
+<script type="text/javascript" src="<?php print base_url(); ?>js/grid/nationality.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+        	<div class="modal-header">
+              <h2>Loading....</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button><br />
+            </div>
+            <div class="modal-body"><div style="text-align:center;"><i class="fa fa-spinner fa fa-6x fa-spin" id="animate-icon"></i></div></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+		 </div>	
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->	
 
 <div class="row">
 	<div class="col-md-12">
@@ -48,17 +69,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('association_name'), 'association_name',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'association_name', 'id' => 'association_name', 'value' => ($rowdata)?$rowdata->association_name:$this->session->flashdata('association_name'), 'class' => 'form-control ')); ?>
+								<?php print form_dropdown('association_name',$associatoin_name_list,($rowdata)?$rowdata->association_name:$this->session->flashdata('association_name'),'id="association_name" class="select2 form-control"'); ?>
                                  </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('location_of_association'), 'location_of_association',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'location_of_association', 'id' => 'location_of_association', 'value' => ($rowdata)?$rowdata->location_of_association:$this->session->flashdata('location_of_association'), 'class' => 'form-control ')); ?>
+								<?php print form_dropdown('location_of_association',$associatoin_loc_list,($rowdata)?$rowdata->location_of_association:$this->session->flashdata('location_of_association'),'id="location_of_association" class="select2 form-control"'); ?>
                                  </div>
                             </div>
 						</div>
-                        <div class="row ">	
+                        <div class="row">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('full_name'), 'full_name',array('class'=>'control-label')); ?>
@@ -114,7 +135,7 @@
                                  </div>
                             </div>
 						</div>
-                        <div class="row ">	
+                        <div class="row">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('are_you_able_to_work'), 'are_you_able_to_work',array('class'=>'control-label')); ?>
@@ -128,67 +149,53 @@
                                  </div>
                             </div>
 						</div>
-                        <div class="row ">	
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <?php print form_label($this->lang->line('what_qualifications_do_you_have'), 'what_qualifications_do_you_have',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'what_qualifications_do_you_have', 'id' => 'what_qualifications_do_you_have', 'value' => ($rowdata)?$rowdata->what_qualifications_do_you_have:$this->session->flashdata('what_qualifications_do_you_have'), 'class' => 'form-control ')); ?>
-                                 </div>
-                            </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('are_you_sick'), 'are_you_sick',array('class'=>'control-label')); ?>
                                 <?php print form_dropdown('are_you_sick',$sicklist,($rowdata)?$rowdata->are_you_sick:$this->session->flashdata('are_you_sick'),'id="are_you_sick" class="select2 form-control"'); ?>
                                  </div>
                             </div>
-						</div>
-                        <div class="row ">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('need_of_medicationequipment'), 'need_of_medicationequipment',array('class'=>'control-label')); ?>
                                 <?php print form_dropdown('need_of_medicationequipment',$medicationequipment_list,($rowdata)?$rowdata->need_of_medicationequipment:$this->session->flashdata('need_of_medicationequipment'),'id="need_of_medicationequipment" class="select2 form-control"'); ?>
                                  </div>
                             </div>
+						</div>
+                        <div class="row ">		
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('if_yes_please_specify'), 'if_yes_please_specify',array('class'=>'control-label')); ?>
                                 <?php print form_input(array('name' => 'if_yes_please_specify', 'id' => 'if_yes_please_specify', 'value' => ($rowdata)?$rowdata->if_yes_please_specify:$this->session->flashdata('if_yes_please_specify'), 'class' => 'form-control ')); ?>
                                  </div>
                             </div>
-						</div>
-                        <div class="row ">	
-                            <div class="col-md-6">
+						    <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('where_do_you_live_location'), 'where_do_you_live_location',array('class'=>'control-label')); ?>
                                 <?php print form_input(array('name' => 'where_do_you_live_location', 'id' => 'where_do_you_live_location', 'value' => ($rowdata)?$rowdata->where_do_you_live_location:$this->session->flashdata('where_do_you_live_location'), 'class' => 'form-control ')); ?>
                                  </div>
                             </div>
+						</div>
+                        <div class="row">		
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('do_you_live_in_tent_house'), 'do_you_live_in_tent_house',array('class'=>'control-label')); ?>
                                 <?php print form_dropdown('do_you_live_in_tent_house',$livelist,($rowdata)?$rowdata->do_you_live_in_tent_house:$this->session->flashdata('do_you_live_in_tent_house'),'id="do_you_live_in_tent_house" class="select2 form-control"'); ?>
                                  </div>
                             </div>
-						</div>
-                        <div class="row ">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('what_is_it_that_you_need_most'), 'what_is_it_that_you_need_most',array('class'=>'control-label')); ?>
 								<textarea id="maxlength_textarea" name="what_is_it_that_you_need_most" class="form-control maxlength_textarea" maxlength="250" rows="2" placeholder="This textarea has a limit of 250 chars."><?= ($rowdata)?$rowdata->what_is_it_that_you_need_most:$this->session->flashdata('what_is_it_that_you_need_most')?></textarea>
                                  </div>
                             </div>
+						</div>
+                        <div class="row ">		
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('how_many_children_do_you_have'), 'how_many_children_do_you_have',array('class'=>'control-label')); ?>
 								<?php print form_dropdown('how_many_children_do_you_have',$children_list,($rowdata)?$rowdata->how_many_children_do_you_have:$this->session->flashdata('how_many_children_do_you_have'),'id="how_many_children_do_you_have" class="select2 form-control"'); ?>
-                                 </div>
-                            </div>
-						</div>
-                        <div class="row ">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <?php print form_label($this->lang->line('other_family_members_names_ages_genders'), 'other_family_members_names_ages_genders',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'other_family_members_names_ages_genders', 'id' => 'other_family_members_names_ages_genders', 'value' => ($rowdata)?$rowdata->other_family_members_names_ages_genders:$this->session->flashdata('other_family_members_names_ages_genders'), 'class' => 'form-control ')); ?>
                                  </div>
                             </div>
                             <div class="col-md-6">
@@ -198,7 +205,7 @@
                                  </div>
                             </div>
 						</div>
-                        <div class="row ">	
+                        <div class="row">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('special_case'), 'special_case',array('class'=>'control-label')); ?>
@@ -213,11 +220,57 @@
                                  </div>
                             </div>
 						</div>
-                        <div class="row ">	
+                        <div class="row">	
                             <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('total_number_of_people_in_house'), 'total_number_of_people_in_house',array('class'=>'control-label')); ?>
 								<?php print form_dropdown('total_number_of_people_in_house',$housepeople_list,($rowdata)?$rowdata->total_number_of_people_in_house:$this->session->flashdata('total_number_of_people_in_house'),'id="total_number_of_people_in_house" class="select2 form-control"'); ?>
+                                 </div>
+                            </div>
+                        </div>
+						<div class="row ">
+							<div class="col-md-6">
+                                <div class="form-group">
+                                <!-- BEGIN SAMPLE TABLE PORTLET-->
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="fa fa-cogs font-green-sharp"></i>
+											<span class="caption-subject font-green-sharp bold uppercase"><? echo $this->lang->line('what_qualifications_do_you_have');?></span>
+										</div>
+										<div class="tools">
+											<a href="javascript:;" class="collapse"></a>
+											<a href="<?php print site_url('refugee_register/add_qualifications/'.$id); ?>" data-target="#myModal" data-toggle="modal" class=""> <i class="fa fa-plus"></i></a>
+                                            <a href="#" data-load="true" data-url="<?php print site_url('refugee_register/load_qualifications/'.$id); ?>" class="reload"></a>
+											</a>
+										</div>
+									</div>
+									<div class="portlet-body">
+										
+									</div>
+								</div>
+								<!-- END SAMPLE TABLE PORTLET-->
+                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <!-- BEGIN SAMPLE TABLE PORTLET-->
+								<div class="portlet light">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="fa fa-cogs font-green-sharp"></i>
+											<span class="caption-subject font-green-sharp bold uppercase"><? echo $this->lang->line('other_family_members_names_ages_genders');?></span>
+										</div>
+										<div class="tools">
+											<a href="javascript:;" class="collapse"></a>
+                                            <a href="<?php print site_url('refugee_register/add_family_members/'.$id); ?>" data-target="#myModal" data-toggle="modal" class=""> <i class="fa fa-plus"></i></a>
+                                            <a href="#" data-load="true" data-url="<?php print site_url('refugee_register/load_family_members/'.$id); ?>" class="reload"></a>
+                                            </a>
+										</div>
+									</div>
+									<div class="portlet-body"></div>
+								</div>
+								<!-- END SAMPLE TABLE PORTLET-->
                                  </div>
                             </div>
                         </div>

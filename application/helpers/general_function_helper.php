@@ -907,5 +907,37 @@ function get_nationality_list() {
 	}
 	return $nationality_arr;
 }
+
+function get_associatoin_loc_list() {
+	$ci =& get_instance();
+	$ci->db->select('location_association.*');
+	$ci->db->from('location_association');
+	$ci->db->order_by("name", "asc");
+	
+	$query = $ci->db->get();
+	$data = $query->result_array();
+	$arr = array();
+	$arr[0] = '--Select--';
+	foreach ($data as $datas){
+		$arr[$datas['id']] = $datas['name'];
+	}
+	return $arr;
+}
+
+function get_associatoin_name_list() {
+	$ci =& get_instance();
+	$ci->db->select('association_name.*');
+	$ci->db->from('association_name');
+	$ci->db->order_by("name", "asc");
+	
+	$query = $ci->db->get();
+	$data = $query->result_array();
+	$arr = array();
+	$arr[0] = '--Select--';
+	foreach ($data as $datas){
+		$arr[$datas['id']] = $datas['name'];
+	}
+	return $arr;
+}
 /* End of file general_function_helper.php */
 /* Location: ./application/helpers/general_function_helper.php */ 

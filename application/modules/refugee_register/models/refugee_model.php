@@ -92,6 +92,62 @@ class refugee_model extends CI_Model {
 
         return false;
     }
+
+    public function get_qualifications($refugee_id,$order_by = "title", $sort_order = "asc", $count = false) {
+
+        $this->db->select('*');
+        $this->db->from('refugee_qualifications');
+        $this->db->where('refugee_id', $refugee_id);
+
+        $this->db->order_by($order_by, $sort_order);
+        
+        $query = $this->db->get();
+        
+        if($count == true)
+            return $query->num_rows();
+
+        if($query->num_rows() > 0) {
+            return $query;
+        }
+    }
+
+    public function get_qualifications_data($id){
+        $this->db->select('*')->from('refugee_qualifications')->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() == 1) {
+            $row = $query->row();
+            return $row;
+        }
+        return false;
+    }
+
+    public function get_family_members($refugee_id,$order_by = "name", $sort_order = "asc", $count = false) {
+
+        $this->db->select('*');
+        $this->db->from('refugee_family_members');
+        $this->db->where('refugee_id', $refugee_id);
+
+        $this->db->order_by($order_by, $sort_order);
+        
+        $query = $this->db->get();
+        
+        if($count == true)
+            return $query->num_rows();
+
+        if($query->num_rows() > 0) {
+            return $query;
+        }
+    }
+
+    public function get_family_members_data($id){
+        $this->db->select('*')->from('refugee_family_members')->where('id', $id);
+        $query = $this->db->get();
+        if($query->num_rows() == 1) {
+            $row = $query->row();
+            return $row;
+        }
+        return false;
+    }
 }
 
 /* End of file list_user_model.php */

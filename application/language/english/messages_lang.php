@@ -324,3 +324,8 @@ $lang['add_donations'] = 'Add Donations';
 $lang['save_success'] = 'Data save sucessfully.';
 $lang['active'] = 'Active';
 $lang['inactive'] = 'Inactive';
+
+$lang['title'] = 'Title';
+$lang['institute'] = 'Institute';
+$lang['grade'] = 'Grade';
+$lang['relation'] = 'Relation';

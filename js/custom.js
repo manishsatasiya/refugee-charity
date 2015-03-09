@@ -215,6 +215,24 @@ function dt_delete(table,where_col,where_col_id){
 	}
 	return false;
 }
+function table_delete(table,where_col,where_col_id){
+	if(confirm('Are you sure you want to delete this record?')) {
+		$.ajax({
+			type: "POST",
+			url: CI.base_url+"general/delete",
+			data: { table: table, where_col: where_col,where_col_id:where_col_id},
+			success: function(data) {
+				//parent.reload_datatable();
+				if(data == 1) {
+					showSuccessMsg('Record sucessfully deleted.');
+				}else {
+					showErrorMsg('Ops! Something went wrong');
+				}
+			}
+		});
+	}
+	return false;
+}
 function _delete(table,where_col,where_col_id){
 	if(confirm('Are you sure you want to delete this record?')) {
 		$.ajax({

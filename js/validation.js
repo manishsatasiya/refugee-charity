@@ -170,6 +170,100 @@ $(document).ready(function() {
         }
 	});
 
+	$("#add_refugee_qualifications").validate({
+		submitHandler: function(form) {
+			jQuery(form).ajaxSubmit({
+				success: function(data){
+					if(data == ''){
+						$('#myModal').delay(1000).modal('hide');
+						//parent.reload_datatable();
+					}else{
+						$(".containerfdfdf").show();
+						$(".containerfdfdf").html(data);
+						$('.containerfdfdf').find('p').css('color', 'red');
+						$('.containerfdfdf').find('p').css('background-image', 'url("images/delete.png")');
+						$('.containerfdfdf').find('p').css('background-repeat', 'no-repeat');
+						$('.containerfdfdf').find('p').css('padding-left', '20px');						
+					}
+				}
+			});
+			
+		},
+		rules: {
+			title: {
+				required: true
+			},
+			institute: {
+				required: true
+			},
+			grade: {
+				required: true
+			},
+			pass_year: {
+				required: true
+			}
+		},
+		errorElement: 'span', //default input error message container
+	    errorClass: 'help-block help-block-error', // default input error message class
+	    focusInvalid: false, // do not focus the last invalid input
+	    highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+	});
+
+	$("#add_refugee_family_members").validate({
+		submitHandler: function(form) {
+			jQuery(form).ajaxSubmit({
+				success: function(data){
+					if(data == ''){
+						$('#myModal').delay(1000).modal('hide');
+						//parent.reload_datatable();
+					}else{
+						$(".containerfdfdf").show();
+						$(".containerfdfdf").html(data);
+						$('.containerfdfdf').find('p').css('color', 'red');
+						$('.containerfdfdf').find('p').css('background-image', 'url("images/delete.png")');
+						$('.containerfdfdf').find('p').css('background-repeat', 'no-repeat');
+						$('.containerfdfdf').find('p').css('padding-left', '20px');						
+					}
+				}
+			});
+			
+		},
+		rules: {
+			name: {
+				required: true
+			},
+			relation: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			age: {
+				required: true
+			}
+		},
+		errorElement: 'span', //default input error message container
+	    errorClass: 'help-block help-block-error', // default input error message class
+	    focusInvalid: false, // do not focus the last invalid input
+	    highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+	});
+
 	$("#add_association_name").validate({
 		submitHandler: function(form) {
 			jQuery(form).ajaxSubmit({
