@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2015 at 02:32 PM
+-- Generation Time: Mar 09, 2015 at 05:04 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -58,6 +58,25 @@ INSERT INTO `actions` (`actions_id`, `menu_id`, `name`, `value`) VALUES
 (243, 106, 'View', 3),
 (242, 106, 'Edit', 2),
 (241, 106, 'Add', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `association_name`
+--
+
+CREATE TABLE IF NOT EXISTS `association_name` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `association_name`
+--
+
+INSERT INTO `association_name` (`id`, `name`) VALUES
+(1, 'tesrt2');
 
 -- --------------------------------------------------------
 
@@ -365,7 +384,14 @@ CREATE TABLE IF NOT EXISTS `location_association` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `location_association`
+--
+
+INSERT INTO `location_association` (`id`, `name`) VALUES
+(1, 'test1');
 
 -- --------------------------------------------------------
 
@@ -724,7 +750,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-04 19:35:00', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-09 10:13:17', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 
