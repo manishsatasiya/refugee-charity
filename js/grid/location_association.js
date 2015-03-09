@@ -9,6 +9,13 @@ var TableAjax = function () {
                 "ajax": {
                     "url": "refugee_settings/index_json", // ajax source
                 },
+				"oColVis": {
+					"aiExclude": 2
+				},
+				"columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
+					'orderable': false,
+					'targets': 2
+				}]
                 /*"order": [
                     [1, "asc"]
                 ]*/// set first column as a default sort by asc
