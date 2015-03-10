@@ -164,6 +164,33 @@ if (!function_exists('get_other_user_list')) {
 			return (isset($_arr[$id])) ? $_arr[$id] : '';
 		}
 		return $_arr;
+	}
+
+	function relation_dropdown($id = null)
+	{
+		$_arr = array(''=>'Choose',
+					  '1'=>'Father',
+					  '2'=>'Mother',
+					  '3'=>'Son',
+					  '4'=>'Daughter',
+					  '5'=>'Wife',
+					  '6'=>'Husbund',
+					  '7'=>'Brother',
+					  '8'=>'Sister',
+					  '9'=>'Grand father',
+					  '10'=>'Grand mother',
+					  '11'=>'Grand son',
+					  '12'=>'Grand daughter',
+					  '13'=>'Uncle',
+					  '14'=>'Aunt',
+					  '15'=>'Nephew',
+					  '16'=>'Niece',
+					  '17'=>'Cousin'
+					 );
+		if($id){
+			return (isset($_arr[$id])) ? $_arr[$id] : '';
+		}
+		return $_arr;
 	} 
 	 	
 	/**

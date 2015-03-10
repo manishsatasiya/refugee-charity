@@ -176,6 +176,7 @@ $(document).ready(function() {
 				success: function(data){
 					if(data == ''){
 						$('#myModal').delay(1000).modal('hide');
+						$('.portlet .portlet-title a.reload[data-load="true"]').click();
 						//parent.reload_datatable();
 					}else{
 						$(".containerfdfdf").show();
@@ -223,6 +224,7 @@ $(document).ready(function() {
 				success: function(data){
 					if(data == ''){
 						$('#myModal').delay(1000).modal('hide');
+						$('.portlet .portlet-title a.reload[data-load="true"]').click();
 						//parent.reload_datatable();
 					}else{
 						$(".containerfdfdf").show();
@@ -598,7 +600,7 @@ $(document).ready(function() {
 		});
 		
 		$("#date_year").datepicker( {
-			format: " yyyy",
+			format: "yyyy",
 			viewMode: "years", 
 			minViewMode: "years"
 		});

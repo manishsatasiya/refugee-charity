@@ -242,6 +242,7 @@ $lang['user_p_edit_user'] = 'Edit User';
 
 
 $lang['submit'] = 'Submit';
+$lang['save'] = 'Save';
 $lang['add_new'] = 'Add new';
 $lang['add'] = 'Add';
 $lang['Edit'] = 'Edit';

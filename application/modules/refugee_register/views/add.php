@@ -298,8 +298,6 @@
 								<?php print form_input(array('name' => 'telephone_no', 'id' => 'telephone_no', 'value' => ($rowdata)?$rowdata->telephone_no:$this->session->flashdata('telephone_no'), 'class' => 'form-control ')); ?>
 								 </div>
 							</div>
-						</div>
-						<div class="row ">
 							<div class="col-md-6">
 								<div class="form-group">
 								<?php print form_label($this->lang->line('email'), 'email',array('class'=>'control-label')); ?>
@@ -314,8 +312,6 @@
 								<?php print form_input(array('name' => 'skype', 'id' => 'skype', 'value' => ($rowdata)?$rowdata->skype:$this->session->flashdata('skype'), 'class' => 'form-control ')); ?>
 								 </div>
 							</div>
-						</div>
-						<div class="row ">
 							<div class="col-md-6">
 								<div class="form-group">
 								<?php print form_label($this->lang->line('whatsapp'), 'whatsapp',array('class'=>'control-label')); ?>
@@ -338,7 +334,8 @@
 					</div>
 					<?php print form_close(); ?>
 				</div>
-                <div class="tab-pane" id="tab_1_3">
+
+                <div class="tab-pane " id="tab_1_3">
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet"/>
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
                     <link href="<?php print base_url(); ?>assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
@@ -445,6 +442,20 @@
                                 {% if (file.error) { %}
                                     <div><span class="label label-danger">Error</span> {%=file.error%}</div>
                                 {% } %}
+                            </td>
+                            <td>
+                                <div id="file_title_main">
+                                    <span class="title"><a id="file_title" class="">{%=file.title%}</a></span>
+                                    <span class="title_form" style="display:none;">
+                                        <div class="row">
+                                        <div class="col-md-5"><input name="title" id="title" value="{%=file.title%}" data-id="{%=file.id%}" class = "form-control" /></div>
+                                        <div class="col-md-4">
+                                            <a href="javascript:;" id="save" class="btn btn-icon-only green"><i class="fa fa-check"></i> </a>
+                                            <a href="javascript:;" id="cancel" class="btn btn-icon-only red"><i class="fa fa-times"></i> </a>
+                                        </div>
+                                        </div>
+                                    </span>                                    
+                                </div>
                             </td>
                             <td>
                                 <span class="size">{%=o.formatFileSize(file.size)%}</span>

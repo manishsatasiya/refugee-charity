@@ -59,7 +59,40 @@ $(document).ready(function(){
 	  else if(e.which==38)
 	   $(this).closest('tr').prev().find('td:eq('+$(this).closest('td').index()+')').find('input').focus();
 	});
+
+	$('#file_title_main .title #file_title').live('click',function(e){
+		$(this).closest('.title').siblings('.title_form').show();
+		$(this).closest('.title').hide();
+	});
+
+	$('#file_title_main .title_form #save').live('click',function(e){
+		$(this).closest('.title_form').find('#title').parent('div').removeClass('has-error');
+
+		var file_title = $(this).closest('.title_form').find('#title').val();
+		var file_id = $(this).closest('.title_form').find('#title').data('id');
+		if (file_title == '') {
+			$(this).closest('.title_form').find('#title').parent('div').addClass('has-error');
+			return false;
+		};
+		$.ajax({
+			type: "POST",
+			url: CI.base_url+"general/field_update",
+			data: { t: 'refugee_documents', wc: 'id',wci:file_id, fc: 'title', fcv: file_title},
+			success: function(data) {
+			}
+		});
+
+		$(this).closest('.title_form').siblings('.title').find('a').text(file_title);
+		$(this).closest('.title_form').siblings('.title').show();
+		$(this).closest('.title_form').hide();
+	});
 	
+	$('#file_title_main .title_form #cancel').live('click',function(e){
+		$(this).closest('.title_form').find('#title').parent('div').removeClass('has-error');
+		$(this).closest('.title_form').siblings('.title').show();
+		$(this).closest('.title_form').hide();
+	});
+
 });
 // Profile page start
 if(CI.controller_name == 'profile' || CI.controller_name == 'list_user')
@@ -222,7 +255,7 @@ function table_delete(table,where_col,where_col_id){
 			url: CI.base_url+"general/delete",
 			data: { table: table, where_col: where_col,where_col_id:where_col_id},
 			success: function(data) {
-				//parent.reload_datatable();
+				$('.portlet .portlet-title a.reload[data-load="true"]').click();
 				if(data == 1) {
 					showSuccessMsg('Record sucessfully deleted.');
 				}else {

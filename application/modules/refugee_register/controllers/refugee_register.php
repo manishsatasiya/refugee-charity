@@ -268,7 +268,7 @@ class refugee_register extends Private_Controller {
 
             $config['overwrite'] = false;
             $config['remove_spaces'] = true;
-            $config['encrypt_name'] = TRUE;
+            $config['encrypt_name'] = false;
             $config['max_size'] = '250999';// in KB
             
             //load upload library
@@ -282,7 +282,9 @@ class refugee_register extends Private_Controller {
                 {
                     $file_names = array();
                     foreach($files['name'] as $file_name) {
-                        $file_names[] = $field.'_'.$file_name;
+                        $file_ext = end(explode('.', $file_name));
+      					$file_ext = strtolower($file_ext);
+                        $file_names[] = $user_id.'_'.$type."_".md5(rand() * time()).'.'.$file_ext;
                     }
                     $config['file_name'] = $file_names;
                     $this->upload->initialize($config);
@@ -324,6 +326,7 @@ class refugee_register extends Private_Controller {
                             $file_url = base_url().$file;
                             $data_document['type'] = $type;
                             $data_document['user_id'] = $user_id;
+                            $data_document['title'] = $file;                            
                             $data_document['file'] = $file;                            
                             $id = grid_add_data($data_document,$table);
 
@@ -332,6 +335,7 @@ class refugee_register extends Private_Controller {
 				            $info->name = $file_data['file_name'];
 				            $info->size = $file_data['file_size'] * 1024;
 				            $info->type = $file_data['file_type'];
+				            $info->title = $file_data['file_name'];
 				            $info->url = $file_url;
 				            // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
 				            if ($type == 'photo')
@@ -358,11 +362,12 @@ class refugee_register extends Private_Controller {
 	    			
 	    			$file = $result_row['file'];
 	    			$id = $result_row['id'];
+	    			$title = $result_row['title'];
 
 	    			$file_url = base_url().$file;
 	    			//set the data for the json array
 		            $info = new StdClass;
-		            $info->name = basename($file);
+		            $info->name = basename($file);		            
 		            $info->size = filesize($file);
 		            //$info->type = $file_data['file_type'];
 		            $info->url = $file_url;
@@ -374,6 +379,8 @@ class refugee_register extends Private_Controller {
 				        $info->videoPreview = $file_url;
 		            
 		            $info->fileType = $type;
+		            $info->title = $title;
+		            $info->id = $id;
 		            $info->deleteUrl = base_url() . 'refugee_register/delete_doc/' . $id;
 		            $info->deleteType = 'POST';
 		            $info->error = null;
@@ -422,7 +429,7 @@ class refugee_register extends Private_Controller {
 						<th>'.$this->lang->line('title').'</th>
 						<th>'.$this->lang->line('institute').'</th>
 						<th>'.$this->lang->line('grade').'</th>
-						<th>'.$this->lang->line('pass_year').'</th>
+						<th>'.$this->lang->line('year').'</th>
 						<th>'.$this->lang->line('action').'</th>
 					</tr>
 					</thead>
@@ -508,7 +515,7 @@ class refugee_register extends Private_Controller {
 
                 $output .= '<tr>';
     			$output .= '<td>'.$result_row["name"].'</td>';
-    			$output .= '<td>'.$result_row["relation"].'</td>';
+    			$output .= '<td>'.relation_dropdown($result_row["relation"]).'</td>';
     			$output .= '<td>'.$result_row["gender"].'</td>';
     			$output .= '<td>'.$result_row["age"].'</td>';
                 $output .= '<td>'.$action_btn.'</td>';
@@ -528,6 +535,13 @@ class refugee_register extends Private_Controller {
     	}
     
     	$content_data['rowdata'] = $rowdata;
+
+    	$age_list = age_dropdown();
+    	$gender_list = gender_dropdown();
+    	$relation_list = relation_dropdown();
+    	$content_data['age_list'] = $age_list;
+    	$content_data['gender_list'] = $gender_list;
+    	$content_data['relation_list'] = $relation_list;
     	if($this->input->post()){
     		$name = $this->input->post('name');
     		$relation = $this->input->post('relation');

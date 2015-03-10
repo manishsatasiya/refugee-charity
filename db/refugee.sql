@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2015 at 02:23 PM
+-- Generation Time: Mar 10, 2015 at 02:05 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -572,16 +572,20 @@ CREATE TABLE IF NOT EXISTS `refugee_documents` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` bigint(20) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `file` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `refugee_documents`
 --
 
-INSERT INTO `refugee_documents` (`id`, `type`, `user_id`, `file`) VALUES
-(24, 'photo', 1, 'uploads/1/7ce063631ec83ff7a2e20ee0669ee629.jpg');
+INSERT INTO `refugee_documents` (`id`, `type`, `user_id`, `title`, `file`) VALUES
+(24, 'photo', 1, '', 'uploads/1/7ce063631ec83ff7a2e20ee0669ee629.jpg'),
+(25, 'document', 1, '', 'uploads/1/fdad18c3001dc0add144f41fc97f2951.pdf'),
+(26, 'document', 1, '', 'uploads/1/1_document_8b8912450e0ccfab7fbb39511e11c059.pdf'),
+(27, 'photo', 1, '', 'uploads/1/1_photo_d7ce28111d2206d1389fde070ae5aeba.png');
 
 -- --------------------------------------------------------
 
@@ -795,7 +799,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-09 19:51:38', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-10 10:46:21', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

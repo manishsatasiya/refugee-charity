@@ -19,18 +19,18 @@ print form_open('refugee_register/add_family_members/'.$refugee_id.'/'.$id, arra
 
 		<div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('relation'), 'relation'); ?></div>
-			<div class="input_box_thin"><?php print form_input(array('name' => 'relation', 'id' => 'relation', 'value' => ($rowdata)?$rowdata->relation:$this->session->flashdata('relation'), 'class' => 'form-control')); ?></div>
+			<div class="input_box_thin"><?php print form_dropdown('relation',$relation_list,($rowdata)?$rowdata->relation:$this->session->flashdata('relation'),'id="relation" class="select2 form-control"'); ?></div>
 		</div>
 	</div>
 	<div class="row form-row">
 		<div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('gender'), 'gender'); ?></div>
-			<div class="input_box_thin"><?php print form_input(array('name' => 'gender', 'id' => 'gender', 'value' => ($rowdata)?$rowdata->gender:$this->session->flashdata('gender'), 'class' => 'form-control')); ?></div>
+			<div class="input_box_thin"><?php print form_dropdown('gender',$gender_list,($rowdata)?$rowdata->gender:$this->session->flashdata('gender'),'id="gender" class="select2 form-control"'); ?></div>
 		</div>
 
 		<div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('age'), 'age'); ?></div>
-			<div class="input_box_thin"><?php print form_input(array('name' => 'age', 'id' => 'age', 'value' => ($rowdata)?$rowdata->age:$this->session->flashdata('age'), 'class' => 'form-control')); ?></div>
+			<div class="input_box_thin"><?php print form_dropdown('age',$age_list,($rowdata)?$rowdata->age:$this->session->flashdata('age'),'id="age" class="select2 form-control"'); ?></div>
 		</div>
 		<div class="clear"></div>
 	</div>
