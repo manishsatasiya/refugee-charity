@@ -488,6 +488,9 @@ $(document).ready(function() {
 			are_you_able_to_work:{
 				required:true
 			},
+			sick_reason:{
+				required:true
+			},
 			need_of_medicationequipment:{
 				required:true
 			},
@@ -565,6 +568,47 @@ $(document).ready(function() {
 		rules: {
 			user_roll_id: {
 				comboboxNotNone: true
+			}
+		},
+		errorElement: 'span', //default input error message container
+	    errorClass: 'help-block help-block-error', // default input error message class
+	    focusInvalid: false, // do not focus the last invalid input
+	    highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+        },
+        unhighlight: function (element) { // revert the change done by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+        },
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
+        }
+	});
+
+	$("#add_nationality").validate({
+		submitHandler: function(form) {
+			jQuery(form).ajaxSubmit({
+				success: function(data){
+					if(data == ''){
+						$('#myModal').delay(1000).modal('hide');
+						parent.reload_datatable3();
+					}else{
+						$(".containerfdfdf").show();
+						$(".containerfdfdf").html(data);
+						$('.containerfdfdf').find('p').css('color', 'red');
+						$('.containerfdfdf').find('p').css('background-image', 'url("images/delete.png")');
+						$('.containerfdfdf').find('p').css('background-repeat', 'no-repeat');
+						$('.containerfdfdf').find('p').css('padding-left', '20px');						
+					}
+				}
+			});
+			
+		},
+		rules: {
+			country: {
+				required: true
+			},
+			nationality: {
+				required: true
 			}
 		},
 		errorElement: 'span', //default input error message container

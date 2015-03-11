@@ -804,7 +804,7 @@ function get_countries() {
 	$query = $ci->db->get();
 	$countries_data = $query->result_array();
 	$countries_arr = array();
-	$countries_arr[0] = '--Select--';
+	$countries_arr[''] = '--Select--';
 	foreach ($countries_data as $countries_datas){
 		$countries_arr[$countries_datas['id']] = $countries_datas['country'];
 	}
@@ -944,7 +944,7 @@ function get_associatoin_loc_list() {
 	$query = $ci->db->get();
 	$data = $query->result_array();
 	$arr = array();
-	$arr[0] = '--Select--';
+	$arr[''] = '--Select--';
 	foreach ($data as $datas){
 		$arr[$datas['id']] = $datas['name'];
 	}
@@ -960,7 +960,7 @@ function get_associatoin_name_list() {
 	$query = $ci->db->get();
 	$data = $query->result_array();
 	$arr = array();
-	$arr[0] = '--Select--';
+	$arr[''] = '--Select--';
 	foreach ($data as $datas){
 		$arr[$datas['id']] = $datas['name'];
 	}

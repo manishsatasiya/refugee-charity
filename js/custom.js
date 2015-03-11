@@ -39,6 +39,9 @@ function reload_datatable(){
 function reload_datatable2(){
 	TableAjax2.reload_dt();
 }
+function reload_datatable3(){
+	TableAjax3.reload_dt();
+}
 function deleterecord(url,id)
 {
 	var conf = confirm("Are you sure you want to delete this record?");
@@ -91,6 +94,15 @@ $(document).ready(function(){
 		$(this).closest('.title_form').find('#title').parent('div').removeClass('has-error');
 		$(this).closest('.title_form').siblings('.title').show();
 		$(this).closest('.title_form').hide();
+	});
+
+	$('#refugee_sick_main #are_you_sick').live('change',function(e){
+		var are_you_sick = $(this).val();
+		if (are_you_sick == 1) {
+			$(this).closest('#refugee_sick_main').find('#sick_reason_div').show();
+		}else{
+			$(this).closest('#refugee_sick_main').find('#sick_reason_div').hide();
+		}
 	});
 
 });

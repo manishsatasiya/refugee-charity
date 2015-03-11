@@ -76,6 +76,54 @@ class List_User_model extends CI_Model {
     		return $query;
     	}
     }
+
+    public function get_other_user($limit = 0, $offset = 0, $order_by = "username", $sort_order = "asc", $search_data) {
+    	if (!empty($search_data)) {
+    		!empty($search_data['user_id']) ? $data['user_id'] = $search_data['user_id'] : "";
+    		!empty($search_data['first_name']) ? $data['first_name'] = $search_data['first_name'] : "";
+    		!empty($search_data['elsd_id']) ? $data['elsd_id'] = $search_data['elsd_id'] : "";
+    		!empty($search_data['scanner_id']) ? $data['scanner_id'] = $search_data['scanner_id'] : "";
+    		!empty($search_data['gender']) ? $data['gender'] = $search_data['gender'] : "";
+    		!empty($search_data['email']) ? $data['email'] = $search_data['email'] : "";
+    		!empty($search_data['mobile']) ? $data['mobile'] = $search_data['mobile'] : "";
+    		!empty($search_data['user_roll_name']) ? $data['user_roll_name'] = $search_data['user_roll_name'] : "";
+			!empty($search_data['co_ordinator']) ? $data['co_ordinator'] = $search_data['co_ordinator'] : "";
+    		!empty($search_data['campus']) ? $data['campus'] = $search_data['campus'] : "";
+    		!empty($search_data['contractor']) ? $data['contractor'] = $search_data['contractor'] : "";
+			!empty($search_data['returning']) ? $data['returning'] = $search_data['returning'] : "";
+    	}
+    	$this->db->select('users.*,user_profile.scanner_id,user_profile.scanner_id,user_profile.co_ordinator,user_profile.contractor,user_profile.returning, user_roll.user_roll_name as role_name');
+    	$this->db->from('users');
+		$this->db->join('user_profile', 'user_profile.user_id = users.user_id','left');
+		$this->db->join('user_verifications', 'user_verifications.user_id = users.user_id','left');
+		$this->db->join('school_campus', 'school_campus.campus_id = users.campus_id','left');
+		$this->db->join('user_roll', 'user_roll.user_roll_id = users.user_roll_id','left');
+		$this->db->join('contractors', 'contractors.id = user_profile.contractor','left');
+		$this->db->join('countries', 'countries.id = user_profile.nationality','left');
+		$this->db->where_not_in('users.user_roll_id',array('1','3'));
+    	$this->db->where_not_in('users.status',array('1'));
+    	
+    	!empty($data) ? $this->db->like($data) : "";
+    	$this->db->order_by($order_by, $sort_order);
+    	$this->db->limit($limit, $offset);
+    
+    	$query = $this->db->get();
+
+    	if($query->num_rows() > 0) {
+    		return $query;
+    	}
+    }
+
+    public function count_all_other_mem($search_data)
+    {
+    	$this->db->from('users');
+    	$this->db->join('user_roll', 'user_roll.user_roll_id = users.user_roll_id','left');
+		$this->db->join('user_profile', 'user_profile.user_id = users.user_id','left');
+    	$this->db->where_not_in('users.user_roll_id',array('1','2','3'));
+    	$this->db->where_not_in('users.status',array('1'));
+    	!empty($search_data) ? $this->db->like($search_data) : "";
+    	return $this->db->count_all_results();
+    }
 	
 	public function check_user_profile_exist($user_id) {
 		$this->db->select('*');

@@ -9,7 +9,7 @@ class Add_user_privilege extends Private_Controller {
         $this->load->library('form_validation');
         $this->load->helper('general_function');
         $this->load->model('privilege_model');
-        $this->load->model('list_student/list_teacher_student_model');
+        $this->load->model('list_user/list_user_model');
     }
 
         /**
@@ -65,8 +65,8 @@ class Add_user_privilege extends Private_Controller {
 		}
 		$base_url = site_url('add_user_privilege/index/'. $order_by .'/'. $sort_order .'/all');
 		
-		$get_users = $this->list_teacher_student_model->get_other_user($per_page, $offset,$order_by, $sort_order, $search_data);
-		$count_users = $this->list_teacher_student_model->count_all_other_mem($search_data);
+		$get_users = $this->list_user_model->get_other_user($per_page, $offset,$order_by, $sort_order, $search_data);
+		$count_users = $this->list_user_model->count_all_other_mem($search_data);
 		$users = array();
 		foreach($get_users->result_array() AS $data)
 		{

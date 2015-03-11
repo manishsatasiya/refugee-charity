@@ -13,8 +13,12 @@ print form_open('refugee_settings/add_nationality/'.$id, array('id' => 'add_nati
 	<div class="containerfdfdf"></div>
 	<div class="row form-row">
 		<div class="col-md-6 form-group">
+			<div class="form_label2"><?php print form_label($this->lang->line('country'), 'country'); ?></div>
+			<div class="input_box_thin"><?php print form_input(array('name' => 'country', 'id' => 'country', 'value' => ($rowdata)?$rowdata->country:$this->session->flashdata('country'), 'class' => 'form-control ')); ?></div>
+		</div>
+		<div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('nationality'), 'nationality'); ?></div>
-			<div class="input_box_thin"><?php print form_input(array('name' => 'nationality', 'id' => 'nationality', 'value' => ($rowdata)?$rowdata->nationality:$this->session->flashdata('nationality'), 'class' => 'form-control qtip_name')); ?></div>
+			<div class="input_box_thin"><?php print form_input(array('name' => 'nationality', 'id' => 'nationality', 'value' => ($rowdata)?$rowdata->nationality:$this->session->flashdata('nationality'), 'class' => 'form-control ')); ?></div>
 		</div>
 		<div class="clear"></div>
 	</div>

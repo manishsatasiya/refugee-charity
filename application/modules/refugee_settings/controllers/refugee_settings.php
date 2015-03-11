@@ -360,7 +360,7 @@ class refugee_settings extends Private_Controller {
         */
         $aColumns = array( 'id','nationality' );
         $grid_data = get_search_data($aColumns);
-        $sort_order = $grid_data['sort_order'];
+		$sort_order = $grid_data['sort_order'];
         $order_by = $grid_data['order_by'];
 
         if($order_by == '')
@@ -397,6 +397,7 @@ class refugee_settings extends Private_Controller {
                 $action_btn .= '<a href="javascript:;" onclick=dt_delete("nationality","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
 
                 $row[] = $result_row["id"];
+                $row[] = $result_row["country"];
                 $row[] = $result_row["nationality"];
                 $row[] = $action_btn;
                 $output['data'][] = $row;
@@ -415,9 +416,11 @@ class refugee_settings extends Private_Controller {
     
         $content_data['rowdata'] = $rowdata;
         if($this->input->post()){
+            $country = $this->input->post('country');
             $nationality = $this->input->post('nationality');
 
             $data = array();
+            $data['country'] = $country;
             $data['nationality'] = $nationality;
             $table = 'countries';
             $wher_column_name = 'id';

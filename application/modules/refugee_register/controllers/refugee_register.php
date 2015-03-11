@@ -97,6 +97,7 @@ class refugee_register extends Private_Controller {
 		$housepeople_list = housepeople_dropdown();
 		$maritalstatus_list = maritalstatus_dropdown();
 		$nationality_list = get_nationality_list();
+		$countries_list = get_countries();
 		$associatoin_loc_list = get_associatoin_loc_list();
 		$associatoin_name_list = get_associatoin_name_list();
 
@@ -116,6 +117,7 @@ class refugee_register extends Private_Controller {
 			$are_you_able_to_work = $this->input->post('are_you_able_to_work');
 			$what_skills_do_you_have_for_working = $this->input->post('what_skills_do_you_have_for_working');
 			$are_you_sick = $this->input->post('are_you_sick');
+			$sick_reason = $this->input->post('sick_reason');
 			$need_of_medicationequipment = $this->input->post('need_of_medicationequipment');
 			$if_yes_please_specify = $this->input->post('if_yes_please_specify');
 			$where_do_you_live_location = $this->input->post('where_do_you_live_location');
@@ -142,6 +144,7 @@ class refugee_register extends Private_Controller {
 			$data_document['are_you_able_to_work'] = $are_you_able_to_work;
 			$data_document['what_skills_do_you_have_for_working'] = $what_skills_do_you_have_for_working;
 			$data_document['are_you_sick'] = $are_you_sick;
+			$data_document['sick_reason'] = $sick_reason;
 			$data_document['need_of_medicationequipment'] = $need_of_medicationequipment;
 			$data_document['if_yes_please_specify'] = $if_yes_please_specify;
 			$data_document['where_do_you_live_location'] = $where_do_you_live_location;
@@ -178,6 +181,7 @@ class refugee_register extends Private_Controller {
 		$content_data['housepeople_list'] = $housepeople_list;
 		$content_data['maritalstatus_list'] = $maritalstatus_list;
 		$content_data['nationality_list'] = $nationality_list;
+		$content_data['countries_list'] = $countries_list;
 		$content_data['associatoin_loc_list'] = $associatoin_loc_list;
 		$content_data['associatoin_name_list'] = $associatoin_name_list;
 		$content_data['sicklist'] = $sicklist;
@@ -326,7 +330,6 @@ class refugee_register extends Private_Controller {
                             $file_url = base_url().$file;
                             $data_document['type'] = $type;
                             $data_document['user_id'] = $user_id;
-                            $data_document['title'] = $file;                            
                             $data_document['file'] = $file;                            
                             $id = grid_add_data($data_document,$table);
 
@@ -335,7 +338,6 @@ class refugee_register extends Private_Controller {
 				            $info->name = $file_data['file_name'];
 				            $info->size = $file_data['file_size'] * 1024;
 				            $info->type = $file_data['file_type'];
-				            $info->title = $file_data['file_name'];
 				            $info->url = $file_url;
 				            // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
 				            if ($type == 'photo')

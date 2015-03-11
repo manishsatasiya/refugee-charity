@@ -93,7 +93,7 @@
 					<span class="caption-subject bold uppercase"> <?php echo $this->lang->line('nationality'); ?></span>
 				</div>
 				<div class="actions">
-					<a href="refugee_settings/add" data-target="#myModal" data-toggle="modal" class="btn btn-circle red-sunglo btn-sm"> <i class="fa fa-plus"></i> <?php echo $this->lang->line('add_new'); ?> </a>
+					<a href="refugee_settings/add_nationality" data-target="#myModal" data-toggle="modal" class="btn btn-circle red-sunglo btn-sm"> <i class="fa fa-plus"></i> <?php echo $this->lang->line('add_new'); ?> </a>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -102,6 +102,7 @@
 						<thead>
 							<tr role="row" class="heading">
 								<th><?php echo $this->lang->line('db_id'); ?></th>
+								<th><?php echo $this->lang->line('country'); ?></th>
 								<th><?php echo $this->lang->line('name'); ?></th>
 								<th><?php echo $this->lang->line('action'); ?></th>
 							</tr>

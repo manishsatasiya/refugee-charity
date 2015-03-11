@@ -151,10 +151,27 @@
 						</div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                <?php print form_label($this->lang->line('are_you_sick'), 'are_you_sick',array('class'=>'control-label')); ?>
-                                <?php print form_dropdown('are_you_sick',$sicklist,($rowdata)?$rowdata->are_you_sick:$this->session->flashdata('are_you_sick'),'id="are_you_sick" class="select2 form-control"'); ?>
-                                 </div>
+                                <div class="row" id="refugee_sick_main">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                        <?php print form_label($this->lang->line('are_you_sick'), 'are_you_sick',array('class'=>'control-label')); ?>
+                                        <?php print form_dropdown('are_you_sick',$sicklist,($rowdata)?$rowdata->are_you_sick:$this->session->flashdata('are_you_sick'),'id="are_you_sick" class="select2 form-control"'); ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <?php
+                                        $are_you_sick = ($rowdata)?$rowdata->are_you_sick:0;
+                                        $sick_reason_div_style = 'display:none;';
+                                        if ($are_you_sick == 1) {
+                                            $sick_reason_div_style = 'display:block;';
+                                        }
+                                        ?>
+                                        <div class="form-group" id="sick_reason_div" style="<?=$sick_reason_div_style?>">
+                                        <?php print form_label($this->lang->line('sick_reason'), 'sick_reason',array('class'=>'control-label')); ?>
+                                        <?php print form_input(array('name' => 'sick_reason', 'id' => 'sick_reason', 'value' => ($rowdata)?$rowdata->sick_reason:$this->session->flashdata('sick_reason'), 'class' => 'form-control')); ?>
+                                         </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -173,7 +190,7 @@
 						    <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('where_do_you_live_location'), 'where_do_you_live_location',array('class'=>'control-label')); ?>
-                                <?php print form_input(array('name' => 'where_do_you_live_location', 'id' => 'where_do_you_live_location', 'value' => ($rowdata)?$rowdata->where_do_you_live_location:$this->session->flashdata('where_do_you_live_location'), 'class' => 'form-control ')); ?>
+                                <?php print form_dropdown('where_do_you_live_location',$countries_list,($rowdata)?$rowdata->where_do_you_live_location:$this->session->flashdata('where_do_you_live_location'),'id="where_do_you_live_location" class="select2 form-control"'); ?>
                                  </div>
                             </div>
 						</div>

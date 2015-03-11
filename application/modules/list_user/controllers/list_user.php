@@ -9,7 +9,6 @@ class List_user extends Private_Controller {
         // pre-load
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->model('list_student/list_teacher_student_model');
 		$this->load->model('list_user_model');
 		$this->load->helper('general_function');
 		$this->load->model('add_privilege/privilege_model');

@@ -21,9 +21,13 @@ class refugee_model extends CI_Model {
       
         $this->session->set_userdata('export_var', $search_data);
 
-    	$this->db->select('refugee.*
+    	$this->db->select('refugee.*,
+                          countries.nationality as nationality,
+                          association_name.name as association_name
 						 ',FALSE);
     	$this->db->from('refugee');
+        $this->db->join('countries', 'countries.id = refugee.nationality','left');
+        $this->db->join('association_name', 'association_name.id = refugee.association_name','left');
 		
     	//!empty($data) ? $this->db->or_like($data) : "";
     	if(!empty($data))

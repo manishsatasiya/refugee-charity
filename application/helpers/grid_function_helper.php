@@ -25,6 +25,11 @@ if (!function_exists('get_search_data')) {
     		$per_page =  $_POST['length'];
     		$offset = $_POST['start'];
     	}
+		else if( isset( $_POST['start'] ) && $_POST['length'] == '-1')
+		{
+			$per_page =  500000;
+			$offset = 0;
+		}
     	
     	/*
     	 * Ordering
