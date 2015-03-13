@@ -46,8 +46,6 @@
                 <th><?php echo $this->lang->line('name_of_donator'); ?></th>
                 <th><?php echo $this->lang->line('what_was_donated_please_specify'); ?></th>
                 <th><?php echo $this->lang->line('name_aid_of_receiver_from'); ?></th>
-                <th><?php echo $this->lang->line('month'); ?></th>
-                <th><?php echo $this->lang->line('year'); ?></th>
 								<th><?php echo $this->lang->line('created_date'); ?></th>
 								<th><?php echo $this->lang->line('action'); ?></th>
 							</tr>

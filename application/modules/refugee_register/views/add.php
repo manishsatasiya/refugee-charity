@@ -245,6 +245,8 @@
                                  </div>
                             </div>
                         </div>
+                        <?php
+                        if($id) { ?>    
 						<div class="row ">
 							<div class="col-md-6">
                                 <div class="form-group">
@@ -291,6 +293,8 @@
                                  </div>
                             </div>
                         </div>
+                        <?php
+                        }?>
                     </div>
                     <div class="form-actions right">
                         <input type="submit" name="submit" value="<?php echo $this->lang->line('submit');?>" class="btn blue">

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2015 at 06:53 AM
+-- Generation Time: Mar 13, 2015 at 12:58 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -766,7 +766,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `login_enabled`, `register_enabled`, `install_enabled`, `members_per_page`, `admin_email`, `home_page`, `default_theme`, `login_attempts`, `recaptcha_theme`, `email_protocol`, `sendmail_path`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `site_title`, `cookie_expires`, `password_link_expires`, `activation_link_expires`, `disable_all`, `site_disabled_text`) VALUES
-(1, 1, 1, 0, 10, 'info@elsdportal.net', 'home', 'school', 5, 'white', 2, '/usr/sbin/sendmail', 'ssl://smtp.googlemail.com', 465, 0x392b515646545a5a6b34727651625041454a785036645a763255304b49696f3151705a3263306562495243614349655533594a35416452695a725144736d777950374c77506c554e346c66634449427a6b30322b51673d3d, 0x572b742b6969334a70482f3367664767492b77695a6a75386659635845524d7659314d375958545956503779422f2b7a7a6779635348792b7a576f696762446c2f4d6670612f506861617a71746e782f4d5752424c773d3d, 'ELSD Portal', 259200, 43200, 43200, 0, 'This website is momentarily offline.');
+(1, 1, 1, 0, 10, 'manishsatasiya@yahoo.co.in', 'home', 'school', 5, 'white', 2, '/usr/sbin/sendmail', 'ssl://smtp.googlemail.com', 465, 0x392b515646545a5a6b34727651625041454a785036645a763255304b49696f3151705a3263306562495243614349655533594a35416452695a725144736d777950374c77506c554e346c66634449427a6b30322b51673d3d, 0x572b742b6969334a70482f3367664767492b77695a6a75386659635845524d7659314d375958545956503779422f2b7a7a6779635348792b7a576f696762446c2f4d6670612f506861617a71746e782f4d5752424c773d3d, 'Refugee Management Online Application', 259200, 43200, 43200, 0, 'This website is momentarily offline.');
 
 -- --------------------------------------------------------
 
@@ -807,7 +807,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-11 10:39:44', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-13 17:56:35', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

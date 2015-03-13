@@ -46,8 +46,6 @@
 				                <th><?php echo $this->lang->line('id_no'); ?></th>
 				                <th><?php echo $this->lang->line('full_name_of_family_visited'); ?></th>
 				                <th><?php echo $this->lang->line('name_of_visitor_from_association'); ?></th>
-				                <th><?php echo $this->lang->line('month'); ?></th>
-				                <th><?php echo $this->lang->line('year'); ?></th>
 								<th><?php echo $this->lang->line('created_date'); ?></th>
 								<th><?php echo $this->lang->line('action'); ?></th>
 							</tr>

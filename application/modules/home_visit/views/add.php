@@ -23,12 +23,7 @@
             <div class="containerfdfdf"></div>
             
             <div class="row ">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <?php print form_label($this->lang->line('date_of_upload'), 'date_of_upload',array('class'=>'control-label')); ?>
-                    <?php print form_label($this->lang->line('date_of_upload'), 'date_of_upload',array('class'=>'control-label')); ?> : <?php print ($rowdata)? date("d-m-Y",strtotime($rowdata->created_date)): date("d-m-Y"); ?>
-                     </div>
-                </div>
+                
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('date_of_visit'), 'date_of_visit',array('class'=>'control-label')); ?>
@@ -44,7 +39,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('association_name'), 'association_name',array('class'=>'control-label')); ?>
-                    <?php print form_input(array('name' => 'association_name', 'id' => 'association_name', 'value' => ($rowdata)?$rowdata->association_name:$this->session->flashdata('association_name'), 'class' => 'form-control ')); ?>
+                    <?php print form_dropdown('association_name',$associatoin_name_list,($rowdata)?$rowdata->association_name:$this->session->flashdata('association_name'),'id="association_name" class="select2 form-control"'); ?>
                      </div>
                 </div>
                 <div class="col-md-6">
@@ -106,7 +101,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('special_case_more_info'), 'special_case_more_info',array('class'=>'control-label')); ?>
-                    <?php print form_input(array('name' => 'special_case_more_info', 'id' => 'special_case_more_info', 'value' => ($rowdata)?$rowdata->special_case_more_info:$this->session->flashdata('special_case_more_info'), 'class' => 'form-control ')); ?>
+                    <textarea id="maxlength_textarea" name="special_case_more_info" class="form-control maxlength_textarea" maxlength="250" rows="2" placeholder="This textarea has a limit of 250 chars."><?= ($rowdata)?$rowdata->special_case_more_info:$this->session->flashdata('special_case_more_info')?></textarea>
                      </div>
                 </div>
             </div>
@@ -120,21 +115,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                     <?php print form_label($this->lang->line('any_other_information'), 'any_other_information',array('class'=>'control-label')); ?>
-                    <?php print form_input(array('name' => 'any_other_information', 'id' => 'any_other_information', 'value' => ($rowdata)?$rowdata->any_other_information:$this->session->flashdata('any_other_information'), 'class' => 'form-control ')); ?>
-                     </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <?php print form_label($this->lang->line('month'), 'month',array('class'=>'control-label')); ?>
-                    <?php print form_dropdown('month',$month_list,($rowdata)?$rowdata->month:$this->session->flashdata('month'),'id="month" class="select2 form-control"'); ?>
-                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                    <?php print form_label($this->lang->line('year'), 'year',array('class'=>'control-label')); ?>
-                    <?php print form_dropdown('year',$year_list,($rowdata)?$rowdata->year:$this->session->flashdata('year'),'id="year" class="select2 form-control"'); ?>
+                    <textarea id="maxlength_textarea" name="any_other_information" class="form-control maxlength_textarea" maxlength="250" rows="2" placeholder="This textarea has a limit of 250 chars."><?= ($rowdata)?$rowdata->any_other_information:$this->session->flashdata('any_other_information')?></textarea>
                      </div>
                 </div>
             </div>

@@ -75,8 +75,6 @@ class home_visit extends Private_Controller {
 				$row[] = $result_row['id_no'];
 				$row[] = $result_row['full_name_of_family_visited'];
 				$row[] = $result_row['name_of_visitor_from_association'];
-				$row[] = $result_row['month'];
-				$row[] = $result_row['year'];
 				$row[] = $result_row['created_date'];
                 $row[] = $action_btn;
 
@@ -95,7 +93,7 @@ class home_visit extends Private_Controller {
 		$level_of_need_list = level_of_need_dropdown();
 		$month_list = month_dropdown();
 		$year_list = year_dropdown();
-
+		$associatoin_name_list = get_associatoin_name_list();
 		$errors = "";
 		if($this->input->post()){
 
@@ -112,8 +110,6 @@ class home_visit extends Private_Controller {
 			$special_case_more_info = $this->input->post('special_case_more_info');
 			$level_of_need = $this->input->post('level_of_need');
 			$any_other_information = $this->input->post('any_other_information');
-			$month = $this->input->post('month');
-			$year = $this->input->post('year');
 			
 			
 			$data_document['date_of_visit'] = make_db_date($date_of_visit);
@@ -129,8 +125,6 @@ class home_visit extends Private_Controller {
 			$data_document['special_case_more_info'] = $special_case_more_info;
 			$data_document['level_of_need'] = $level_of_need;
 			$data_document['any_other_information'] = $any_other_information;
-			$data_document['month'] = $month;
-			$data_document['year'] = $year;
 
 			$table = 'home_visit';		
 			$wher_column_name = 'id';
@@ -155,7 +149,7 @@ class home_visit extends Private_Controller {
 		$content_data['level_of_need_list'] = $level_of_need_list;
 		$content_data['month_list'] = $month_list;
 		$content_data['year_list'] = $year_list;
-
+		$content_data['associatoin_name_list'] = $associatoin_name_list;
 
 		$content_data['rowdata'] = $rowdata;
 		$content_data['id'] = $id;

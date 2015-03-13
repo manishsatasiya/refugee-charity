@@ -21,10 +21,11 @@ class donations_model extends CI_Model {
       
         $this->session->set_userdata('export_var', $search_data);
 
-    	$this->db->select('donations.*
+    	$this->db->select('donations.*,
+                           association_name.name as name_of_association
 						 ',FALSE);
     	$this->db->from('donations');
-		
+		$this->db->join('association_name', 'association_name.id = donations.name_of_association','left');
     	//!empty($data) ? $this->db->or_like($data) : "";
     	if(!empty($data))
         {

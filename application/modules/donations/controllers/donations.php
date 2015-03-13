@@ -75,8 +75,6 @@ class donations extends Private_Controller {
 				$row[] = $result_row['name_of_donator'];
 				$row[] = $result_row['what_was_donated_please_specify'];
 				$row[] = $result_row['name_aid_of_receiver_from'];
-				$row[] = $result_row['month'];
-				$row[] = $result_row['year'];
 				$row[] = $result_row['created_date'];
                 $row[] = $action_btn;
 
@@ -92,7 +90,7 @@ class donations extends Private_Controller {
 
 		$month_list = month_dropdown();
 		$year_list = year_dropdown();
-
+		$associatoin_name_list = get_associatoin_name_list();
 		$errors = "";
 		if($this->input->post()){
 
@@ -102,9 +100,6 @@ class donations extends Private_Controller {
 			$what_was_donated_please_specify = $this->input->post('what_was_donated_please_specify');
 			$name_aid_of_receiver_from = $this->input->post('name_aid_of_receiver_from');
 			$any_other_info = $this->input->post('any_other_info');
-			$month = $this->input->post('month');
-			$year = $this->input->post('year');
-			
 			
 			$data_document['date_of_donation'] = make_db_date($date_of_donation);
 			$data_document['name_of_association'] = $name_of_association;
@@ -112,8 +107,6 @@ class donations extends Private_Controller {
 			$data_document['what_was_donated_please_specify'] = $what_was_donated_please_specify;
 			$data_document['name_aid_of_receiver_from'] = $name_aid_of_receiver_from;
 			$data_document['any_other_info'] = $any_other_info;
-			$data_document['month'] = $month;
-			$data_document['year'] = $year;
 
 			$table = 'donations';		
 			$wher_column_name = 'id';
@@ -135,7 +128,7 @@ class donations extends Private_Controller {
 
 		$content_data['month_list'] = $month_list;
 		$content_data['year_list'] = $year_list;
-
+		$content_data['associatoin_name_list'] = $associatoin_name_list;
 		$content_data['rowdata'] = $rowdata;
 		$content_data['id'] = $id;
         // set layout data
