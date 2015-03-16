@@ -40,7 +40,7 @@
 					<table class="table table-striped table-bordered table-hover" id="grid_refugee">
 						<thead>
 							<tr>
-				                <th><?php echo $this->lang->line('db_id'); ?></th>
+				                <th width="2%"><?php echo $this->lang->line('db_id'); ?></th>
 				                <th><?php echo $this->lang->line('association_name'); ?></th>
 				                <th><?php echo $this->lang->line('full_name'); ?></th>
 				                <th><?php echo $this->lang->line('age'); ?></th>

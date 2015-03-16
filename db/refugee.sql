@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2015 at 12:58 PM
+-- Generation Time: Mar 16, 2015 at 12:47 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -68,15 +68,17 @@ INSERT INTO `actions` (`actions_id`, `menu_id`, `name`, `value`) VALUES
 CREATE TABLE IF NOT EXISTS `association_name` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `association_name`
 --
 
-INSERT INTO `association_name` (`id`, `name`) VALUES
-(1, 'tesrt23');
+INSERT INTO `association_name` (`id`, `name`, `location`) VALUES
+(1, 'tesrt23', 'location1'),
+(2, 'asso2', 'loc2');
 
 -- --------------------------------------------------------
 
@@ -378,25 +380,6 @@ CREATE TABLE IF NOT EXISTS `home_visit` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `location_association`
---
-
-CREATE TABLE IF NOT EXISTS `location_association` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `location_association`
---
-
-INSERT INTO `location_association` (`id`, `name`) VALUES
-(1, 'test1');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `menu_action`
 --
 
@@ -561,8 +544,8 @@ CREATE TABLE IF NOT EXISTS `refugee` (
 --
 
 INSERT INTO `refugee` (`id`, `association_name`, `location_of_association`, `full_name`, `age`, `gender`, `nationality`, `nationality_id_no`, `un_id`, `marital_status`, `previous_occupation`, `are_you_able_to_work`, `what_skills_do_you_have_for_working`, `are_you_sick`, `sick_reason`, `need_of_medicationequipment`, `if_yes_please_specify`, `where_do_you_live_location`, `do_you_live_in_tent_house`, `what_is_it_that_you_need_most`, `how_many_children_do_you_have`, `childrens_names_ages_genders`, `email`, `skype`, `whatsapp`, `other_contact`, `name_administrator`, `any_other_information`, `special_case`, `special_case_more_info`, `total_number_of_people_in_house`, `telephone_no`, `created_by`, `created_date`) VALUES
-(1, 'fghfgh1', 'hfdhfd1', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 2, '', 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', '0', '0', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', 0, '2015-02-14 08:20:32'),
-(2, 'Association Name', 'ocation of Association', 'Full Name', 0, 'Gender', 'Nationality', 'Nationality ID No', 'N ID', 'Marital Status', 'Previous Occupation', 2, 'What skills do you have for wo', 2, '', 2, 'lease specify', 'do you live location', 2, 'What is it that you need most', 'How many children do you have', 'hildrens names ages genders', 'act details Email skype whatsapp', '', '', '', 'inistrator', 'Any other information', 4, 'pecial case more info', 23, 'Telephone No', 0, '2015-02-18 10:57:34');
+(1, '2', '0', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 2, '', 2, 'lease specify', '6', 2, 'What is it that you need most', '0', '0', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', 0, '2015-02-14 08:20:32'),
+(2, '1', '0', 'Full Name', 1, 'Male', '9', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wo', 2, '', 2, 'lease specify', '2', 2, 'What is it that you need most', '0', 'hildrens names ages genders', 'act details Email skype whatsapp', '', '', '', 'inistrator', 'Any other information', 4, 'pecial case more info', 1, 'Telephone No', 0, '2015-02-18 10:57:34');
 
 -- --------------------------------------------------------
 
@@ -585,11 +568,6 @@ CREATE TABLE IF NOT EXISTS `refugee_documents` (
 
 INSERT INTO `refugee_documents` (`id`, `type`, `user_id`, `title`, `file`) VALUES
 (24, 'photo', 1, 'test', 'uploads/1/7ce063631ec83ff7a2e20ee0669ee629.jpg'),
-(25, 'document', 1, '', 'uploads/1/fdad18c3001dc0add144f41fc97f2951.pdf'),
-(26, 'document', 1, '', 'uploads/1/1_document_8b8912450e0ccfab7fbb39511e11c059.pdf'),
-(27, 'photo', 1, '', 'uploads/1/1_photo_d7ce28111d2206d1389fde070ae5aeba.png'),
-(28, 'document', 1, '', 'uploads/1/1_document_75077966ecd8392de1e4de17836826df.pdf'),
-(29, 'photo', 1, '', 'uploads/1/1_photo_585b9890d4a2d37e0d976e912241e8dd.png'),
 (30, 'photo', 1, 'uploads/1/1_photo_d4c0c63b422e384073ab1d00a41b3c5f.png', 'uploads/1/1_photo_d4c0c63b422e384073ab1d00a41b3c5f.png'),
 (31, 'photo', 1, 'uploads/1/1_photo_cbffce783ec23f51ab86965c40eae29e.png', 'uploads/1/1_photo_cbffce783ec23f51ab86965c40eae29e.png'),
 (32, 'photo', 1, 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png', 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png'),
@@ -636,14 +614,15 @@ CREATE TABLE IF NOT EXISTS `refugee_qualifications` (
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `refugee_qualifications`
 --
 
 INSERT INTO `refugee_qualifications` (`id`, `refugee_id`, `title`, `institute`, `grade`, `pass_year`, `created_by`, `created_date`) VALUES
-(1, 1, 'test', 'testrr', '2', '2015-03-09', 0, '0000-00-00 00:00:00');
+(1, 1, 'test', 'testrr', '2', '2015-03-09', 0, '0000-00-00 00:00:00'),
+(2, 2, 'test', 'testrr', '2', '2010', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -807,7 +786,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-13 17:56:35', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-16 17:55:19', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

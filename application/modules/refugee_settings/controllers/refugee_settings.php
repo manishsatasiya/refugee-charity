@@ -110,7 +110,7 @@ class refugee_settings extends Private_Controller {
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
          * you want to insert a non-database field (for example a counter or static image)
         */
-        $aColumns = array( 'id','name' );
+        $aColumns = array( 'id','name','location');
         $grid_data = get_search_data($aColumns);
         $sort_order = $grid_data['sort_order'];
         $order_by = $grid_data['order_by'];
@@ -150,6 +150,7 @@ class refugee_settings extends Private_Controller {
 
                 $row[] = $result_row["id"];
                 $row[] = $result_row["name"];
+                $row[] = $result_row["location"];
                 $row[] = $action_btn;
                 $output['data'][] = $row;
             }
@@ -168,9 +169,11 @@ class refugee_settings extends Private_Controller {
         $content_data['rowdata'] = $rowdata;
         if($this->input->post()){
             $name = $this->input->post('name');
+            $location = $this->input->post('location');
 
             $data = array();
             $data['name'] = $name;
+            $data['location'] = $location;
             $table = 'association_name';
             $wher_column_name = 'id';
             

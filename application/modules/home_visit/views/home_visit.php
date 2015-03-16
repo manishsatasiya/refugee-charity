@@ -40,7 +40,7 @@
 					<table class="table table-striped table-bordered table-hover" id="grid_home_visit">
 						<thead>
 							<tr>
-				                <th><?php echo $this->lang->line('db_id'); ?></th>
+				                <th width="2%"><?php echo $this->lang->line('db_id'); ?></th>
 				                <th><?php echo $this->lang->line('date_of_visit'); ?></th>
 				                <th><?php echo $this->lang->line('location_of_visit'); ?></th>
 				                <th><?php echo $this->lang->line('id_no'); ?></th>

@@ -40,7 +40,7 @@
 					<table class="table table-striped table-bordered table-hover" id="grid_donations">
 						<thead>
 							<tr>
-                <th><?php echo $this->lang->line('db_id'); ?></th>
+                <th width="2%"><?php echo $this->lang->line('db_id'); ?></th>
                 <th><?php echo $this->lang->line('date_of_donation'); ?></th>
                 <th><?php echo $this->lang->line('name_of_association'); ?></th>
                 <th><?php echo $this->lang->line('name_of_donator'); ?></th>

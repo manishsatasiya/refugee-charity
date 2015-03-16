@@ -47,8 +47,7 @@ class refugee_settings_model extends CI_Model {
         
         if (!empty($search_data)) {
             !empty($search_data['name']) ? $data['name'] = $search_data['name'] : "";
-            
-            
+            !empty($search_data['location']) ? $data['location'] = $search_data['location'] : "";
         }
         $this->db->select('*');
         $this->db->from('association_name');        

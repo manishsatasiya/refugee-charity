@@ -38,7 +38,7 @@
 					<table class="table table-striped table-bordered table-hover" id="grid_role">
 						<thead>
 							<tr role="row" class="heading">
-								<th><?php echo $this->lang->line('role_p_id'); ?></th>
+								<th width="2%"><?php echo $this->lang->line('role_p_id'); ?></th>
 								<th><?php echo $this->lang->line('role_p_role'); ?></th>
 								<th><?php echo $this->lang->line('role_p_action'); ?></th>
 							</tr>

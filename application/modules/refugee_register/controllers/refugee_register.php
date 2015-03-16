@@ -98,7 +98,6 @@ class refugee_register extends Private_Controller {
 		$maritalstatus_list = maritalstatus_dropdown();
 		$nationality_list = get_nationality_list();
 		$countries_list = get_countries();
-		$associatoin_loc_list = get_associatoin_loc_list();
 		$associatoin_name_list = get_associatoin_name_list();
 
 		$errors = "";
@@ -182,7 +181,6 @@ class refugee_register extends Private_Controller {
 		$content_data['maritalstatus_list'] = $maritalstatus_list;
 		$content_data['nationality_list'] = $nationality_list;
 		$content_data['countries_list'] = $countries_list;
-		$content_data['associatoin_loc_list'] = $associatoin_loc_list;
 		$content_data['associatoin_name_list'] = $associatoin_name_list;
 		$content_data['sicklist'] = $sicklist;
 		$content_data['medicationequipment_list'] = $medicationequipment_list;

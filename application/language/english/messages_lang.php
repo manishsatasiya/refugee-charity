@@ -247,6 +247,7 @@ $lang['add_new'] = 'Add new';
 $lang['add'] = 'Add';
 $lang['edit'] = 'Edit';
 $lang['name'] = 'Name';
+$lang['location'] = 'Location';
 $lang['action'] = 'Action';
 $lang['db_id'] = 'DB #';
 $lang['created_date'] = 'Created date';
@@ -255,7 +256,7 @@ $lang['created_date'] = 'Created date';
  */
 $lang['refugee_register'] = 'Refugees';
 $lang['date_of_data_entry'] = 'Date of data entry';
-$lang['association_name'] = 'Association Name';
+$lang['association_name'] = 'Association';
 $lang['location_of_association'] = 'Location of Association';
 $lang['full_name'] = 'Full Name';
 $lang['age'] = 'Age';

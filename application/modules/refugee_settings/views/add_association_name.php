@@ -16,6 +16,10 @@ print form_open('refugee_settings/add_association_name/'.$id, array('id' => 'add
 			<div class="form_label2"><?php print form_label($this->lang->line('name'), 'name'); ?></div>
 			<div class="input_box_thin"><?php print form_input(array('name' => 'name', 'id' => 'name', 'value' => ($rowdata)?$rowdata->name:$this->session->flashdata('name'), 'class' => 'form-control qtip_name')); ?></div>
 		</div>
+		<div class="col-md-6 form-group">
+			<div class="form_label2"><?php print form_label($this->lang->line('location'), 'location'); ?></div>
+			<div class="input_box_thin"><?php print form_input(array('name' => 'location', 'id' => 'location', 'value' => ($rowdata)?$rowdata->location:$this->session->flashdata('location'), 'class' => 'form-control qtip_location')); ?></div>
+		</div>
 		<div class="clear"></div>
 	</div>
 </div>

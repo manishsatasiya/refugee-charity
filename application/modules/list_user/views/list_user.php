@@ -36,7 +36,7 @@
 					<table class="table table-striped table-bordered table-hover" id="grid_user">
 						<thead>
 							<tr>
-								<th>DB ID</th>
+								<th width="2%">DB ID</th>
 								<th>Role</th>
 								<th>Name</th>
 								<th>E-mail</th>
