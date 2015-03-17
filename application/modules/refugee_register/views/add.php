@@ -31,21 +31,21 @@
             </div>
             <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#tab_1_1" data-toggle="tab"><?php print $this->lang->line('info'); ?></a>
+                  <a href="#tab_1_1" data-toggle="tab" data-tab-numb="0" class="tab_clicked"><?php print $this->lang->line('info'); ?></a>
                 </li>
 				<?php
                 if($id) { ?>
 				<li>
-                  <a href="#tab_1_2" data-toggle="tab"><?php print $this->lang->line('contact'); ?></a>
+                  <a href="#tab_1_2" data-toggle="tab" data-tab-numb="1" class="tab_clicked"><?php print $this->lang->line('contact'); ?></a>
                 </li>
                 <li>
-                  <a href="#tab_1_3" data-toggle="tab"><?php print $this->lang->line('photos'); ?></a>
+                  <a href="#tab_1_3" data-toggle="tab" data-tab-numb="2" class="tab_clicked"><?php print $this->lang->line('photos'); ?></a>
                 </li>
                 <li>
-                  <a href="#tab_1_4" data-toggle="tab"><?php print $this->lang->line('documents'); ?></a>
+                  <a href="#tab_1_4" data-toggle="tab" data-tab-numb="3" class="tab_clicked"><?php print $this->lang->line('documents'); ?></a>
                 </li>
                 <li>
-                  <a href="#tab_1_5" data-toggle="tab"><?php print $this->lang->line('video'); ?></a>
+                  <a href="#tab_1_5" data-toggle="tab" data-tab-numb="4" class="tab_clicked"><?php print $this->lang->line('video'); ?></a>
                 </li>
                 <?php } ?>
             </ul>
@@ -57,6 +57,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1_1">
                 	<?php print form_open_multipart('refugee_register/add/'.$id, array('id' => 'add_refugee','name'=>'add_refugee')) ."\r\n"; ?>
+					<input type="hidden" name="timestamp" id="timestamp" value="<? echo $timestamp;?>">
                     <div class="form-body">
                     	<?php
             			if ($this->session->flashdata('message')) {

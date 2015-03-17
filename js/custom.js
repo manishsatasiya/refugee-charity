@@ -328,7 +328,7 @@ function showErrorMsg(msg){
 	toastr.options = {
 	  "closeButton": true,
 	  "debug": false,
-	  "positionClass": "toast-top-right",
+	  "positionClass": "toast-top-full-width",
 	  "onclick": null,
 	  "showDuration": "1000",
 	  "hideDuration": "1000",
@@ -399,3 +399,16 @@ function PrintDiv(d_id) {
 	$('div.editprofile-pg .tabbable.tabs-left .tab-content #tab2mypma h3.userinfo-ttl').show();
 	$('.page-content .content').removeAttr('style');
 }
+
+$(".tab_clicked").on('click', function(e){
+	var timestamp_add = $("#timestamp").val();
+	var tab_numb = $(this).attr('data-tab-numb');
+	e.preventDefault();
+	
+	if(timestamp_add > 0 && tab_numb > 0)
+	{
+		var msg = "Please Submit Info(Tab) Data first. Before adding contacts, photos, documents or video ";
+		showErrorMsg(msg);
+		return false;
+	}
+});

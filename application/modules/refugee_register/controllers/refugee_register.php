@@ -128,7 +128,8 @@ class refugee_register extends Private_Controller {
 			$special_case_more_info = $this->input->post('special_case_more_info');
 			$total_number_of_people_in_house = $this->input->post('total_number_of_people_in_house');
 			$month = $this->input->post('month');
-			$year = $this->input->post('year');			
+			$year = $this->input->post('year');		
+			$add_timestamp = $this->input->post('timestamp');	
 			
 			$data_document['association_name'] = $association_name;
 			$data_document['location_of_association'] = $location_of_association;
@@ -155,6 +156,10 @@ class refugee_register extends Private_Controller {
 			$data_document['special_case_more_info'] = $special_case_more_info;
 			$data_document['total_number_of_people_in_house'] = $total_number_of_people_in_house;
 			
+			if($add_timestamp > 0){
+				$id = "";
+			}	
+			
 			$table = 'refugee';		
 			$wher_column_name = 'id';
 			if($id){
@@ -162,6 +167,20 @@ class refugee_register extends Private_Controller {
 			}else{
 				$data_document['created_date'] = date("Y-m-d H:i:s");
 				$id = grid_add_data($data_document,$table);
+				
+				//update refugee_id = user_id where refugee_id = timstamp in table refugee_family_members for add
+				$data_family_members["refugee_id"] = $id;
+				$table = 'refugee_family_members';		
+				$wher_column_name = 'refugee_id';
+				grid_data_updates($data_family_members,$table,$wher_column_name,$add_timestamp); 
+				
+				//update refugee_id = user_id where refugee_id = timstamp in table refugee_qualifications for add
+				$data_qualifications["refugee_id"] = $id;
+				$table = 'refugee_qualifications';		
+				$wher_column_name = 'refugee_id';
+				grid_data_updates($data_qualifications,$table,$wher_column_name,$add_timestamp); 
+				
+				redirect('refugee_register/add/'.$id);
 			}
 						
 			$this->session->set_flashdata('message', $this->lang->line('save_success'));
@@ -169,8 +188,17 @@ class refugee_register extends Private_Controller {
 		}
 		
 		$rowdata= array();
+		$content_data['timestamp'] = 0;
 		if($id){
 			$rowdata = $this->refugee_model->get_refugee_data($id);
+			
+			if(!$rowdata){
+				redirect('refugee_register/add/');
+			}
+		}
+		else{
+			$id = time().mt_rand(10,100);
+			$content_data['timestamp'] = $id;
 		}
 
 		$content_data['work_list'] = $work_list;
@@ -188,6 +216,7 @@ class refugee_register extends Private_Controller {
 		$content_data['specia_case_list'] = $specia_case_list;
 		
 		$content_data['rowdata'] = $rowdata;
+		
 		$content_data['id'] = $id;
         // set layout data
         $this->template->set_theme(Settings_model::$db_config['default_theme']);
