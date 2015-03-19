@@ -935,18 +935,18 @@ function get_nationality_list() {
 	return $nationality_arr;
 }
 
-function get_associatoin_loc_list() {
+function get_refugee_location() {
 	$ci =& get_instance();
-	$ci->db->select('location_association.*');
-	$ci->db->from('location_association');
-	$ci->db->order_by("name", "asc");
+	$ci->db->select('refugee_location.*');
+	$ci->db->from('refugee_location');
+	$ci->db->order_by("location", "asc");
 	
 	$query = $ci->db->get();
 	$data = $query->result_array();
 	$arr = array();
 	$arr[''] = '--Select--';
 	foreach ($data as $datas){
-		$arr[$datas['id']] = $datas['name'];
+		$arr[$datas['id']] = $datas['location'];
 	}
 	return $arr;
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2015 at 11:44 AM
+-- Generation Time: Mar 19, 2015 at 05:04 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -340,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `donations` (
   `year` varchar(255) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -536,7 +536,7 @@ CREATE TABLE IF NOT EXISTS `refugee` (
 --
 
 INSERT INTO `refugee` (`id`, `association_name`, `location_of_association`, `full_name`, `age`, `gender`, `nationality`, `nationality_id_no`, `un_id`, `marital_status`, `previous_occupation`, `are_you_able_to_work`, `what_skills_do_you_have_for_working`, `are_you_sick`, `sick_reason`, `need_of_medicationequipment`, `if_yes_please_specify`, `where_do_you_live_location`, `do_you_live_in_tent_house`, `what_is_it_that_you_need_most`, `how_many_children_do_you_have`, `childrens_names_ages_genders`, `email`, `skype`, `whatsapp`, `other_contact`, `name_administrator`, `any_other_information`, `special_case`, `special_case_more_info`, `total_number_of_people_in_house`, `telephone_no`, `created_by`, `created_date`) VALUES
-(1, '2', '0', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 2, '', 2, 'lease specify', '6', 2, 'What is it that you need most', '0', '0', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', 0, '2015-02-14 08:20:32'),
+(1, '1', '0', 'hdfhfd1', 20, 'Male', '0', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wolkl,test', 2, '', 2, 'lease specify', '1', 2, 'What is it that you need most', '0', '0', 'test@test.com', 'testskype', 'testwhatsapp', 'no other contact', '0', 'Any other information', 5, 'pecial case more info', 1, '1234566', 0, '2015-02-14 08:20:32'),
 (2, '1', '0', 'Full Name', 1, 'Male', '9', 'Nationality ID No', 'N ID', 'Single', 'Previous Occupation', 2, 'What skills do you have for wo', 2, '', 2, 'lease specify', '2', 2, 'What is it that you need most', '0', 'hildrens names ages genders', 'act details Email skype whatsapp', '', '', '', 'inistrator', 'Any other information', 4, 'pecial case more info', 1, 'Telephone No', 0, '2015-02-18 10:57:34'),
 (3, '1', '0', 'testref', 1, 'Male', '0', '', '', 'Single', '', 1, '', 0, '', 1, '', '1', 1, '', '0', '', '', '', '', '', '', '', 1, '', 1, '', 0, '2015-03-17 11:30:00'),
 (4, '1', '0', 'testref', 1, 'Male', '0', '', '', 'Single', '', 1, '', 0, '', 1, '', '1', 1, '', '0', '', '', '', '', '', '', '', 1, '', 1, '', 0, '2015-03-17 11:31:03'),
@@ -555,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `refugee_documents` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `file` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=35 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `refugee_documents`
@@ -563,11 +563,18 @@ CREATE TABLE IF NOT EXISTS `refugee_documents` (
 
 INSERT INTO `refugee_documents` (`id`, `type`, `user_id`, `title`, `file`) VALUES
 (24, 'photo', 1, 'test', 'uploads/1/7ce063631ec83ff7a2e20ee0669ee629.jpg'),
+(37, 'photo', 1, 'uploads/1/1_photo_1c7597d2625c9888e16f8098ff046083.png', 'uploads/1/1_photo_1c7597d2625c9888e16f8098ff046083.png'),
+(36, 'photo', 1, '', 'uploads/1/1_photo_e97a289e1ef8621cc7189c6dd4e37e53.png'),
+(35, 'document', 1, 'tttttttt', 'uploads/1/1_document_ee253ca2ff59b4cbb695c3de8ae55da3.pdf'),
 (34, 'photo', 142658793348, '', 'uploads/142658793348/142658793348_photo_1fe576dba0a17d11794ec4b81cd2539f.png'),
 (30, 'photo', 1, 'uploads/1/1_photo_d4c0c63b422e384073ab1d00a41b3c5f.png', 'uploads/1/1_photo_d4c0c63b422e384073ab1d00a41b3c5f.png'),
 (31, 'photo', 1, 'uploads/1/1_photo_cbffce783ec23f51ab86965c40eae29e.png', 'uploads/1/1_photo_cbffce783ec23f51ab86965c40eae29e.png'),
 (32, 'photo', 1, 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png', 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png'),
-(33, 'document', 14556894094936, 'test', 'uploads/1/1_document_3f85e371b8fb3a51599e8f5c1620e58b.pdf');
+(33, 'document', 14556894094936, 'test', 'uploads/1/1_document_3f85e371b8fb3a51599e8f5c1620e58b.pdf'),
+(38, 'document', 1, 'testestest', 'uploads/1/1_document_b8cc41c03a3c5136c7bd8105f41fb31c.pdf'),
+(41, 'video', 1, 'test', 'uploads/1/1_video_75f79e4a012e2105ef48093e8425fcac.mp4'),
+(39, 'document', 1, 'uploads/1/1_document_7fb07657b2da73aa86527eaf39df34b7.pdf', 'uploads/1/1_document_7fb07657b2da73aa86527eaf39df34b7.pdf'),
+(40, 'photo', 1, 'uploads/1/1_photo_1c0b7d084c142f905f1e737d7c00bd3a.png', 'uploads/1/1_photo_1c0b7d084c142f905f1e737d7c00bd3a.png');
 
 -- --------------------------------------------------------
 
@@ -585,7 +592,7 @@ CREATE TABLE IF NOT EXISTS `refugee_family_members` (
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `refugee_family_members`
@@ -596,7 +603,28 @@ INSERT INTO `refugee_family_members` (`id`, `refugee_id`, `name`, `relation`, `g
 (3, 3, 'test', '2', 'Female', 3, 0, '0000-00-00 00:00:00'),
 (4, 4, 'asso2', '2', 'Female', 7, 0, '0000-00-00 00:00:00'),
 (5, 5, 'asso2', '1', 'Male', 13, 0, '0000-00-00 00:00:00'),
-(6, 5, 'tetet', '5', 'Female', 28, 0, '0000-00-00 00:00:00');
+(6, 5, 'tetet', '5', 'Female', 28, 0, '0000-00-00 00:00:00'),
+(7, 142659322797, 'asso2', '2', 'Female', 10, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `refugee_location`
+--
+
+CREATE TABLE IF NOT EXISTS `refugee_location` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `refugee_location`
+--
+
+INSERT INTO `refugee_location` (`id`, `location`) VALUES
+(1, 'refugee location1'),
+(2, 'refugee loca2');
 
 -- --------------------------------------------------------
 
@@ -614,7 +642,7 @@ CREATE TABLE IF NOT EXISTS `refugee_qualifications` (
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `refugee_qualifications`
@@ -624,7 +652,9 @@ INSERT INTO `refugee_qualifications` (`id`, `refugee_id`, `title`, `institute`, 
 (1, 1, 'test', 'testrr', '2', '2015-03-09', 0, '0000-00-00 00:00:00'),
 (2, 2, 'test', 'testrr', '2', '2010', 0, '0000-00-00 00:00:00'),
 (5, 4, 'test', 'testrr', '2', '2018', 0, '0000-00-00 00:00:00'),
-(6, 5, 'qual1', 'qua int', 'A', '2011', 0, '0000-00-00 00:00:00');
+(6, 5, 'qual1', 'qua int', 'A', '2011', 0, '0000-00-00 00:00:00'),
+(7, 142659318046, 'test', 'testrr', '2', '2010', 0, '0000-00-00 00:00:00'),
+(8, 142659322797, 'test', 'testrr', 'A', '2010', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -788,7 +818,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-17 15:27:46', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-19 10:27:44', 0, 'cover.jpg', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

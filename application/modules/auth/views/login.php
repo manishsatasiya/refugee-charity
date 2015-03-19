@@ -50,11 +50,7 @@
 	  <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
 	</div>
 	<div class="login-options"></div>
-	<div class="create-account">
-		<p>
-			<a href="javascript:;" id="register-btn1111111111" class="uppercase">Create an account</a>
-		</p>
-	</div>	
+	
 	<?php print form_close() ."\r\n"; ?>
 
 	<!-- BEGIN FORGOT PASSWORD FORM -->

@@ -7,15 +7,15 @@ class refugee_settings_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_location_association($limit = 0, $offset = 0, $order_by = "name", $sort_order = "asc", $search_data,$count = false) {
+    public function get_location_refugee($limit = 0, $offset = 0, $order_by = "location", $sort_order = "asc", $search_data,$count = false) {
         
         if (!empty($search_data)) {
-            !empty($search_data['name']) ? $data['name'] = $search_data['name'] : "";
+            !empty($search_data['location']) ? $data['location'] = $search_data['location'] : "";
             
             
         }
         $this->db->select('*');
-        $this->db->from('location_association');        
+        $this->db->from('refugee_location');        
         !empty($data) ? $this->db->or_like($data) : "";
         $this->db->order_by($order_by, $sort_order);
         
@@ -33,8 +33,8 @@ class refugee_settings_model extends CI_Model {
         }
     }
 	
-    public function get_location_association_data($id){
-        $this->db->select('*')->from('location_association')->where('id', $id);
+    public function get_location_refugee_data($id){
+        $this->db->select('*')->from('refugee_location')->where('id', $id);
         $query = $this->db->get();
         if($query->num_rows() == 1) {
             $row = $query->row();

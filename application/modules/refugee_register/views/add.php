@@ -185,7 +185,7 @@
 						    <div class="col-md-6">
                                 <div class="form-group">
                                 <?php print form_label($this->lang->line('where_do_you_live_location'), 'where_do_you_live_location',array('class'=>'control-label')); ?>
-                                <?php print form_dropdown('where_do_you_live_location',$countries_list,($rowdata)?$rowdata->where_do_you_live_location:$this->session->flashdata('where_do_you_live_location'),'id="where_do_you_live_location" class="select2 form-control"'); ?>
+                                <?php print form_dropdown('where_do_you_live_location',$refugee_location_list,($rowdata)?$rowdata->where_do_you_live_location:$this->session->flashdata('where_do_you_live_location'),'id="where_do_you_live_location" class="select2 form-control"'); ?>
                                  </div>
                             </div>	
                             <div class="col-md-6">
@@ -385,7 +385,15 @@
                                     </div>
                                 </div>
                                 <!-- The table listing the files available for upload/download -->
-                                <table role="presentation" class="table table-striped clearfix"><tbody class="files"></tbody></table>
+                                <table role="presentation" class="table table-striped clearfix">
+								<thead>
+									<th>Thumb</th>
+									<th>View</th>
+									<th>Title</th>
+									<th>Size</th>
+									<th>Action</th>
+								</thead>
+								<tbody class="files"></tbody></table>
                             <?php print form_close() ."\r\n"; ?>
                         </div>
                     </div>
@@ -459,7 +467,12 @@
                             </td>
                             <td>
                                 <div id="file_title_main">
-                                    <span class="title"><a id="file_title" class="">{%=file.title%}</a></span>
+									{% if (file.title) { %}
+                                        <span class="title"><a id="file_title" class="editable-click">{%=file.title%}</a></span>
+                                    {% } else { %}
+                                        <span class="title"><a id="file_title" class="editable-empty editable-click">Enter Title</a></span>
+                                    {% } %}
+                                    
                                     <span class="title_form" style="display:none;">
                                         <div class="row">
                                         <div class="col-md-5"><input name="title" id="title" value="{%=file.title%}" data-id="{%=file.id%}" class = "form-control" /></div>
@@ -559,7 +572,15 @@
                                     </div>
                                 </div>
                                 <!-- The table listing the files available for upload/download -->
-                                <table role="presentation" class="table table-striped clearfix"><tbody class="files"></tbody></table>
+                                <table role="presentation" class="table table-striped clearfix">
+								<thead>
+									<th></th>
+									<th>Download</th>
+									<th>Title</th>
+									<th>Size</th>
+									<th>Action</th>
+								</thead>
+								<tbody class="files"></tbody></table>
                             <?php print form_close() ."\r\n"; ?>
                         </div>
                     </div>
@@ -597,7 +618,15 @@
                                     </div>
                                 </div>
                                 <!-- The table listing the files available for upload/download -->
-                                <table role="presentation" class="table table-striped clearfix"><tbody class="files"></tbody></table>
+                                <table role="presentation" class="table table-striped clearfix">
+								<thead>
+									<th>Video</th>
+									<th>Download</th>
+									<th>Title</th>
+									<th>Size</th>
+									<th>Action</th>
+								</thead>
+								<tbody class="files"></tbody></table>
                             <?php print form_close() ."\r\n"; ?>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?php print base_url(); ?>js/jquery.form.js"></script>
 <script type="text/javascript" src="<?php print base_url(); ?>js/validation.js"></script>
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-print form_open('refugee_settings/add/'.$id, array('id' => 'add_location_association','name'=>'formmain')) ."\r\n";
+print form_open('refugee_settings/add/'.$id, array('id' => 'add_location_refugee','name'=>'formmain')) ."\r\n";
 ?>
 <div class="modal-header">
   <h2><?php if(!$id){ echo $this->lang->line('add'); }else{ echo $this->lang->line('edit'); } ?></h2>
@@ -13,8 +13,8 @@ print form_open('refugee_settings/add/'.$id, array('id' => 'add_location_associa
 	<div class="containerfdfdf"></div>
 	<div class="row form-row">
 		<div class="col-md-6 form-group">
-			<div class="form_label2"><?php print form_label($this->lang->line('name'), 'name'); ?></div>
-			<div class="input_box_thin"><?php print form_input(array('name' => 'name', 'id' => 'name', 'value' => ($rowdata)?$rowdata->name:$this->session->flashdata('name'), 'class' => 'form-control qtip_name')); ?></div>
+			<div class="form_label2"><?php print form_label($this->lang->line('location'), 'location'); ?></div>
+			<div class="input_box_thin"><?php print form_input(array('name' => 'location', 'id' => 'location', 'value' => ($rowdata)?$rowdata->location:$this->session->flashdata('location'), 'class' => 'form-control qtip_location')); ?></div>
 		</div>
 		<div class="clear"></div>
 	</div>

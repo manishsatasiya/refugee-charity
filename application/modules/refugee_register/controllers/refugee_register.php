@@ -98,6 +98,7 @@ class refugee_register extends Private_Controller {
 		$maritalstatus_list = maritalstatus_dropdown();
 		$nationality_list = get_nationality_list();
 		$countries_list = get_countries();
+		$refugee_location_list = get_refugee_location();
 		$associatoin_name_list = get_associatoin_name_list();
 
 		$errors = "";
@@ -209,6 +210,7 @@ class refugee_register extends Private_Controller {
 		$content_data['maritalstatus_list'] = $maritalstatus_list;
 		$content_data['nationality_list'] = $nationality_list;
 		$content_data['countries_list'] = $countries_list;
+		$content_data['refugee_location_list'] = $refugee_location_list;
 		$content_data['associatoin_name_list'] = $associatoin_name_list;
 		$content_data['sicklist'] = $sicklist;
 		$content_data['medicationequipment_list'] = $medicationequipment_list;
@@ -357,14 +359,16 @@ class refugee_register extends Private_Controller {
                             $file_url = base_url().$file;
                             $data_document['type'] = $type;
                             $data_document['user_id'] = $user_id;
+                            $data_document['title'] = $file;                            
                             $data_document['file'] = $file;                            
                             $id = grid_add_data($data_document,$table);
 
                             //set the data for the json array
 				            $info = new StdClass;
-				            $info->name = $file_data['file_name'];
+				            $info->name = "Click Here";
 				            $info->size = $file_data['file_size'] * 1024;
 				            $info->type = $file_data['file_type'];
+				            $info->title = $file_data['file_name'];
 				            $info->url = $file_url;
 				            // I set this to original file since I did not create thumbs.  change to thumbnail directory if you do = $upload_path_url .'/thumbs' .$data['file_name']
 				            if ($type == 'photo')
@@ -396,7 +400,7 @@ class refugee_register extends Private_Controller {
 	    			$file_url = base_url().$file;
 	    			//set the data for the json array
 		            $info = new StdClass;
-		            $info->name = basename($file);		            
+		            $info->name = "Click Here";		            
 		            $info->size = filesize($file);
 		            //$info->type = $file_data['file_type'];
 		            $info->url = $file_url;

@@ -30,13 +30,13 @@ class refugee_settings extends Private_Controller {
     	/* Array of database columns which should be read and sent back to DataTables. Use a space where
     	 * you want to insert a non-database field (for example a counter or static image)
     	*/
-    	$aColumns = array( 'id','name' );
+    	$aColumns = array( 'id','location' );
     	$grid_data = get_search_data($aColumns);
     	$sort_order = $grid_data['sort_order'];
     	$order_by = $grid_data['order_by'];
 
         if($order_by == '')
-            $order_by = "name";
+            $order_by = "location";
         if($sort_order == '')
             $sort_order = "asc";
     	/*
@@ -45,8 +45,8 @@ class refugee_settings extends Private_Controller {
     	$per_page =  $grid_data['per_page'];
     	$offset =  $grid_data['offset'];
     	
-    	$data = $this->refugee_settings_model->get_location_association($per_page, $offset, $order_by, $sort_order, $grid_data['search_data']);
-    	$count = $this->refugee_settings_model->get_location_association($per_page, $offset, $order_by, $sort_order, $grid_data['search_data'],true);
+    	$data = $this->refugee_settings_model->get_location_refugee($per_page, $offset, $order_by, $sort_order, $grid_data['search_data']);
+    	$count = $this->refugee_settings_model->get_location_refugee($per_page, $offset, $order_by, $sort_order, $grid_data['search_data'],true);
     	 
     	/*
     	 * Output
@@ -66,10 +66,10 @@ class refugee_settings extends Private_Controller {
                 if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
                     $action_btn .= '<a href="'.base_url('refugee_settings/add/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
                 }
-                $action_btn .= '<a href="javascript:;" onclick=dt_delete("location_association","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+                $action_btn .= '<a href="javascript:;" onclick=dt_delete("refugee_location","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
 
     			$row[] = $result_row["id"];
-    			$row[] = $result_row["name"];
+    			$row[] = $result_row["location"];
                 $row[] = $action_btn;
     			$output['data'][] = $row;
     		}
@@ -82,16 +82,16 @@ class refugee_settings extends Private_Controller {
     	$content_data['id'] = $id;
     	$rowdata = array();
     	if($id){
-    		$rowdata = $this->refugee_settings_model->get_location_association_data($id);
+    		$rowdata = $this->refugee_settings_model->get_location_refugee_data($id);
     	}
     
     	$content_data['rowdata'] = $rowdata;
     	if($this->input->post()){
-    		$name = $this->input->post('name');
+    		$location = $this->input->post('location');
 
     		$data = array();
-			$data['name'] = $name;
-			$table = 'location_association';
+			$data['location'] = $location;
+			$table = 'refugee_location';
 			$wher_column_name = 'id';
     		
     		if($id){
@@ -102,7 +102,7 @@ class refugee_settings extends Private_Controller {
     		}
     		exit;
     	}
-    	$this->template->build('add_location_association', $content_data);
+    	$this->template->build('add_location_refugee', $content_data);
     }
 
 

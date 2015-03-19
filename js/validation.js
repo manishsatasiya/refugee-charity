@@ -132,7 +132,7 @@ $(document).ready(function() {
         }
 	});
 
-	$("#add_location_association").validate({
+	$("#add_location_refugee").validate({
 		submitHandler: function(form) {
 			jQuery(form).ajaxSubmit({
 				success: function(data){
@@ -152,7 +152,7 @@ $(document).ready(function() {
 			
 		},
 		rules: {
-			name: {
+			location: {
 				required: true
 			}
 		},

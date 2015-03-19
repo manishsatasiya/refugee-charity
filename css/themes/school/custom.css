@@ -1559,3 +1559,12 @@ border-top:1px solid #dddddd; border-left:1px solid #dddddd; padding:6px !import
     padding: 2px;
     width: auto;
 }
+.editable-click, a.editable-click, a.editable-click:hover {
+    border-bottom: 1px dashed #08c;
+    text-decoration: none;
+}
+.editable-empty, .editable-empty:focus, .editable-empty:hover {
+    color: #d14;
+    font-style: italic;
+    text-decoration: none;
+}
