@@ -12,7 +12,7 @@
       <div class="portlet light profile-sidebar-portlet">
         <!-- SIDEBAR USERPIC -->
         <div class="profile-userpic">
-          <img src="<?php echo $profile_picture;?>" class="img-responsive" alt="">
+          <img src="<?php echo $profile_picture_40;?>" class="img-responsive" alt="">
         </div>
         <!-- END SIDEBAR USERPIC -->
         <!-- SIDEBAR USER TITLE -->
@@ -174,7 +174,7 @@
                   <div class="form-group">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                       <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
-                        <img src="<?php echo $profile_picture; ?>" width="150" height="150" id="previewimg"/>
+                        <img src="<?php echo $profile_picture_150; ?>" width="150" height="150" id="previewimg"/>
                       </div>
                       <a href="javascript:void(0)" class="btn default btn-file" onclick="changepic();"><?php print $this->lang->line('pro_p_change_pic'); ?></a>
                     </div>

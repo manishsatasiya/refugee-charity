@@ -22,10 +22,10 @@
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 							<?php 
 						$profile_picture = get_profile_pic();
-						$profile_picture_75 = $profile_picture[75];
+						$profile_picture_40 = $profile_picture[40];
 						?>
 
-						<img alt="" class="img-circle" src="<?php print $profile_picture_75; ?>">
+						<img alt="" class="img-circle" src="<?php print $profile_picture_40; ?>">
 						<span class="username username-hide-mobile"><?php echo $this->session->userdata('first_name');  ?></span>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">

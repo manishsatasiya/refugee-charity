@@ -813,7 +813,7 @@ function get_countries() {
 
 function get_profile_pic($user_id = 0,$profile_picture = '',$show_from_id = true) {
 	$ci =& get_instance();
-	$profile_pic = array('150'=> base_url()."images/noimage.jpg",'75'=> base_url()."images/noimage.jpg");
+	$profile_pic = array('150'=> base_url()."images/noimage.jpg",'40'=> base_url()."images/noimage.jpg");
 	
 	if($user_id == 0 && $show_from_id == true)
 		$user_id = $ci->session->userdata('user_id');
@@ -831,12 +831,12 @@ function get_profile_pic($user_id = 0,$profile_picture = '',$show_from_id = true
     }	
 	
 	$curr_dir = str_replace("\\","/",getcwd()).'/';
-	$filepath = $curr_dir.'images/profile_picture/thumb7575/'.$profile_picture;
+	$filepath = $curr_dir.'images/profile_picture/thumb4040/'.$profile_picture;
 	if( file_exists($filepath) && $profile_picture != ''){
 		$profile_picture_150 = base_url()."images/profile_picture/thumb150150/".$profile_picture;
-		$profile_picture_75 = base_url()."images/profile_picture/thumb7575/".$profile_picture;
+		$profile_picture_40 = base_url()."images/profile_picture/thumb4040/".$profile_picture;
 		$profile_pic[150] = $profile_picture_150;
-		$profile_pic[75] = $profile_picture_75;
+		$profile_pic[40] = $profile_picture_40;
 	}
 		
 	return $profile_pic;	   

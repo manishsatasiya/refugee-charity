@@ -423,7 +423,7 @@ div.datepicker {
 /******************************
 LOGIN AND LOGOUT PAGE
 ******************************/
-.form-control {
+/*.form-control {
 	display:inline-block;
 	width:100%;
 	height:auto;
@@ -438,7 +438,7 @@ LOGIN AND LOGOUT PAGE
 transition:all .2s linear 0, box-shadow .2s linear 0;
 	-webkit-box-shadow:none;
 	box-shadow:none
-}
+}*/
 /*.form-control.password {
 	background:#FFF url(../../../images/small/key_small.png) no-repeat 95% center;
 	-webkit-transition:all 0 ease;

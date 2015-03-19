@@ -20,11 +20,13 @@ class Profile extends Private_Controller {
             redirect('list_user');
 
         $profile_picture = get_profile_pic($user_id);
-        $profile_picture = $profile_picture[150];
+        $profile_picture_150 = $profile_picture[150];
+        $profile_picture_40 = $profile_picture[40];
 
         $content_data['user_id'] = $user_id;
         $content_data['user_data'] = $user_data;
-        $content_data['profile_picture'] = $profile_picture;
+        $content_data['profile_picture_150'] = $profile_picture_150;
+        $content_data['profile_picture_40'] = $profile_picture_40;
 
         $this->template->set_theme(Settings_model::$db_config['default_theme']);
         $this->template->set_layout('school');
@@ -150,10 +152,10 @@ class Profile extends Private_Controller {
 				
 				$configBig['image_library'] = 'gd2';
 				$configBig['source_image']    = $curr_dir.'images/profile_picture/original/'.$image;;
-				$configBig['new_image'] = $curr_dir.'images/profile_picture/thumb7575/'.$image;;
+				$configBig['new_image'] = $curr_dir.'images/profile_picture/thumb4040/'.$image;;
 				$configBig['maintain_ratio'] = TRUE;
-				$configBig['width']     = 75;
-				$configBig['height']    = 75;
+				$configBig['width']     = 40;
+				$configBig['height']    = 40;
 
 				$this->image_lib->initialize($configBig); 
 

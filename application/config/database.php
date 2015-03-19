@@ -49,7 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost'; //localhost';
+//$db['default']['username'] = 'rootdb';
 $db['default']['username'] = 'root';
+//$db['default']['password'] = 'refugee';
 $db['default']['password'] = '';
 $db['default']['database'] = 'refugee';
 $db['default']['dbdriver'] = 'mysql';
