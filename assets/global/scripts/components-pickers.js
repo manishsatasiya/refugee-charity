@@ -8,6 +8,15 @@ var ComponentsPickers = function () {
                 //orientation: "left",
                 autoclose: true
             });
+
+            $('.year-picker').datepicker({
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",
+                rtl: Metronic.isRTL(),
+                //orientation: "left",
+                autoclose: true
+            });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
 

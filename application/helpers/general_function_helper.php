@@ -966,5 +966,41 @@ function get_associatoin_name_list() {
 	}
 	return $arr;
 }
+
+function get_user_log_fields() {
+    return $log_fields = array('association_name' => ' Assoc. Name',
+							'location_of_association' => 'Location of Assoc.',
+							'full_name' => 'Full Name',
+							'age' => 'Age',
+							'gender' => 'Gender',
+							'nationality' => 'Nationality',
+							'nationality_id_no' => 'Nationality ID No.',
+							'un_id' => 'UN ID',
+							'marital_status' => 'Marital Status',
+							'previous_occupation' => 'Prev. Occupation',
+							'are_you_able_to_work' => 'Are You Able To Work?',
+							'what_skills_do_you_have_for_working' => 'What skills do you have for working',
+							'are_you_sick' => 'Are you sick',
+							'sick_reason' => 'Sick reason',
+							'need_of_medicationequipment' => 'Are you in need of any medicationequipment',
+							'if_yes_please_specify' => 'If yes please specify',
+							'where_do_you_live_location' => 'Where do you live location',
+							'do_you_live_in_tent_house' => 'Do you live in a tent or house',
+							'what_is_it_that_you_need_most' => 'What is it that you need most',
+							'how_many_children_do_you_have' => 'How many children do you have',
+							'email' => 'Email',
+							'skype' => 'Skype',
+							'whatsapp' => 'WhatsApp',
+							'other_contact' => 'Other Contact',
+							'any_other_information' => 'Any other information',
+							'special_case' => 'Special case',
+							'special_case_more_info' => 'Special case more info',
+							'total_number_of_people_in_house' => 'Total Number of people in house',
+							'telephone_no' => 'Telephone No',
+							'type' => 'Doc Type',
+                          	'title' => 'Title',                            
+                            'file' => 'File Path'
+                            );
+}
 /* End of file general_function_helper.php */
 /* Location: ./application/helpers/general_function_helper.php */ 

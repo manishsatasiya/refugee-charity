@@ -30,13 +30,14 @@ print form_open('refugee_register/add_qualifications/'.$refugee_id.'/'.$id, arra
 
 		<div class="col-md-6 form-group">
             <?php print form_label($this->lang->line('year'), 'pass_year',array('class'=>'control-label')); ?>
-            <div class="input-group date " data-date="<?php echo ($rowdata)?date("Y",strtotime($rowdata->pass_year)):''?>" data-date-format="yyyy" data-date-viewmode="years">
-                <?php print form_input(array('name' => 'pass_year', 'id' => 'date_year', 'value' => ($rowdata)?date("Y",strtotime($rowdata->pass_year)):$this->session->flashdata('pass_year'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
+            <div class="input-group date year-picker" >
+                <?php print form_input(array('name' => 'pass_year', 'id' => 'date_year', 'value' => ($rowdata)?$rowdata->pass_year:$this->session->flashdata('pass_year'), 'class' => 'form-control', 'readonly' => 'readonly')); ?>
                 <span class="input-group-btn"><button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                 </span>
             </div>
 		
 		</div>
+
 		<div class="clear"></div>
 	</div>
 </div>

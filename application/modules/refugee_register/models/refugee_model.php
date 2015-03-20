@@ -97,6 +97,20 @@ class refugee_model extends CI_Model {
         return false;
     }
 
+    public function get_refugee_doc_by_id($id) {
+        $this->db->select('*');
+        $this->db->from('refugee_documents');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+
+        if ($query->num_rows() > 0) {
+            return $query->row(0);
+        }
+
+        return false;
+    }
+
     public function get_qualifications($refugee_id,$order_by = "title", $sort_order = "asc", $count = false) {
 
         $this->db->select('*');

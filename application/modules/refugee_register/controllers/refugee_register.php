@@ -156,6 +156,7 @@ class refugee_register extends Private_Controller {
 			$data_document['special_case'] = $special_case;
 			$data_document['special_case_more_info'] = $special_case_more_info;
 			$data_document['total_number_of_people_in_house'] = $total_number_of_people_in_house;
+			$data_document['created_by'] = $this->session->userdata('user_id');
 			
 			if($add_timestamp > 0){
 				$id = "";
@@ -164,7 +165,81 @@ class refugee_register extends Private_Controller {
 			$table = 'refugee';		
 			$wher_column_name = 'id';
 			if($id){
+				//START For Log
+				$user_new_data = array(
+							'association_name' => $association_name,
+							'location_of_association' => $location_of_association,
+							'full_name' => $full_name,
+							'age' => $age,
+							'gender' => $gender,
+							'nationality' => $nationality,
+							'nationality_id_no' => $nationality_id_no,
+							'un_id' => $un_id,
+							'marital_status' => $marital_status,
+							'previous_occupation' => $previous_occupation,
+							'are_you_able_to_work' => $are_you_able_to_work,
+							'what_skills_do_you_have_for_working' => $what_skills_do_you_have_for_working,
+							'are_you_sick' => $are_you_sick,
+							'sick_reason' => $sick_reason,
+							'need_of_medicationequipment' => $need_of_medicationequipment,
+							'if_yes_please_specify' => $if_yes_please_specify,
+							'where_do_you_live_location' => $where_do_you_live_location,
+							'do_you_live_in_tent_house' => $do_you_live_in_tent_house,
+							'what_is_it_that_you_need_most' => $what_is_it_that_you_need_most,
+							'how_many_children_do_you_have' => $how_many_children_do_you_have,
+							'any_other_information' => $any_other_information,
+							'special_case' => $special_case,
+							'special_case_more_info' => $special_case_more_info,
+							'total_number_of_people_in_house' => $total_number_of_people_in_house
+						);						
+				
+
+				$arr_log_fields = get_user_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_refugee_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
+							if (($user_data->$field_key == '0000-00-00') && ($arr_user_new_data[$field_key] == '')) {
+								continue;
+							}
+							if ($arr_user_new_data[$field_key] != $user_data->$field_key) {
+								$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+							}
+						}
+					}
+				}
+				//END For Log
+
+				//Update refugee DB table data from edit page
 				grid_data_updates($data_document,$table,$wher_column_name,$id);    
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> $field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA
 			}else{
 				$data_document['created_date'] = date("Y-m-d H:i:s");
 				$id = grid_add_data($data_document,$table);
@@ -251,7 +326,63 @@ class refugee_register extends Private_Controller {
 			$table = 'refugee';		
 			$wher_column_name = 'id';
 			if($id){
-				grid_data_updates($data_document,$table,$wher_column_name,$id);    
+
+				//START For Log
+				$user_new_data = array(
+							'email' => $email,
+							'skype' => $skype,
+							'whatsapp' => $whatsapp,
+							'other_contact' => $other_contact,
+							'telephone_no' => $telephone_no
+						);						
+				
+
+				$arr_log_fields = get_user_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_refugee_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
+							if (($user_data->$field_key == '0000-00-00') && ($arr_user_new_data[$field_key] == '')) {
+								continue;
+							}
+							if ($arr_user_new_data[$field_key] != $user_data->$field_key) {
+								$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+							}
+						}
+					}
+				}
+				//END For Log
+
+				//Update refugee DB table data from edit page contact tab
+				grid_data_updates($data_document,$table,$wher_column_name,$id);      
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> $field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA
 			}
 						
 			$this->session->set_flashdata('message', $this->lang->line('save_success'));
@@ -359,9 +490,59 @@ class refugee_register extends Private_Controller {
                             $file_url = base_url().$file;
                             $data_document['type'] = $type;
                             $data_document['user_id'] = $user_id;
-                            $data_document['title'] = $file;                            
-                            $data_document['file'] = $file;                            
-                            $id = grid_add_data($data_document,$table);
+                            $data_document['title'] = $file_data["file_name"];                            
+                            $data_document['file'] = $file;  
+
+                            //START For Log
+							$user_new_data = array(
+										'type' => $type,
+			                          	'user_id' => $user_id,
+			                            'title' => $file_data["file_name"],                            
+			                            'file' => $file 
+									);					
+							
+
+							$arr_log_fields = get_user_log_fields();
+							$log_field_data = array();
+
+							if(count($arr_log_fields) > 0){
+								$arr_user_new_data = $user_new_data;					
+								foreach ($arr_log_fields as $field_key => $value) {
+									if (isset($arr_user_new_data[$field_key])) {
+										$log_field_data[$field_key] = array('old_value'=> '',
+																				 'new_value'=> $arr_user_new_data[$field_key]);
+									}
+								}
+							}
+							//END For Log
+
+							//Add refugee Doc DB table data from edit page photo,video,document tab
+							$id = grid_add_data($data_document,$table);     
+
+							//START INSERT LOG DATA
+							if((count($log_field_data) > 0)){
+								$change_by = $this->session->userdata('user_id');
+								$refugee_log_master = array(
+									'refugee_id' => $user_id,
+									'change_by' => $change_by,
+									'change_date' => date('Y-m-d H:i:s'),
+									'type' => 1
+								);
+								$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+								if(count($log_field_data) > 0){					
+									$log_data = array();
+									foreach ($log_field_data as $field_key => $value) {
+										$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+															'change_field'=> $field_key,
+															'old_value'=> $value['old_value'],
+															'new_value'=> $value['new_value']);
+									}
+									$this->db->insert_batch('refugee_log_data', $log_data);
+								}
+							}
+							//END INSERT LOG DATA                          
+                            
 
                             //set the data for the json array
 				            $info = new StdClass;
@@ -439,7 +620,59 @@ class refugee_register extends Private_Controller {
 				$is_file = true;
 				$success = @unlink($file);
 			}
-			grid_delete($table,$wher_column_name,$id);
+
+			//START For Log
+			$user_new_data = array(
+						'type' => 'set',
+                      	'user_id' => 'set',
+                        'title' => 'set',                            
+                        'file' => 'set' 
+					);					
+			
+
+			$arr_log_fields = get_user_log_fields();
+			$log_field_data = array();
+			$refugee_id = 0;
+			if(count($arr_log_fields) > 0){
+				$arr_user_new_data = $user_new_data;	
+				$user_data = $this->refugee_model->get_refugee_doc_by_id($id);
+
+				foreach ($arr_log_fields as $field_key => $value) {
+					if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
+						$refugee_id = $user_data->user_id;
+						$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
+															 'new_value'=> 'Deleted');
+					}
+				}
+			}
+			//END For Log
+			
+			//DELETE refugee Doc from edit page photo,video,document tab
+			grid_delete($table,$wher_column_name,$id);     
+			
+			//START INSERT LOG DATA
+			if((count($log_field_data) > 0)){
+				$change_by = $this->session->userdata('user_id');
+				$refugee_log_master = array(
+					'refugee_id' => $refugee_id,
+					'change_by' => $change_by,
+					'change_date' => date('Y-m-d H:i:s'),
+					'type' => 1
+				);
+				$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+				if(count($log_field_data) > 0){					
+					$log_data = array();
+					foreach ($log_field_data as $field_key => $value) {
+						$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+											'change_field'=> $field_key,
+											'old_value'=> $value['old_value'],
+											'new_value'=> $value['new_value']);
+					}
+					$this->db->insert_batch('refugee_log_data', $log_data);
+				}
+			}
+			//END INSERT LOG DATA 
 
 	        $info->sucess = $success;
 	        $info->path = $file;

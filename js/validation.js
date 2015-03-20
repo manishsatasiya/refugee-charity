@@ -118,18 +118,7 @@ $(document).ready(function() {
 		messages: {
 			user_roll_name: "Please enter role."
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_location_refugee").validate({
@@ -156,18 +145,7 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_refugee_qualifications").validate({
@@ -204,18 +182,7 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_refugee_family_members").validate({
@@ -252,18 +219,7 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_association_name").validate({
@@ -290,18 +246,7 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_user_form_datatable").validate({
@@ -356,18 +301,7 @@ $(document).ready(function() {
 			username: "Please enter username",
 			password: "Please enter password"
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$('#add_user_form_datatable #reg_email').change(function(){
@@ -395,18 +329,7 @@ $(document).ready(function() {
 				comboboxNotNone: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_home_visit").validate({
@@ -447,19 +370,7 @@ $(document).ready(function() {
 			year: {
 				comboboxNotNone: true
 			}
-		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		}
 	});
 
 	$("#add_refugee").validate({
@@ -519,18 +430,7 @@ $(document).ready(function() {
 				comboboxNotNone: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 	
 	$("#add_document").validate({
@@ -547,18 +447,7 @@ $(document).ready(function() {
 			name: "Please enter name",
 			file: "Please select file"
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_privilege_form").validate({
@@ -570,18 +459,7 @@ $(document).ready(function() {
 				comboboxNotNone: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 
 	$("#add_nationality").validate({
@@ -611,18 +489,7 @@ $(document).ready(function() {
 				required: true
 			}
 		},
-		errorElement: 'span', //default input error message container
-	    errorClass: 'help-block help-block-error', // default input error message class
-	    focusInvalid: false, // do not focus the last invalid input
-	    highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error'); // set success class to the control group
-        }
+		
 	});
 	
 	$(document).ready(function(){	
