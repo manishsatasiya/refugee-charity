@@ -999,7 +999,31 @@ function get_user_log_fields() {
 							'telephone_no' => 'Telephone No',
 							'type' => 'Doc Type',
                           	'title' => 'Title',                            
-                            'file' => 'File Path'
+                            'file' => 'File Path',
+                            'qual_title' => 'Title',
+							'qual_institute' => 'Institute',
+							'qual_grade' => 'Grade',
+							'qual_pass_year' => 'Year',
+							'family_name' => 'Name',
+							'family_relation' => 'Relation',
+							'family_gender' =>  'Gender',
+							'family_age' => 'Age'	
+                            );
+}
+
+function get_user_qual_log_fields() {
+    return $log_fields = array('title' => 'Title',
+							'institute' => 'Institute',
+							'grade' => 'Grade',
+							'pass_year' => 'Year'
+                            );
+}
+
+function get_user_family_membs_log_fields() {
+    return $log_fields = array('name' => 'Name',
+							'relation' => 'Relation',
+							'gender' =>  'Gender',
+							'age' => 'Age'
                             );
 }
 /* End of file general_function_helper.php */

@@ -66,7 +66,9 @@ class refugee_register extends Private_Controller {
     			if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
     				$action_btn .= '<a href="'.base_url('refugee_register/add/'.$result_row["id"]).'" class="btn default btn-xs blue"><i class="fa fa-edit"></i> </a>';
     			}
+
     			$action_btn .= '<a href="javascript:;" onclick=dt_delete("refugee","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+    			$action_btn .= '<a href="'.base_url('refugee_register/view/'.$result_row["id"]).'" class="btn default btn-xs yellow"><i class="fa fa-search"></i> </a>';
 				$row[] = $result_row['id'];
 				$row[] = $result_row['association_name'];
 				$row[] = $result_row['full_name'];
@@ -649,7 +651,7 @@ class refugee_register extends Private_Controller {
 			
 			//DELETE refugee Doc from edit page photo,video,document tab
 			grid_delete($table,$wher_column_name,$id);     
-			
+
 			//START INSERT LOG DATA
 			if((count($log_field_data) > 0)){
 				$change_by = $this->session->userdata('user_id');
@@ -682,7 +684,7 @@ class refugee_register extends Private_Controller {
         exit();
 	}
 
-	public function load_qualifications($refugee_id) {    	
+	public function load_qualifications($refugee_id,$view_only = 0) {    	
 
         $order_by = "title";
         $sort_order = "asc";
@@ -695,24 +697,25 @@ class refugee_register extends Private_Controller {
 						<th>'.$this->lang->line('title').'</th>
 						<th>'.$this->lang->line('institute').'</th>
 						<th>'.$this->lang->line('grade').'</th>
-						<th>'.$this->lang->line('year').'</th>
-						<th>'.$this->lang->line('action').'</th>
-					</tr>
+						<th>'.$this->lang->line('year').'</th>';
+		$output .= ($view_only == 0)?'<th>'.$this->lang->line('action').'</th>': '';
+		$output .= '</tr>
 					</thead>
 					<tbody>';
     	if($data){
     		foreach($data->result_array() AS $result_row){
 
                 $action_btn = '';
+                if($view_only == 0){
                 $action_btn .= '<a href="'.base_url('refugee_register/add_qualifications/'.$result_row["refugee_id"].'/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
                 $action_btn .= '<a href="javascript:;" onclick=table_delete("refugee_qualifications","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
-
+            	}
                 $output .= '<tr>';
     			$output .= '<td>'.$result_row["title"].'</td>';
     			$output .= '<td>'.$result_row["institute"].'</td>';
     			$output .= '<td>'.$result_row["grade"].'</td>';
     			$output .= '<td>'.$result_row["pass_year"].'</td>';
-                $output .= '<td>'.$action_btn.'</td>';
+                $output .= ($view_only == 0)?'<td>'.$action_btn.'</td>': '';
                 $output .= '</tr>';
     		}
     	}
@@ -745,16 +748,120 @@ class refugee_register extends Private_Controller {
 			$wher_column_name = 'id';
     		
     		if($id){
-    			grid_data_updates($data,$table,$wher_column_name,$id);    			
+    			//START For Log
+				$user_new_data = array(
+							'title' => $title,
+							'institute' => $institute,
+							'grade' => $grade,
+							'pass_year' => $pass_year
+						);						
+				
+
+				$arr_log_fields = get_user_qual_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_qualifications_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
+							if (($user_data->$field_key == '0000-00-00') && ($arr_user_new_data[$field_key] == '')) {
+								continue;
+							}
+							if ($arr_user_new_data[$field_key] != $user_data->$field_key) {
+								$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+							}
+						}
+					}
+				}
+				//END For Log
+
+				//Update refugee_qualifications DB table data from edit page info tab
+				grid_data_updates($data,$table,$wher_column_name,$id);     
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $refugee_id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> 'qual_'.$field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA
+    			  			
     		}else{
-    			$lastinsertid = grid_add_data($data,$table);
+    			//START For Log
+				$user_new_data = array(
+							'title' => $title,
+							'institute' => $institute,
+							'grade' => $grade,
+							'pass_year' => $pass_year
+						);						
+				
+
+				$arr_log_fields = get_user_qual_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_qualifications_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key])) {
+								$log_field_data[$field_key] = array('old_value'=> '',
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+						}
+					}
+				}
+				//END For Log
+
+				//Add refugee_qualifications DB table data from edit page info tab
+				$lastinsertid = grid_add_data($data,$table);    
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $refugee_id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> 'qual_'.$field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA
     		}
     		exit;
     	}
     	$this->template->build('add_qualifications', $content_data);
     }
 
-    public function load_family_members($refugee_id) {    	
+    public function load_family_members($refugee_id,$view_only = 0) {    	
 
         $order_by = "name";
         $sort_order = "asc";
@@ -767,24 +874,25 @@ class refugee_register extends Private_Controller {
 						<th>'.$this->lang->line('name').'</th>
 						<th>'.$this->lang->line('relation').'</th>
 						<th>'.$this->lang->line('gender').'</th>
-						<th>'.$this->lang->line('age').'</th>
-						<th>'.$this->lang->line('action').'</th>
-					</tr>
+						<th>'.$this->lang->line('age').'</th>';
+		$output .= ($view_only == 0)?'<th>'.$this->lang->line('action').'</th>': '';
+		$output .= '</tr>
 					</thead>
 					<tbody>';
     	if($data){
     		foreach($data->result_array() AS $result_row){
 
                 $action_btn = '';
+                if($view_only == 0){
                 $action_btn .= '<a href="'.base_url('refugee_register/add_family_members/'.$result_row["refugee_id"].'/'.$result_row["id"]).'" class="btn default btn-xs blue" data-target="#myModal" data-toggle="modal"><i class="fa fa-edit"></i> </a>';
                 $action_btn .= '<a href="javascript:;" onclick=table_delete("refugee_family_members","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
-
+            	}
                 $output .= '<tr>';
     			$output .= '<td>'.$result_row["name"].'</td>';
     			$output .= '<td>'.relation_dropdown($result_row["relation"]).'</td>';
     			$output .= '<td>'.$result_row["gender"].'</td>';
     			$output .= '<td>'.$result_row["age"].'</td>';
-                $output .= '<td>'.$action_btn.'</td>';
+                $output .= ($view_only == 0)?'<td>'.$action_btn.'</td>': '';
                 $output .= '</tr>';
     		}
     	}
@@ -824,14 +932,178 @@ class refugee_register extends Private_Controller {
 			$wher_column_name = 'id';
     		
     		if($id){
-    			grid_data_updates($data,$table,$wher_column_name,$id);    			
+    			//START For Log
+				$user_new_data = array(
+							'name' => $name,
+							'relation' => $relation,
+							'gender' => $gender,
+							'age' => $age
+						);						
+				
+
+				$arr_log_fields = get_user_family_membs_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_family_members_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
+							if (($user_data->$field_key == '0000-00-00') && ($arr_user_new_data[$field_key] == '')) {
+								continue;
+							}
+							if ($arr_user_new_data[$field_key] != $user_data->$field_key) {
+								$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+							}
+						}
+					}
+				}
+				//END For Log
+
+				//Update refugee_family_members DB table data from edit page info tab
+				grid_data_updates($data,$table,$wher_column_name,$id);    
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $refugee_id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> 'family_'.$field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA	    			
     		}else{
-    			$lastinsertid = grid_add_data($data,$table);
+    			//START For Log
+				$user_new_data = array(
+							'name' => $name,
+							'relation' => $relation,
+							'gender' => $gender,
+							'age' => $age
+						);						
+				
+
+				$arr_log_fields = get_user_family_membs_log_fields();
+				$log_field_data = array();
+
+				if(count($arr_log_fields) > 0){
+					$arr_user_new_data = $user_new_data;					
+					$user_data = $this->refugee_model->get_qualifications_data($id);	
+					foreach ($arr_log_fields as $field_key => $value) {
+						if (isset($arr_user_new_data[$field_key])) {
+								$log_field_data[$field_key] = array('old_value'=> '',
+																	 'new_value'=> $arr_user_new_data[$field_key]);
+						}
+					}
+				}
+				//END For Log
+
+				//Add refugee_family_members DB table data from edit page info tab
+				$lastinsertid = grid_add_data($data,$table);    
+
+				//START INSERT LOG DATA
+				if((count($log_field_data) > 0)){
+					$change_by = $this->session->userdata('user_id');
+					$refugee_log_master = array(
+						'refugee_id' => $refugee_id,
+						'change_by' => $change_by,
+						'change_date' => date('Y-m-d H:i:s'),
+						'type' => 1
+					);
+					$refugee_log_master_id = grid_add_data($refugee_log_master,'refugee_log_master');
+
+					if(count($log_field_data) > 0){					
+						$log_data = array();
+						foreach ($log_field_data as $field_key => $value) {
+							$log_data[] = array('refugee_log_master_id'=> $refugee_log_master_id,
+												'change_field'=> 'family_'.$field_key,
+												'old_value'=> $value['old_value'],
+												'new_value'=> $value['new_value']);
+						}
+						$this->db->insert_batch('refugee_log_data', $log_data);
+					}
+				}
+				//END INSERT LOG DATA
     		}
     		exit;
     	}
     	$this->template->build('add_family_members', $content_data);
     }
 	
+	public function view($id) {
+
+    	$content_data = array();
+    	$work_list = work_dropdown();
+		$sicklist = sick_dropdown();
+		$medicationequipment_list = medicationequipment_dropdown();
+		$livelist = live_dropdown();
+		$specia_case_list = specia_case_dropdown();
+		$month_list = month_dropdown();
+		$year_list = year_dropdown();
+		$age_list = age_dropdown();
+		$gender_list = gender_dropdown();
+		$children_list = children_dropdown();
+		$housepeople_list = housepeople_dropdown();
+		$maritalstatus_list = maritalstatus_dropdown();
+		$nationality_list = get_nationality_list();
+		$countries_list = get_countries();
+		$refugee_location_list = get_refugee_location();
+		$associatoin_name_list = get_associatoin_name_list();
+		
+		$rowdata= array();
+		$content_data['timestamp'] = 0;
+		if($id){
+			$rowdata = $this->refugee_model->get_refugee_data($id);
+
+			if(!$rowdata){
+				redirect('refugee_register/');
+			}
+		}
+		else{
+			redirect('refugee_register/');
+		}
+
+		$content_data['work_list'] = $work_list;
+		$content_data['age_list'] = $age_list;
+		$content_data['gender_list'] = $gender_list;
+		$content_data['children_list'] = $children_list;
+		$content_data['housepeople_list'] = $housepeople_list;
+		$content_data['maritalstatus_list'] = $maritalstatus_list;
+		$content_data['nationality_list'] = $nationality_list;
+		$content_data['countries_list'] = $countries_list;
+		$content_data['refugee_location_list'] = $refugee_location_list;
+		$content_data['associatoin_name_list'] = $associatoin_name_list;
+		$content_data['sicklist'] = $sicklist;
+		$content_data['medicationequipment_list'] = $medicationequipment_list;
+		$content_data['livelist'] = $livelist;
+		$content_data['specia_case_list'] = $specia_case_list;
+		
+		$content_data['rowdata'] = $rowdata;
+		
+		$content_data['id'] = $id;
+        // set layout data
+        $this->template->set_theme(Settings_model::$db_config['default_theme']);
+        $this->template->set_layout('school');
+        
+        $this->template->title($this->lang->line('refugee'));
+        $this->template->set_partial('header', 'header');
+		$this->template->set_partial('sidebar', 'sidebar');
+        $this->template->set_partial('footer', 'footer');
+        $this->template->build('view', $content_data);
+    }	
 }
 /* End of file documents.php */
