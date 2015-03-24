@@ -20,7 +20,9 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->	
-
+<script type="text/javascript">
+var refugee_id = <?=$id?>;
+</script>
 <div class="row">
 	<div class="col-md-12">
     <div class="portlet light">
@@ -46,6 +48,9 @@
                 </li>
                 <li>
                   <a href="#tab_1_5" data-toggle="tab" data-tab-numb="4" class="tab_clicked"><?php print $this->lang->line('video'); ?></a>
+                </li>
+                <li>
+                  <a href="#tab_1_6" data-toggle="tab" data-tab-numb="5" class="tab_clicked"><?php print $this->lang->line('activity_report'); ?></a>
                 </li>
                 <?php } ?>
             </ul>
@@ -505,6 +510,28 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="tab-pane " id="tab_1_6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <script type="text/javascript" src="<?php print base_url(); ?>js/grid/refugee_changes_log.js"></script>
+                            <div class="table-container">
+                                <table class="table table-striped table-bordered table-hover" id="grid_profile_changes_log">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%"><?php echo $this->lang->line('db_id'); ?></th>
+                                            <th><?php echo $this->lang->line('change_by'); ?></th>
+                                            <th><?php echo $this->lang->line('change_date'); ?></th>
+                                            <th><?php echo $this->lang->line('view_log'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <?php } ?>
             </div>  
 	   </div>

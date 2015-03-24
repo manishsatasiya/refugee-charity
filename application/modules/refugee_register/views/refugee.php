@@ -47,7 +47,7 @@
 				                <th><?php echo $this->lang->line('gender'); ?></th>
 				                <th><?php echo $this->lang->line('nationality'); ?></th>
 				                <th><?php echo $this->lang->line('created_date'); ?></th>
-								<th><?php echo $this->lang->line('action'); ?></th>
+								<th width="5%"><?php echo $this->lang->line('action'); ?></th>
 							</tr>
 						</thead>
 						<tbody></tbody>

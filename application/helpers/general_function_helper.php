@@ -1000,21 +1000,21 @@ function get_user_log_fields() {
 							'type' => 'Doc Type',
                           	'title' => 'Title',                            
                             'file' => 'File Path',
-                            'qual_title' => 'Title',
-							'qual_institute' => 'Institute',
-							'qual_grade' => 'Grade',
-							'qual_pass_year' => 'Year',
-							'family_name' => 'Name',
-							'family_relation' => 'Relation',
-							'family_gender' =>  'Gender',
-							'family_age' => 'Age'	
+                            'qual_title' => 'Qual. Title',
+							'qual_institute' => 'Qual. Institute',
+							'qual_grade' => 'Qual. Grade',
+							'qual_pass_year' => 'Qual. Year',
+							'family_name' => 'Family Name',
+							'family_relation' => 'Family Relation',
+							'family_gender' =>  'Family Gender',
+							'family_age' => 'Family Age'	
                             );
 }
 
 function get_user_qual_log_fields() {
     return $log_fields = array('title' => 'Title',
 							'institute' => 'Institute',
-							'grade' => 'Grade',
+							//'grade' => 'Grade',
 							'pass_year' => 'Year'
                             );
 }
@@ -1025,6 +1025,33 @@ function get_user_family_membs_log_fields() {
 							'gender' =>  'Gender',
 							'age' => 'Age'
                             );
+}
+
+function get_user_log_fields_group($group_name) {
+    if ($group_name == 'photo') {
+        return $log_fields = array('title' => 'Title',
+                                'file' => 'File'
+                            );
+    }elseif ($group_name == 'document') {
+        return $log_fields = array('title' => 'Title',
+                                'file' => 'File'
+                            );
+    }elseif ($group_name == 'video') {
+        return $log_fields = array('title' => 'Title',
+                                'file' => 'File'
+                            );
+    }
+
+    return array();
+}
+function getDocumentType($get_name = false){
+	if($get_name) {
+		return array('photo'=>"Photo",
+				'document'=>"Document",
+				'video'=>"Video"
+				);
+	}
+	return array();	
 }
 /* End of file general_function_helper.php */
 /* Location: ./application/helpers/general_function_helper.php */ 

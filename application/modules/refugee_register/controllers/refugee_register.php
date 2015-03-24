@@ -62,13 +62,15 @@ class refugee_register extends Private_Controller {
     	if($data){
     		foreach($data->result_array() AS $result_row){
     			$row = array();
-    			$action_btn = '';
+    			$action_btn = '<div class="btn-group"><button class="btn btn-circle blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown">'.$this->lang->line('action_btn').' <i class="fa fa-angle-down"></i></button><ul class="dropdown-menu pull-right" role="menu">';
     			if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
-    				$action_btn .= '<a href="'.base_url('refugee_register/add/'.$result_row["id"]).'" class="btn default btn-xs blue"><i class="fa fa-edit"></i> </a>';
+    				$action_btn .= '<li><a href="'.base_url('refugee_register/add/'.$result_row["id"]).'" class=""><i class="fa fa-edit"></i> '.$this->lang->line('edit').'</a></li>';
     			}
 
-    			$action_btn .= '<a href="javascript:;" onclick=dt_delete("refugee","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
-    			$action_btn .= '<a href="'.base_url('refugee_register/view/'.$result_row["id"]).'" class="btn default btn-xs yellow"><i class="fa fa-search"></i> </a>';
+    			$action_btn .= '<li><a href="javascript:;" onclick=dt_delete("refugee","id",'.$result_row["id"].'); class=""><i class="fa fa-trash-o"></i> '.$this->lang->line('delete').'</a></li>';
+    			$action_btn .= '<li><a href="'.base_url('refugee_register/view/'.$result_row["id"]).'" class=""><i class="fa fa-search"></i> '.$this->lang->line('view').'</a></li>';
+
+    			$action_btn .= '</ul></div>';
 				$row[] = $result_row['id'];
 				$row[] = $result_row['association_name'];
 				$row[] = $result_row['full_name'];
@@ -486,7 +488,7 @@ class refugee_register extends Private_Controller {
                 {
                     if(count($arrFiles) > 0)
                     {
-                        //$this->list_user_model->delete_user_document($user_id,$arrCertificateType[$certificate_type]);
+                        //$this->list_user_model->delete_user_document($user_id,$arrDocumentType[$certificate_type]);
                         foreach($arrFiles as $file_data) {
                             $file = 'uploads/'.$user_id.'/'.$file_data["file_name"];
                             $file_url = base_url().$file;
@@ -506,15 +508,19 @@ class refugee_register extends Private_Controller {
 
 							$arr_log_fields = get_user_log_fields();
 							$log_field_data = array();
+							$arr_doc_data = array();
+							$doc_type = "";
 
 							if(count($arr_log_fields) > 0){
 								$arr_user_new_data = $user_new_data;					
 								foreach ($arr_log_fields as $field_key => $value) {
 									if (isset($arr_user_new_data[$field_key])) {
-										$log_field_data[$field_key] = array('old_value'=> '',
-																				 'new_value'=> $arr_user_new_data[$field_key]);
+										$doc_type = $type;
+										$arr_doc_data[$field_key] = $arr_user_new_data[$field_key];
 									}
 								}
+								$log_field_data[$doc_type] = array('old_value'=> '',
+																	'new_value'=> serialize($arr_doc_data));
 							}
 							//END For Log
 
@@ -634,7 +640,9 @@ class refugee_register extends Private_Controller {
 
 			$arr_log_fields = get_user_log_fields();
 			$log_field_data = array();
+			$doc_type = '';
 			$refugee_id = 0;
+			$arr_doc_data = array();
 			if(count($arr_log_fields) > 0){
 				$arr_user_new_data = $user_new_data;	
 				$user_data = $this->refugee_model->get_refugee_doc_by_id($id);
@@ -642,10 +650,13 @@ class refugee_register extends Private_Controller {
 				foreach ($arr_log_fields as $field_key => $value) {
 					if (isset($arr_user_new_data[$field_key]) && isset($user_data->$field_key)) {
 						$refugee_id = $user_data->user_id;
-						$log_field_data[$field_key] = array('old_value'=> $user_data->$field_key,
-															 'new_value'=> 'Deleted');
+						$doc_type = $user_data->type;
+						$arr_doc_data[$field_key] = $user_data->$field_key;
 					}
 				}
+
+				$log_field_data[$doc_type] = array('old_value'=> serialize($arr_doc_data),
+													'new_value'=> 'Deleted');
 			}
 			//END For Log
 			
@@ -696,9 +707,9 @@ class refugee_register extends Private_Controller {
 					<tr class="uppercase">
 						<th>'.$this->lang->line('title').'</th>
 						<th>'.$this->lang->line('institute').'</th>
-						<th>'.$this->lang->line('grade').'</th>
+						<!--<th>'.$this->lang->line('grade').'</th>-->
 						<th>'.$this->lang->line('year').'</th>';
-		$output .= ($view_only == 0)?'<th>'.$this->lang->line('action').'</th>': '';
+		$output .= ($view_only == 0)?'<th></th>': '';
 		$output .= '</tr>
 					</thead>
 					<tbody>';
@@ -713,9 +724,9 @@ class refugee_register extends Private_Controller {
                 $output .= '<tr>';
     			$output .= '<td>'.$result_row["title"].'</td>';
     			$output .= '<td>'.$result_row["institute"].'</td>';
-    			$output .= '<td>'.$result_row["grade"].'</td>';
+    			//$output .= '<td>'.$result_row["grade"].'</td>';
     			$output .= '<td>'.$result_row["pass_year"].'</td>';
-                $output .= ($view_only == 0)?'<td>'.$action_btn.'</td>': '';
+                $output .= ($view_only == 0)?'<td align="right">'.$action_btn.'</td>': '';
                 $output .= '</tr>';
     		}
     	}
@@ -735,14 +746,14 @@ class refugee_register extends Private_Controller {
     	if($this->input->post()){
     		$title = $this->input->post('title');
     		$institute = $this->input->post('institute');
-    		$grade = $this->input->post('grade');
+    		//$grade = $this->input->post('grade');
     		$pass_year = $this->input->post('pass_year');
 
     		$data = array();
 			$data['refugee_id'] = $refugee_id;
 			$data['title'] = $title;
 			$data['institute'] = $institute;
-			$data['grade'] = $grade;
+			//$data['grade'] = $grade;
 			$data['pass_year'] = $pass_year;
 			$table = 'refugee_qualifications';
 			$wher_column_name = 'id';
@@ -752,7 +763,7 @@ class refugee_register extends Private_Controller {
 				$user_new_data = array(
 							'title' => $title,
 							'institute' => $institute,
-							'grade' => $grade,
+							//'grade' => $grade,
 							'pass_year' => $pass_year
 						);						
 				
@@ -809,7 +820,7 @@ class refugee_register extends Private_Controller {
 				$user_new_data = array(
 							'title' => $title,
 							'institute' => $institute,
-							'grade' => $grade,
+							//'grade' => $grade,
 							'pass_year' => $pass_year
 						);						
 				
@@ -875,7 +886,7 @@ class refugee_register extends Private_Controller {
 						<th>'.$this->lang->line('relation').'</th>
 						<th>'.$this->lang->line('gender').'</th>
 						<th>'.$this->lang->line('age').'</th>';
-		$output .= ($view_only == 0)?'<th>'.$this->lang->line('action').'</th>': '';
+		$output .= ($view_only == 0)?'<th></th>': '';
 		$output .= '</tr>
 					</thead>
 					<tbody>';
@@ -892,7 +903,7 @@ class refugee_register extends Private_Controller {
     			$output .= '<td>'.relation_dropdown($result_row["relation"]).'</td>';
     			$output .= '<td>'.$result_row["gender"].'</td>';
     			$output .= '<td>'.$result_row["age"].'</td>';
-                $output .= ($view_only == 0)?'<td>'.$action_btn.'</td>': '';
+                $output .= ($view_only == 0)?'<td align="right">'.$action_btn.'</td>': '';
                 $output .= '</tr>';
     		}
     	}
@@ -1105,5 +1116,192 @@ class refugee_register extends Private_Controller {
         $this->template->set_partial('footer', 'footer');
         $this->template->build('view', $content_data);
     }	
+
+    public function get_profile_changes_log_json($refugee_id=0,$order_by = "username", $sort_order = "asc", $search = "all", $offset = 0) {
+        /* Array of database columns which should be read and sent back to DataTables. Use a space where
+         * you want to insert a non-database field (for example a counter or static image)
+        */
+        $aColumns = array('id',
+                        'change_by_name',
+                        'change_date');
+        $grid_data = get_search_data($aColumns);
+        $sort_order = $grid_data['sort_order'];
+        $order_by = $grid_data['order_by'];
+        /*
+         * Paging
+        */
+        $per_page =  $grid_data['per_page'];
+        $offset =  $grid_data['offset'];
+    
+        $data = $this->refugee_model->get_profile_changes_log($per_page, $offset, $order_by, $sort_order, $grid_data['search_data'],$refugee_id);
+        $count = $this->refugee_model->get_profile_changes_log(0, 0, "", "", $grid_data['search_data'],$refugee_id);
+        /*
+         * Output
+        */
+
+        $output = array(
+    			"sEcho" => intval($_POST['draw']),
+    			"recordsTotal" => $count,
+    			"recordsFiltered" => $count,
+    			"data" => array()
+    	);
+        
+        if($data){
+        
+            foreach($data->result_array() AS $result_row){
+                $row = array();
+                $id = $result_row['id'];
+                               
+                $log_data = $this->refugee_model->get_profile_changes_log_data($id);
+                $DocumentType = getDocumentType(true);
+                $arr_log_fields = get_user_log_fields();
+                $strTooltip = '<div style="max-height:250px; overflow:scroll;">';
+                $strTooltip .= '<table class="table no-more-tables prop-log-table">';
+                $strTooltip .= '<tr><th>Field</th><th>Old Value</th><th>New Value</th></tr>';
+                foreach($log_data->result_array() as $data1) {
+                    $change_field = $data1["change_field"];
+                    $change_field_label = (isset($arr_log_fields[$change_field]))?$arr_log_fields[$change_field]:$change_field;
+                    $old_value = '';
+                    $new_value = '';
+                    $old_value_class = '';
+                    $new_value_class = '';
+                    if($change_field <> '' && $data1["change_field"] <> 'password'){
+                        $old_value = $old_value_tmp = $data1["old_value"];
+                        $new_value = $new_value_tmp = $data1["new_value"];
+                        $old_value_tmp_str = '';
+                        $new_value_tmp_str = '';
+
+                        $old_value_tmp2 = @unserialize($old_value_tmp);                        
+                        if ($old_value_tmp === 'b:0;' || $old_value_tmp2 !== false) {
+                            $group_name = str_replace('', '', $change_field);
+                            $arr_log_fields2 = get_user_log_fields_group($group_name);
+                            if(is_array($old_value_tmp2) && count($old_value_tmp2) > 0 && count($arr_log_fields2) > 0){
+                                $old_value_tmp_str .= '<table border="0" width="100%" class="table no-more-tables prop-log-tabl">';
+                                $old_value_tmp_str .=  '<tr>';
+                                foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                    $old_value_tmp_str .=  '<th>'.$log_field_name.'</th>';
+                                }
+                                $old_value_tmp_str .=  '</tr>';  
+
+                                $old_value_tmp_str .=  '<tr>';
+                                foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                    $old_value_tmp_str .= '<td>';
+                                    $old_value_tmp_str .= (isset($old_value_tmp2[$log_field_key]))?basename($old_value_tmp2[$log_field_key]):'';
+                                    $old_value_tmp_str .= '</td>';
+                                }
+                                $old_value_tmp_str .=  '</tr>';                              
+                                
+                                /*foreach($old_value_tmp2 as $_old_value_tmp2_key=>$_old_value_tmp2) {
+                                    if(is_array($_old_value_tmp2) && count($_old_value_tmp2) > 0){
+                                        
+                                        if($change_field == 'user_document'){
+                                            foreach($_old_value_tmp2 as $__old_value_tmp2_key=>$__old_value_tmp2_name) {
+                                                $old_value_tmp_str .=  '<tr>';
+                                                $old_value_tmp_str .= '<td>';
+                                                $old_value_tmp_str .= (isset($DocumentType[$_old_value_tmp2_key]))?$DocumentType[$_old_value_tmp2_key]:$_old_value_tmp2_key;
+                                                $old_value_tmp_str .= '</td>';
+
+                                                $old_value_tmp_str .= '<td>';
+                                                $old_value_tmp_str .= basename($__old_value_tmp2_name);
+                                                $old_value_tmp_str .= '</td>';
+                                                $old_value_tmp_str .=  '</tr>';
+                                            }
+                                        }else{
+                                        	echo "fdfdf";
+                                            $old_value_tmp_str .=  '<tr>oooo';
+                                            foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                                $old_value_tmp_str .= '<td>';
+                                                $old_value_tmp_str .= (isset($_old_value_tmp2[$log_field_key]))?$_old_value_tmp2[$log_field_key]:'';
+                                                $old_value_tmp_str .= '</td>';
+                                            }
+                                            $old_value_tmp_str .=  '</tr>';
+                                        }
+                                        
+                                    }
+                                }*/
+                                $old_value_tmp_str .=  '</table>';
+                            }
+                            $old_value = $old_value_tmp_str;
+                            $old_value_class = 'in-table';
+                        }else{
+                            $old_value = addslashes($old_value);
+                        }
+
+                        $new_value_tmp2 = @unserialize($new_value_tmp);
+                        if ($new_value_tmp === 'b:0;' || $new_value_tmp2 !== false) {
+                            $group_name = str_replace('', '', $change_field);
+                            $arr_log_fields2 = get_user_log_fields_group($group_name);
+                            if(is_array($new_value_tmp2) && count($new_value_tmp2) > 0 && count($arr_log_fields2) > 0){
+                                $new_value_tmp_str .= '<table border="0" width="100%" class="table no-more-tables prop-log-tabl">';
+                                $new_value_tmp_str .=  '<tr>';
+                                foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                    $new_value_tmp_str .=  '<th>'.$log_field_name.'</th>';
+                                }
+                                $new_value_tmp_str .=  '</tr>';
+
+                                $new_value_tmp_str .=  '<tr>';
+                                foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                    $new_value_tmp_str .= '<td>';
+                                    $new_value_tmp_str .= (isset($new_value_tmp2[$log_field_key]))?basename($new_value_tmp2[$log_field_key]):'';
+                                    $new_value_tmp_str .= '</td>';
+                                }
+                                $new_value_tmp_str .=  '</tr>';  
+
+                                /*foreach($new_value_tmp2 as $_new_value_tmp2_key=>$_new_value_tmp2) {
+                                    if(is_array($_new_value_tmp2) && count($_new_value_tmp2) > 0){
+                                        
+                                        if($change_field == 'user_document'){
+                                            foreach($_new_value_tmp2 as $__new_value_tmp2_key=>$__new_value_tmp2_name) {
+                                                $new_value_tmp_str .=  '<tr>';
+                                                $new_value_tmp_str .= '<td>';
+                                                $new_value_tmp_str .= (isset($DocumentType[$_new_value_tmp2_key]))?$DocumentType[$_new_value_tmp2_key]:$_new_value_tmp2_key;
+                                                $new_value_tmp_str .= '</td>';
+
+                                                $new_value_tmp_str .= '<td>';
+                                                $new_value_tmp_str .= basename($__new_value_tmp2_name);
+                                                $new_value_tmp_str .= '</td>';
+                                                $new_value_tmp_str .=  '</tr>';
+                                            }
+                                        }else{
+                                            $new_value_tmp_str .=  '<tr>';
+                                            foreach($arr_log_fields2 as $log_field_key=>$log_field_name) {
+                                                $new_value_tmp_str .= '<td>';
+                                                $new_value_tmp_str .= (isset($_new_value_tmp2[$log_field_key]))?$_new_value_tmp2[$log_field_key]:'';
+                                                $new_value_tmp_str .= '</td>';
+                                            }
+                                            $new_value_tmp_str .=  '</tr>';
+                                        }
+                                        
+                                    }
+                                }*/
+                                $new_value_tmp_str .=  '</table>';
+                            }
+                            $new_value = $new_value_tmp_str;
+                            $new_value_class = 'in-table';
+                        }else{
+                            $new_value = addslashes($new_value);
+                        }
+
+                    }
+                    $strTooltip .= "<tr><td width=\"170px;\">".addslashes($change_field_label)."</td>";
+                    $strTooltip .= "<td class=".$old_value_class." style=\"vertical-align:top\">".($old_value)."</td>";
+                    $strTooltip .= "<td class=".$new_value_class." style=\"vertical-align:top\">".($new_value)."</td>";
+                    $strTooltip .= "</tr>";
+                }
+                $strTooltip .= '</table>';
+                $strTooltip .= '</div>';
+
+                $log_html =  "<a onmouseover='' id=\"popover2\" data-content='".$strTooltip."' data-placement=\"left\" data-toggle=\"popover\" class=\"btn default btn-xs purple\"><i class=\"fa fa-search\"></i></a>";
+
+                $row[] = $id;
+                $row[] = $result_row['change_by_name'];  
+                $row[] = $result_row['change_date'];
+                $row[] = $log_html;
+                $output['data'][] = $row;
+            }
+        }
+    
+        echo json_encode( $output );
+    }
 }
 /* End of file documents.php */

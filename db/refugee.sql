@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 20, 2015 at 01:29 PM
+-- Generation Time: Mar 24, 2015 at 06:33 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -591,19 +591,20 @@ CREATE TABLE IF NOT EXISTS `refugee_family_members` (
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `refugee_family_members`
 --
 
 INSERT INTO `refugee_family_members` (`id`, `refugee_id`, `name`, `relation`, `gender`, `age`, `created_by`, `created_date`) VALUES
-(1, 1, 'test', 'son', 'male', 12, 0, '0000-00-00 00:00:00'),
+(1, 1, 'tests', '2', 'Female', 14, 0, '0000-00-00 00:00:00'),
 (3, 3, 'test', '2', 'Female', 3, 0, '0000-00-00 00:00:00'),
 (4, 4, 'asso2', '2', 'Female', 7, 0, '0000-00-00 00:00:00'),
 (5, 5, 'asso2', '1', 'Male', 13, 0, '0000-00-00 00:00:00'),
 (6, 5, 'tetet', '5', 'Female', 28, 0, '0000-00-00 00:00:00'),
-(7, 142659322797, 'asso2', '2', 'Female', 10, 0, '0000-00-00 00:00:00');
+(7, 142659322797, 'asso2', '2', 'Female', 10, 0, '0000-00-00 00:00:00'),
+(8, 1, 'tests', '4', 'Female', 5, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -639,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `refugee_log_data` (
   `new_value` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `refugee_log_master_id` (`refugee_log_master_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `refugee_log_data`
@@ -669,7 +670,25 @@ INSERT INTO `refugee_log_data` (`id`, `refugee_log_master_id`, `change_field`, `
 (21, 8, 'file', 'uploads/1/1_photo_d4c0c63b422e384073ab1d00a41b3c5f.png', 'Deleted'),
 (22, 9, 'type', 'photo', 'Deleted'),
 (23, 9, 'title', 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png', 'Deleted'),
-(24, 9, 'file', 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png', 'Deleted');
+(24, 9, 'file', 'uploads/1/1_photo_6987074f0feec1cab89f92ae5245ad16.png', 'Deleted'),
+(25, 10, 'title', 'test', 'test2'),
+(26, 11, 'qual_title', '', 'test'),
+(27, 11, 'qual_institute', '', 'test'),
+(28, 11, 'qual_grade', '', 'test'),
+(29, 11, 'qual_pass_year', '', '2010'),
+(30, 12, 'qual_title', 'test', 'testw'),
+(31, 12, 'qual_institute', 'test', 'teste'),
+(32, 12, 'qual_grade', 'test', 'teste'),
+(33, 13, 'family_name', 'test', 'tests'),
+(34, 13, 'family_relation', 'son', '1'),
+(35, 13, 'family_gender', 'male', 'Male'),
+(36, 14, 'family_gender', 'Male', 'Female'),
+(37, 15, 'family_relation', '1', '2'),
+(38, 15, 'family_age', '12', '14'),
+(39, 16, 'family_name', '', 'tests'),
+(40, 16, 'family_relation', '', '4'),
+(41, 16, 'family_gender', '', 'Female'),
+(42, 16, 'family_age', '', '5');
 
 -- --------------------------------------------------------
 
@@ -687,7 +706,7 @@ CREATE TABLE IF NOT EXISTS `refugee_log_master` (
   KEY `user_id` (`refugee_id`),
   KEY `change_by` (`change_by`),
   KEY `type` (`type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `refugee_log_master`
@@ -702,7 +721,14 @@ INSERT INTO `refugee_log_master` (`id`, `refugee_id`, `change_by`, `change_date`
 (6, 1, 100000, '2015-03-20 13:28:06', 1),
 (7, 1, 100000, '2015-03-20 13:29:13', 1),
 (8, 1, 100000, '2015-03-20 13:29:14', 1),
-(9, 1, 100000, '2015-03-20 13:29:14', 1);
+(9, 1, 100000, '2015-03-20 13:29:14', 1),
+(10, 1, 100000, '2015-03-23 09:13:14', 1),
+(11, 1, 100000, '2015-03-23 09:16:14', 1),
+(12, 1, 100000, '2015-03-23 09:16:51', 1),
+(13, 1, 100000, '2015-03-23 09:23:32', 1),
+(14, 1, 100000, '2015-03-23 09:24:57', 1),
+(15, 1, 100000, '2015-03-23 09:25:12', 1),
+(16, 1, 100000, '2015-03-23 09:26:28', 1);
 
 -- --------------------------------------------------------
 
@@ -720,19 +746,20 @@ CREATE TABLE IF NOT EXISTS `refugee_qualifications` (
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `refugee_qualifications`
 --
 
 INSERT INTO `refugee_qualifications` (`id`, `refugee_id`, `title`, `institute`, `grade`, `pass_year`, `created_by`, `created_date`) VALUES
-(1, 1, 'test', 'testrr', '2', '2015', 0, '0000-00-00 00:00:00'),
+(1, 1, 'test2', 'testrr', '2', '2015', 0, '0000-00-00 00:00:00'),
 (2, 2, 'test', 'testrr', '2', '2010', 0, '0000-00-00 00:00:00'),
 (5, 4, 'test', 'testrr', '2', '2018', 0, '0000-00-00 00:00:00'),
 (6, 5, 'qual1', 'qua int', 'A', '2011', 0, '0000-00-00 00:00:00'),
 (7, 142659318046, 'test', 'testrr', '2', '2010', 0, '0000-00-00 00:00:00'),
-(8, 142659322797, 'test', 'testrr', 'A', '2010', 0, '0000-00-00 00:00:00');
+(8, 142659322797, 'test', 'testrr', 'A', '2010', 0, '0000-00-00 00:00:00'),
+(9, 1, 'testw', 'teste', 'teste', '2010', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -896,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_roll_id`, `username`, `password`, `email`, `first_name`, `last_name`, `address1`, `city`, `state`, `country`, `zip`, `birth_date`, `gender`, `cell_phone`, `last_login_date`, `login_attempts`, `profile_picture`, `nonce`, `created_date`, `updated_date`, `active`) VALUES
-(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-20 16:51:00', 0, 'humty1.png', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
+(100000, 1, 'administrator', 'a759934670e15c0f4cbf304d9b86b8be0cabf5b5b522a36b2dabbad853bbe33f7a1bd8bad5aab39f9874f4d484d7b0831766acf02fbfa1aa0deaa2e7e5be5cba', 'chaichai21@hotmail.com', 'Muhammad1', 'Abdullah1', 'address122', 'Roseau1', 'los', 'cc', '007671', '1977-01-18', 'F', '8981231', '2015-03-23 14:42:47', 0, 'humty1.png', '5c770c9b6d408a8341bf0e8f267842a6', '2012-09-27 12:49:32', '2015-02-26 04:54:42', 2);
 
 -- --------------------------------------------------------
 

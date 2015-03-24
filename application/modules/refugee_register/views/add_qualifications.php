@@ -23,10 +23,10 @@ print form_open('refugee_register/add_qualifications/'.$refugee_id.'/'.$id, arra
 		</div>
 	</div>
 	<div class="row form-row">
-		<div class="col-md-6 form-group">
+		<!-- <div class="col-md-6 form-group">
 			<div class="form_label2"><?php print form_label($this->lang->line('grade'), 'grade'); ?></div>
 			<div class="input_box_thin"><?php print form_input(array('name' => 'grade', 'id' => 'grade', 'value' => ($rowdata)?$rowdata->grade:$this->session->flashdata('grade'), 'class' => 'form-control')); ?></div>
-		</div>
+		</div> -->
 
 		<div class="col-md-6 form-group">
             <?php print form_label($this->lang->line('year'), 'pass_year',array('class'=>'control-label')); ?>

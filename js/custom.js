@@ -52,6 +52,11 @@ function deleterecord(url,id)
 }
 
 $(document).ready(function(){
+	$('#popover2').live('mouseenter', function() {
+		$(this).popover({ trigger: "focus click",template: '<div class="popover profile_change_log_pop"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',html:true });
+		//$(this).popover('show');
+	});
+
 	var add_model_link_html = $("#add_model_link").html();
 	$("div.dataTables_length").after(add_model_link_html);
 	$("#add_model_link").remove();
@@ -104,6 +109,9 @@ $(document).ready(function(){
 			$(this).closest('#refugee_sick_main').find('#sick_reason_div').hide();
 		}
 	});
+
+	$('.add_refugee_qualifications').tooltip({title:'Add a Qualifications'});
+	$('.add_refugee_family_members').tooltip({title:'Add a Family Member',placement:'left'});
 
 });
 // Profile page start

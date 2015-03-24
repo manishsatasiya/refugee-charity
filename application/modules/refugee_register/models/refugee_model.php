@@ -166,6 +166,56 @@ class refugee_model extends CI_Model {
         }
         return false;
     }
+
+    public function get_profile_changes_log($limit = 0, $offset = 0, $order_by = "username", $sort_order = "asc", $search_data,$refugee_id=0) {
+        if (!empty($search_data)) {
+            !empty($search_data['full_name']) ? $data['full_name'] = $search_data['full_name'] : "";
+            !empty($search_data['change_by_name']) ? $data['change_by_name'] = $search_data['change_by_name'] : "";
+        }
+        
+        $user_id = $this->session->userdata('user_id');
+        
+        $this->db->select('refugee_log_master.*,
+                          refugee.full_name AS full_name,
+                          CONCAT_WS(" ",change_u.first_name,change_u.last_name) AS change_by_name,                  
+                         ',FALSE);
+        $this->db->from('refugee_log_master');
+        $this->db->join('refugee', 'refugee.id = refugee_log_master.refugee_id','left');
+        $this->db->join('users as change_u', 'change_u.user_id = refugee_log_master.change_by','left');
+
+        $this->db->where('refugee_log_master.refugee_id',$refugee_id);
+        
+        !empty($data) ? $this->db->like($data) : "";
+        
+        if($order_by != "")
+            $this->db->order_by($order_by, $sort_order);
+        
+        if($limit > 0)
+            $this->db->limit($limit, $offset);
+    
+        $query = $this->db->get();
+        //echo $this->db->last_query(); 
+        
+        if($limit == 0)
+            return $query->num_rows();
+            
+        if($query->num_rows() > 0) {
+            return $query;
+        }
+    }
+
+    function get_profile_changes_log_data($refugee_log_master_id){
+        $this->db->select('refugee_log_data.*',false);
+        $this->db->from('refugee_log_data');
+        $this->db->where('refugee_log_data.refugee_log_master_id', $refugee_log_master_id);
+        $query = $this->db->get();
+        //echo $this->db->last_query();     
+        if($query->num_rows() > 0) {
+            return $query;
+        }
+        return false;
+    }
+
 }
 
 /* End of file list_user_model.php */
