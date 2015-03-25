@@ -1053,5 +1053,16 @@ function getDocumentType($get_name = false){
 	}
 	return array();	
 }
+
+function getComboValue($option_key,$options){
+	if (is_array($options)) {
+		if ($option_key <> '' && $option_key > 0 && isset($options[$option_key])) {
+			return $options[$option_key];
+		}
+
+		return '';
+	}
+	return $option_key;
+}
 /* End of file general_function_helper.php */
 /* Location: ./application/helpers/general_function_helper.php */ 

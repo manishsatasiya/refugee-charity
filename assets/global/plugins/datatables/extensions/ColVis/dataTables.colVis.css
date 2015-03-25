@@ -176,28 +176,26 @@ div.dataTables_filter label {
 @media all and (max-width:768px) and (min-width: 240px){}
 /* Smartphones (portrait and landscape) ----------- */
 @media all and (max-width:1024px) and (min-width:767px) {
-.row {
-    margin-left: -15px;
-    margin-right:0px !important;
-}
-.col-md-4 {
-    width: 33.3333%;
-}
-.col-md-8 {
-    width: 66.6667%;
-}
-.col-md-9 {
-    width: 75%;
-}
+	/*.row {
+	    margin-left: -15px;
+	    margin-right:0px !important;
+	}
+	.col-md-4 {
+	    width: 33.3333%;
+	}
+	.col-md-8 {
+	    width: 66.6667%;
+	}
+	.col-md-9 {
+	    width: 75%;
+	}
 
-.export_to_excel form .col-md-10 {
-    float: right;
-}
-.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
-    float: left;
-}
-
-
+	.export_to_excel form .col-md-10 {
+	    float: right;
+	}
+	.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+	    float: left;
+	}*/
 }
 
 div.dataTables_length {

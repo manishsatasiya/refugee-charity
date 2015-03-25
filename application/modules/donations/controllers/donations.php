@@ -64,11 +64,12 @@ class donations extends Private_Controller {
     	if($data){
     		foreach($data->result_array() AS $result_row){
     			$row = array();
-    			$action_btn = '';
+    			$action_btn = '<div class="btn-group"><button class="btn btn-circle blue btn-sm dropdown-toggle" type="button" data-toggle="dropdown">'.$this->lang->line('action_btn').' <i class="fa fa-angle-down"></i></button><ul class="dropdown-menu pull-right" role="menu">';
     			if($this->session->userdata('role_id') == '1' || in_array("edit",$this->arrAction)) {
-    				$action_btn = '<a href="'.base_url('donations/add/'.$result_row["id"]).'" class="btn default btn-xs blue"><i class="fa fa-edit"></i> </a>';
+    				$action_btn .= '<li><a href="'.base_url('donations/add/'.$result_row["id"]).'" class=""><i class="fa fa-edit"></i> '.$this->lang->line('edit').'</a></li>';
     			}
-    			$action_btn .= '<a href="javascript:;" onclick=dt_delete("donations","id",'.$result_row["id"].'); class="btn default btn-xs red"><i class="fa fa-trash-o"></i></a>';
+    			$action_btn .= '<li><a href="javascript:;" onclick=dt_delete("donations","id",'.$result_row["id"].'); class=""><i class="fa fa-trash-o"></i> '.$this->lang->line('delete').'</a></li>';
+    			$action_btn .= '</ul></div>';
 				$row[] = $result_row['id'];
 				$row[] = $result_row['date_of_donation'];
 				$row[] = $result_row['name_of_association'];
