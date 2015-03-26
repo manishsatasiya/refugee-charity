@@ -408,6 +408,30 @@ function PrintDiv(d_id) {
 	$('.page-content .content').removeAttr('style');
 }
 
+function add_refugee_discussion(refugee_id){
+	$('#add_refugee_discussion textarea[name=comment]').removeClass('error');
+	if($('#add_refugee_discussion textarea[name=comment]').val() == ''){
+		$('#add_refugee_discussion textarea[name=comment]').addClass('error');
+		return false;
+	}
+	$.ajax({
+		type: "POST",
+		url: CI.base_url+"refugee_register/add_discussion",
+		data: $('#add_refugee_discussion').serialize(),
+		success: function(data) {
+			if (data != '') {
+				var obj = jQuery.parseJSON(data);
+				var display_user_img = $('#add_refugee_discussion').find('.todo-userpic').attr('src');
+						
+				$('div#refugee_discussion').append('<div class="media"><a class="pull-left" href="javascript:;"><img class="todo-userpic media-object" src="'+display_user_img+'" width="27px" height="27px"></a><div class="media-body" style="width: 10000px;"><h4 class="media-heading">'+obj['author_name']+' <span class="todo-comment-date">'+obj['created_at']+'</span></h4><p class="todo-text-color">'+obj['comment']+'<br></p></div></div><hr>');
+			};
+		}
+	});
+	//$('#add_refugee_discussion textarea[name=comment]').val('');
+	$('#add_refugee_discussion')[0].reset();
+	return false;
+}
+
 $(".tab_clicked").on('click', function(e){
 	var timestamp_add = $("#timestamp").val();
 	var tab_numb = $(this).attr('data-tab-numb');

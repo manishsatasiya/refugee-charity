@@ -52,6 +52,9 @@ var refugee_id = <?=$id?>;
                 <li>
                   <a href="#tab_1_6" data-toggle="tab" data-tab-numb="5" class="tab_clicked"><?php print $this->lang->line('activity_report'); ?></a>
                 </li>
+                <li>
+                  <a href="#tab_1_7" data-toggle="tab" data-tab-numb="6" class="tab_clicked"><?php print $this->lang->line('discussions'); ?></a>
+                </li>
                 <?php } ?>
             </ul>
             <!-- <div class="tools">
@@ -586,6 +589,66 @@ var refugee_id = <?=$id?>;
                                     <tbody></tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane " id="tab_1_7">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php
+                            $profile_picture = get_profile_pic();
+                            $profile_picture_40 = $profile_picture[40];
+                            ?>
+                            <!-- TASK COMMENTS -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="blog-page" id="refugee_discussion">
+                                        <?php
+                                        if ($discussions) {
+                                          foreach ($discussions->result() as $discussion){ 
+                                            $discussion_a_profile_picture = get_profile_pic($discussion->user_id);
+                                            $discussion_a_profile_picture_40 = $discussion_a_profile_picture[40];
+                                            ?>
+                                            <div class="media">
+                                                <a class="pull-left" href="javascript:;">
+                                                    <img class="todo-userpic media-object" src="<?php print $discussion_a_profile_picture_40; ?>" width="27px" height="27px">
+                                                </a>
+                                                <div class="media-body" style="width: 10000px;">
+                                                    <h4 class="media-heading"><?=$discussion->author_name?><span><?=date('m/d/y @ g:ia',strtotime($discussion->created_at))?></span></h4>
+                                                    <p class="todo-text-color"><?=$discussion->comment?><br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        <?php
+                                          }
+                                        } ?>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END TASK COMMENTS -->
+                            <!-- TASK COMMENT FORM -->
+                            <div class="form-group">
+                                <?php
+                                print form_open('refugee_register/add_discussion/', array('id' => 'add_refugee_discussion','name'=>'formmain','onsubmit'=>'return add_refugee_discussion('.$id.');')) ."\r\n"; ?>
+                                <div class="col-md-12">
+                                    <div class="blog-page">
+                                        <div class="media">
+                                            <img class="todo-userpic pull-left media-object" src="<?php print $profile_picture_40; ?>" width="27px" height="27px">
+                                            <div class="media-body">
+                                                <?php print form_textarea(array('name' => 'comment', 'id' => 'comment', 'value' => '', 'class' => 'form-control todo-taskbody-taskdesc','cols'=>'150','rows'=>3)); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="pull-right btn btn-sm btn-circle green-haze" onclick="return add_refugee_discussion(<?=$id?>);"><i class="fa fa-reply"></i>&nbsp;<?php echo $this->lang->line('submit');?></button>
+                                </div>
+                                <?php 
+                                print form_hidden('refugee_id',$id);
+                                print form_close() ."\r\n"; ?>
+                            </div>
+                            <!-- END TASK COMMENT FORM -->
                         </div>
                     </div>
                 </div>

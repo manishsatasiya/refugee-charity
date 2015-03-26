@@ -216,6 +216,21 @@ class refugee_model extends CI_Model {
         return false;
     }
 
+    public function get_discussions($refugee_id) {
+   
+        $this->db->select('refugee_discussions.*,CONCAT_WS(" ",trim(users.first_name),trim(users.last_name)) as author_name',FALSE);
+        $this->db->from('refugee_discussions');
+        $this->db->join('users','users.user_id = refugee_discussions.user_id','left');
+        $this->db->where('refugee_discussions.refugee_id', $refugee_id);
+        $this->db->order_by('created_at', 'asc');
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0) {
+            return $query;
+        }
+        return false;
+    }
+
 }
 
 /* End of file list_user_model.php */

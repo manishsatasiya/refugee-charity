@@ -918,12 +918,15 @@ function encrypt_decrypt($action, $string) {
     return $output;
 }
 
-function get_nationality_list() {
+function get_nationality_list($id=0) {
 	$ci =& get_instance();
 	$ci->db->select('countries.*');
 	$ci->db->from('countries');
 	$ci->db->order_by("native", "asc");
 	$ci->db->order_by("nationality", "asc");
+	
+	if($id > 0)
+		$ci->db->where('id',$id);
 	
 	$query = $ci->db->get();
 	$nationality_data = $query->result_array();
@@ -935,12 +938,15 @@ function get_nationality_list() {
 	return $nationality_arr;
 }
 
-function get_refugee_location() {
+function get_refugee_location($id=0) {
 	$ci =& get_instance();
 	$ci->db->select('refugee_location.*');
 	$ci->db->from('refugee_location');
 	$ci->db->order_by("location", "asc");
 	
+	if($id > 0)
+		$ci->db->where('id',$id);
+			
 	$query = $ci->db->get();
 	$data = $query->result_array();
 	$arr = array();
@@ -951,12 +957,15 @@ function get_refugee_location() {
 	return $arr;
 }
 
-function get_associatoin_name_list() {
+function get_associatoin_name_list($id=0) {
 	$ci =& get_instance();
 	$ci->db->select('association_name.*');
 	$ci->db->from('association_name');
 	$ci->db->order_by("name", "asc");
 	
+	if($id > 0)
+		$ci->db->where('id',$id);
+			
 	$query = $ci->db->get();
 	$data = $query->result_array();
 	$arr = array();

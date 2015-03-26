@@ -1075,10 +1075,12 @@ class refugee_register extends Private_Controller {
 		$refugee_location_list = get_refugee_location();
 		$associatoin_name_list = get_associatoin_name_list();
 		
-		$rowdata= array();
+		$rowdata = array();
+		$discussions = false;
 		$content_data['timestamp'] = 0;
 		if($id){
 			$rowdata = $this->refugee_model->get_refugee_data($id);
+			$discussions = $this->refugee_model->get_discussions($id);
 
 			if(!$rowdata){
 				redirect('refugee_register/');
@@ -1104,6 +1106,7 @@ class refugee_register extends Private_Controller {
 		$content_data['specia_case_list'] = $specia_case_list;
 		
 		$content_data['rowdata'] = $rowdata;
+		$content_data['discussions'] = $discussions;
 		
 		$content_data['id'] = $id;
         // set layout data
@@ -1115,7 +1118,36 @@ class refugee_register extends Private_Controller {
 		$this->template->set_partial('sidebar', 'sidebar');
         $this->template->set_partial('footer', 'footer');
         $this->template->build('view', $content_data);
-    }	
+    }
+
+    public function add_discussion(){
+        $data = array();
+        if($this->input->post()){
+            $refugee_id = $this->input->post('refugee_id');
+            $comment = $this->input->post('comment');
+            
+            if ($refugee_id != '' || $refugee_id > 0) {
+
+	            $data['refugee_id'] = $refugee_id;
+	            $data['comment'] = $comment;    
+	            $data['user_id'] = $this->session->userdata('user_id');
+	            $data['created_at'] = date('Y-m-d H:i:s');
+
+	            $table = 'refugee_discussions';
+	            $wher_column_name = 'id';                 
+	            
+	            $lastinsertid = grid_add_data($data,$table);
+
+	            $first_name = getTableField('users', 'first_name', 'user_id',$this->session->userdata('user_id'));
+	            $last_name = getTableField('users', 'last_name', 'user_id',$this->session->userdata('user_id'));
+
+	            $data['author_name'] = $first_name.' '.$last_name;
+	            $data['created_at'] = date('m/d/y @ g:ia');
+            }
+        }
+        echo json_encode($data);
+        return false;
+    }
 
     public function get_profile_changes_log_json($refugee_id=0,$order_by = "username", $sort_order = "asc", $search = "all", $offset = 0) {
         /* Array of database columns which should be read and sent back to DataTables. Use a space where
@@ -1166,8 +1198,120 @@ class refugee_register extends Private_Controller {
                     $old_value_class = '';
                     $new_value_class = '';
                     if($change_field <> '' && $data1["change_field"] <> 'password'){
-                        $old_value = $old_value_tmp = $data1["old_value"];
-                        $new_value = $new_value_tmp = $data1["new_value"];
+                        if($change_field == 'special_case')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = specia_case_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = specia_case_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'do_you_live_in_tent_house')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = live_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = live_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'where_do_you_live_location')
+						{
+							$arrOld = get_refugee_location($data1["old_value"]);
+							$arrNew = get_refugee_location($data1["new_value"]);
+
+
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = $arrOld[$data1["old_value"]];
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = $arrNew[$data1["new_value"]];
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'need_of_medicationequipment')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = medicationequipment_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = medicationequipment_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'are_you_sick')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = sick_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = sick_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'are_you_able_to_work')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = work_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = work_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'nationality')
+						{
+							$arrOld = get_nationality_list($data1["old_value"]);
+							$arrNew = get_nationality_list($data1["new_value"]);
+
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = $arrOld[$data1["old_value"]];
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = $arrNew[$data1["new_value"]];
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'association_name')
+						{
+							$arrOld = get_associatoin_name_list($data1["old_value"]);
+							$arrNew = get_associatoin_name_list($data1["new_value"]);
+							
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = $arrOld[$data1["old_value"]];
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = $arrNew[$data1["new_value"]];
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else if($change_field == 'family_relation')
+						{
+							if(is_numeric($data1["old_value"]))
+								$old_value = $old_value_tmp = relation_dropdown($data1["old_value"]);
+							else
+								$old_value = $old_value_tmp = $data1["old_value"];
+							if(is_numeric($data1["new_value"]))		
+								$new_value = $new_value_tmp = relation_dropdown($data1["new_value"]);
+							else
+								$new_value = $new_value_tmp = $data1["new_value"];
+						}
+						else
+						{
+							$old_value = $old_value_tmp = $data1["old_value"];
+						    $new_value = $new_value_tmp = $data1["new_value"];
+						}
                         $old_value_tmp_str = '';
                         $new_value_tmp_str = '';
 

@@ -23,6 +23,7 @@
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/datatables/extensions/ColVis/dataTables.colVis.css"/>
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
 <link rel="stylesheet" type="text/css" href="<?php print base_url(); ?>assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+<link href="<?php print base_url(); ?>assets/pages/css/blog.css" rel="stylesheet" type="text/css"/>
 
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
